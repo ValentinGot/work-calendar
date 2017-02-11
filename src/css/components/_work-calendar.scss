@@ -3,6 +3,8 @@
 //----------------------------------------
 
 $toolbar-title-color: #525257;
+$today-color: #4186F3;
+$today-background-color: #EEF4FD;
 
 //----------------------------------------
 
@@ -38,9 +40,14 @@ $toolbar-title-color: #525257;
 .fc-day-grid {
 
   & .fc-day-top {
-    padding: 3px 0 0 3px;
+    padding: 9px 0 0 7px;
+    font-family: $md-font-family;
   }
 
+}
+
+.fc-day-top.fc-today {
+  color: $today-color;
 }
 
 .fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
