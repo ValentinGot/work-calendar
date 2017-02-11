@@ -6,6 +6,7 @@ $toolbar-title-color: #525257;
 
 //----------------------------------------
 
+// Header
 .fc-toolbar.fc-header-toolbar {
   margin: 0;
   height: 150px;
@@ -14,11 +15,34 @@ $toolbar-title-color: #525257;
   background-size: cover;
   background-position: 50% 44%;
   background-repeat: no-repeat;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: $md-font-family;
 
   & > .fc-left > h2 {
     font-size: 22px;
-    //font-weight: 500;
     color: $toolbar-title-color;
   }
+}
+
+// Calendar head
+.fc-head-container.fc-widget-header th {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border: none;
+  text-align: left;
+  color: #757575;
+  font-family: $md-font-family;
+}
+
+// Day grid
+.fc-day-grid {
+
+  & .fc-day-top {
+    padding: 3px 0 0 3px;
+  }
+
+}
+
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+  float: none;
 }
