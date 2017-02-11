@@ -1,11 +1,16 @@
-/*-----------------------------------
-  Work Calendar
------------------------------------*/
+//----------------------------------------
+//  Work Calendar
+//----------------------------------------
+
+// Abstract
+@import 'css/abstract/colors';
 
 // Vendors
 @import '~fullcalendar/dist/fullcalendar.min.css';
 @import 'css/vendors/angular-material';
-//@import 'css/vendors/full-calendar-material-design';
 
 // Base
 @import 'css/base/core';
+
+// Components
+@import 'css/components/work-calendar';

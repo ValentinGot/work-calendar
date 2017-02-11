@@ -2937,6 +2937,10 @@ matcher-collection@^1.0.0:
   dependencies:
     minimatch "^3.0.2"
 
+material-design-colors@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/material-design-colors/-/material-design-colors-1.0.2.tgz#df3190959830f1444028241ec5adfcd77611632d"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.16"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.16.tgz#b357fa1ca9faefb8e48d10c14ef2bcb2d9f0a7c9"
