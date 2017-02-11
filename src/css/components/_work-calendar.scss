@@ -1,0 +1,24 @@
+//----------------------------------------
+//  Work Calendar
+//----------------------------------------
+
+$toolbar-title-color: #525257;
+
+//----------------------------------------
+
+.fc-toolbar.fc-header-toolbar {
+  margin: 0;
+  height: 150px;
+  padding: 20px 0 0 20px;
+  background-image: url('assets/calendar/december.jpg');
+  background-size: cover;
+  background-position: 50% 44%;
+  background-repeat: no-repeat;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+  & > .fc-left > h2 {
+    font-size: 22px;
+    //font-weight: 500;
+    color: $toolbar-title-color;
+  }
+}
