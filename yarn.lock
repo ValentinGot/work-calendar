@@ -66,7 +66,7 @@
     webpack-sources "^0.1.3"
     zone.js "^0.7.2"
 
-"@angular/common@^2.4.0":
+"@angular/common@^2.0.1", "@angular/common@^2.4.0":
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-2.4.7.tgz#9316daf90e353e67187d2e0afec5521c2001bd4b"
 
@@ -82,11 +82,11 @@
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.7.tgz#008c1f0d1409c46fbba215fe8ab0d886252c7ff0"
 
-"@angular/core@^2.4.0":
+"@angular/core@^2.0.1", "@angular/core@^2.4.0":
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.4.7.tgz#8bed9a2d37e81342bd41d189df88aa3e02393cfb"
 
-"@angular/forms@^2.4.0":
+"@angular/forms@^2.0.1", "@angular/forms@^2.4.0":
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.4.7.tgz#d34a36110e10f641aa1e1420b5c2df65987fd8bb"
 
@@ -125,9 +125,26 @@
     magic-string "^0.19.0"
     source-map "^0.5.6"
 
+"@types/fullcalendar@^2.7.35":
+  version "2.7.37"
+  resolved "https://registry.yarnpkg.com/@types/fullcalendar/-/fullcalendar-2.7.37.tgz#48a3ac34fd1b4efcb6b3a4cd7e9e49f63d2d2a69"
+  dependencies:
+    "@types/jquery" "*"
+    moment ">=2.14.0"
+
 "@types/jasmine@2.5.38":
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
+
+"@types/jquery@*", "@types/jquery@^2.0.34":
+  version "2.0.40"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.40.tgz#acdd69e29b74cdec15dc3c074bcb064bc1b87213"
+
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  dependencies:
+    moment "*"
 
 "@types/node@^6.0.42", "@types/node@^6.0.46":
   version "6.0.63"
@@ -214,6 +231,20 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular2-fullcalendar@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/angular2-fullcalendar/-/angular2-fullcalendar-1.1.1.tgz#9ce4da69a062a29e1f2ebcee6f4a4bed8947faf2"
+  dependencies:
+    "@angular/common" "^2.0.1"
+    "@angular/core" "^2.0.1"
+    "@angular/forms" "^2.0.1"
+    "@types/fullcalendar" "^2.7.35"
+    "@types/jquery" "^2.0.34"
+    "@types/moment" "^2.13.0"
+    "@types/node" "^6.0.42"
+    fullcalendar "^3.0.1"
+    rxjs "^5.0.0-beta.12"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -1845,6 +1876,13 @@ fstream@^1.0.0, fstream@^1.0.2, fstream@~1.0.10:
     mkdirp ">=0.5 0"
     rimraf "2"
 
+fullcalendar@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/fullcalendar/-/fullcalendar-3.1.0.tgz#c81286ce00876294b2d3dba2d811ee33a8843917"
+  dependencies:
+    jquery ">=2.0.0"
+    moment ">=2.9.0"
+
 function-bind@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
@@ -2559,6 +2597,10 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
+jquery@>=2.0.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
+
 js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
@@ -3019,6 +3061,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@*, moment@>=2.14.0, moment@>=2.9.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
 ms@0.7.1:
   version "0.7.1"
@@ -4145,7 +4191,7 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-rxjs@^5.0.1:
+rxjs@^5.0.0-beta.12, rxjs@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
   dependencies:
