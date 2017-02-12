@@ -7,90 +7,82 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkCalendarComponent implements OnInit {
   calendarOptions: Object = {
-    // height: 'parent',
-    // editable: false, // Don't allow editing of events
-    // handleWindowResize: true,
-    // weekends: false, // Hide weekends
-    // defaultView: 'agendaWeek', // Only show week view
-    // header: false, // Hide buttons/titles
-    // minTime: '07:30:00', // Start time for the calendar
-    // maxTime: '22:00:00', // End time for the calendar
-    // columnFormat: {
-    //   week: 'ddd' // Only show day of the week names
-    // },
-    // displayEventTime: true, // Display event time
-
+    locale: 'fr',
     height: 'parent',
     fixedWeekCount : false,
-    defaultDate: '2016-09-12',
+    // defaultDate: '2016-09-12',
     editable: false,
     eventLimit: true, // allow "more" link when too many events
+    handleWindowResize: true,
+    dayClick: (date, jsEvent, view) => {
+      console.log(date);
+    },
     events: [
       {
         title: 'All Day Event',
         start: '2016-09-01',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Long Event',
         start: '2016-09-07',
         end: '2016-09-10',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         id: 999,
         title: 'Repeating Event',
         start: '2016-09-09T16:00:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         id: 999,
         title: 'Repeating Event',
         start: '2016-09-16T16:00:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Conference',
         start: '2016-09-11',
         end: '2016-09-13',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Meeting',
         start: '2016-09-12T10:30:00',
         end: '2016-09-12T12:30:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Lunch',
         start: '2016-09-12T12:00:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Meeting',
         start: '2016-09-12T14:30:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Happy Hour',
         start: '2016-09-12T17:30:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Dinner',
         start: '2016-09-12T20:00:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Birthday Party',
         start: '2016-09-13T07:00:00',
-        color: '#C2185B'
+        color: '#029AE4'
       },
       {
         title: 'Click for Google',
         url: 'http://google.com/',
         start: '2016-09-28',
-        color: '#C2185B'
+        color: '#029AE4'
       }
     ]
   };
