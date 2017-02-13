@@ -49,12 +49,20 @@
     & > .project-creator {
       flex: 1;
       padding: 24px 0;
-
-      & .input-full-width {
-        width: 100%;
-      }
     }
   }
+
+  & .day-time-container {
+    margin-bottom: 30px;
+
+    & md-checkbox {
+      margin: 0 10px;
+    }
+  }
+}
+
+.full-width {
+  width: 100%;
 }
 
 .dialog-actions {

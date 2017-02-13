@@ -24,24 +24,33 @@
 
     <div class="project-creator">
       <form class="example-form">
-        <md-input-container class="input-full-width">
-          <input md-input placeholder="ID de projet">
+        <md-input-container class="full-width">
+          <input md-input placeholder="ID de projet" />
         </md-input-container>
 
-        <md-input-container class="input-full-width">
-          <input md-input placeholder="Client">
+        <md-input-container class="full-width">
+          <input md-input placeholder="Client" />
         </md-input-container>
 
-        <md-input-container class="input-full-width">
-          <input md-input placeholder="Projet"  >
+        <md-input-container class="full-width">
+          <input md-input placeholder="Projet" />
         </md-input-container>
       </form>
     </div>
   </div>
+
+  <div class="day-time-container">
+    <md-checkbox [(ngModel)]="dayTime.am">Matin</md-checkbox>
+    <md-checkbox [(ngModel)]="dayTime.pm">Après-midi</md-checkbox>
+  </div>
+
+  <md-input-container class="full-width">
+    <textarea md-input placeholder="Commentaire"></textarea>
+  </md-input-container>
 </div>
 
 <div class="dialog-actions" md-dialog-actions>
   <button md-button (click)="dialogRef.close()">Annuler</button>
   &nbsp;&nbsp;
-  <button md-raised-button color="primary">Ajouter</button>
+  <button md-raised-button color="primary" (click)="onAdd()">Ajouter</button>
 </div>
