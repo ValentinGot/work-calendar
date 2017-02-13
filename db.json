@@ -28,8 +28,8 @@
   "events": [
     {
       "id": 1,
-      "title": "All Day Event",
-      "start": "2016-09-01"
+      "title": "4129 - GAIA Lot 2",
+      "start": "2016-02-01T09:00:00"
     },
     {
       "id": 2,
@@ -83,6 +83,18 @@
       "id": 11,
       "title": "Click for Google",
       "start": "2016-09-28"
+    },
+    {
+      "id": 12,
+      "title": "4129 - GAIA Lot 2",
+      "start": "2017-02-01T09:00:00",
+      "end": "2017-02-01T12:00:00"
+    },
+    {
+      "id": 13,
+      "title": "4129 - GAIA Lot 2",
+      "start": "2017-02-01T14:00:00",
+      "end": "2017-02-01T18:00:00"
     }
   ]
 }
