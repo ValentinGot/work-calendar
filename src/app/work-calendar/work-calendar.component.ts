@@ -26,6 +26,9 @@ export class WorkCalendarComponent implements OnInit {
       this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
       this.addWorkDialogRef.componentInstance.date = date;
     },
+    eventclick        : (event) => {
+
+    },
     events            : []
   };
 
