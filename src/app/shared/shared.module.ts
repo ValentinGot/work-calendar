@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
+import { EventService } from './event/event.service';
 import { ProjectService } from './project/project.service';
 
 @NgModule({})
@@ -9,6 +10,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        EventService,
         ProjectService
       ]
     }
