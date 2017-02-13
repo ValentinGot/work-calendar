@@ -2,8 +2,8 @@
 
 <div md-dialog-content class="dialog-content">
   <md-radio-group [(ngModel)]="selectedType">
-    <md-radio-button class="work-type-rb" *ngFor="let workType of workTypes" [value]="workType.id">
-      {{ workType.value }}
+    <md-radio-button class="work-type-rb" *ngFor="let workType of workTypes" [value]="workType">
+      {{ workType.name }}
     </md-radio-button>
   </md-radio-group>
 
