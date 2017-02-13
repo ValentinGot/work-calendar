@@ -11,7 +11,7 @@
     <div class="project-selector">
       <md-select class="project-select" placeholder="Projets" [(ngModel)]="selectedProject" name="project">
         <md-option *ngFor="let project of projects" [value]="project.id">
-          {{ project.value }}
+          {{ project.code }} - {{ project.client }} - {{ project.name }}
         </md-option>
       </md-select>
     </div>
@@ -40,8 +40,8 @@
   </div>
 
   <div class="day-time-container">
-    <md-checkbox [(ngModel)]="dayTime.am">Matin</md-checkbox>
-    <md-checkbox [(ngModel)]="dayTime.pm">Après-midi</md-checkbox>
+    <md-checkbox [(ngModel)]="selectedDayTime.am">Matin</md-checkbox>
+    <md-checkbox [(ngModel)]="selectedDayTime.pm">Après-midi</md-checkbox>
   </div>
 
   <md-input-container class="full-width">
