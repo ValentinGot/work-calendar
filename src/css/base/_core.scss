@@ -12,5 +12,6 @@ body {
 *,
 *:before,
 *:after {
+  font-family: $md-font-family;
   box-sizing: border-box;
 }
