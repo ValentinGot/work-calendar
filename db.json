@@ -4,25 +4,25 @@
       "id": 1,
       "code": "4036",
       "client": "Télécom Santé",
-      "project": "Parcours Ambulatoire"
+      "name": "Parcours Ambulatoire"
     },
     {
       "id": 2,
       "code": "4129",
       "client": "Croix-Rouge Française",
-      "project": "GAIA Lot 2"
+      "name": "GAIA Lot 2"
     },
     {
       "id": 3,
       "code": "4299",
       "client": "Orange",
-      "project": "Module vitrine"
+      "name": "Module vitrine"
     },
     {
       "id": 4,
       "code": "4332",
       "client": "ARKEA",
-      "project": "Générateur"
+      "name": "Générateur"
     }
   ]
 }
