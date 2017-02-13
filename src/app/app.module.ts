@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
 import { AppRoute } from './app.route';
@@ -10,6 +11,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     WorkCalendarModule,
+    FlexLayoutModule,
     AppRoute
   ],
   declarations: [
