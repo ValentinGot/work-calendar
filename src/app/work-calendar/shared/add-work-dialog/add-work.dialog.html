@@ -1,0 +1,47 @@
+<h1 md-dialog-title>{{ dateString }}</h1>
+
+<div md-dialog-content class="dialog-content">
+  <md-radio-group [(ngModel)]="selectedType">
+    <md-radio-button class="work-type-rb" *ngFor="let workType of workTypes" [value]="workType.id">
+      {{ workType.value }}
+    </md-radio-button>
+  </md-radio-group>
+
+  <div class="project-container">
+    <div class="project-selector">
+      <md-select class="project-select" placeholder="Projets" [(ngModel)]="selectedProject" name="project">
+        <md-option *ngFor="let project of projects" [value]="project.id">
+          {{ project.value }}
+        </md-option>
+      </md-select>
+    </div>
+
+    <div class="project-separator">
+      <span></span>
+      <p>OU</p>
+      <span></span>
+    </div>
+
+    <div class="project-creator">
+      <form class="example-form">
+        <md-input-container class="input-full-width">
+          <input md-input placeholder="ID de projet">
+        </md-input-container>
+
+        <md-input-container class="input-full-width">
+          <input md-input placeholder="Client">
+        </md-input-container>
+
+        <md-input-container class="input-full-width">
+          <input md-input placeholder="Projet"  >
+        </md-input-container>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-actions" md-dialog-actions>
+  <button md-button (click)="dialogRef.close()">Annuler</button>
+  &nbsp;&nbsp;
+  <button md-raised-button color="primary">Ajouter</button>
+</div>

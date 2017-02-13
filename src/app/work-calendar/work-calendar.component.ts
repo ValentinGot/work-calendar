@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
 
-import { AddWorkDialog } from './shared/add-work.dialog';
+import { AddWorkDialog } from './shared/add-work-dialog/add-work.dialog';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -21,8 +21,7 @@ export class WorkCalendarComponent implements OnInit {
     handleWindowResize: true,
     dayClick: (date, jsEvent, view) => {
       this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
-
-      console.log(date);
+      this.addWorkDialogRef.componentInstance.date = date;
     },
     events: [
       {
@@ -98,7 +97,6 @@ export class WorkCalendarComponent implements OnInit {
     private dialog: MdDialog
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

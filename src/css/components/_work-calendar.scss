@@ -46,6 +46,11 @@ $more-color: #4A4A4A;
 // Day grid
 .fc-day-grid {
 
+  & .fc-day,
+  & .fc-day-top {
+    cursor: pointer;
+  }
+
   & .fc-day-top {
     padding: 9px 0 0 7px;
   }
