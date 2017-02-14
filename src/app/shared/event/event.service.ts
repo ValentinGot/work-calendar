@@ -57,4 +57,16 @@ export class EventService extends HttpResponseHandler {
       .catch(this.handleError);
   }
 
+  public selectedDayTime (model: {am: Boolean, pm: Boolean}): number {
+    if (model.am) {
+      return this.DAY_TIME.AM;
+    }
+
+    if (model.pm) {
+      return this.DAY_TIME.PM;
+    }
+
+    return 0;
+  }
+
 }
