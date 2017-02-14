@@ -7,6 +7,7 @@ import { WorkType } from '../../../shared/work-type/work-type.model';
 import { EventService } from '../../../shared/event/event.service';
 import { SnackbarService } from '../../../shared/snackbar.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Event } from '../../../shared/event/event.model';
 
 @Component({
   selector: 'wo-add-work-dialog',
@@ -59,11 +60,13 @@ export class AddWorkDialog implements OnInit {
         if (exists) {
           this.snackbarService.error('Une imputation est déjà remplie pour cette période');
         } else {
-          this.eventService.post({
+          let event: Event = {
             title: `${form.value.project.code} - ${form.value.project.name}`,
             start: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '09' : '14'}:00:00`,
             end: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '12' : '18'}:00:00`
-          }).subscribe(() => this.dialogRef.close());
+          };
+
+          this.eventService.post(event).subscribe(() => this.dialogRef.close(event));
         }
       });
     }

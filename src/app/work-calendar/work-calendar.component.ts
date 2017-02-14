@@ -4,7 +4,7 @@ import * as moment from 'moment';
 
 import { AddWorkDialog } from './shared/add-work-dialog/add-work.dialog';
 import { EventService } from '../shared/event/event.service';
-import { EventColors } from '../shared/event/event.model';
+import { EventColors, Event } from '../shared/event/event.model';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -15,21 +15,29 @@ export class WorkCalendarComponent implements OnInit {
   addWorkDialogRef: MdDialogRef<AddWorkDialog>;
 
   calendarOptions = {
-    locale            : 'fr',
-    height            : 'parent',
-    fixedWeekCount    : false,
-    editable          : false,
-    eventLimit        : true, // TODO Remove
+    locale: 'fr',
+    height: 'parent',
+    fixedWeekCount: false,
+    editable: false,
+    eventLimit: true, // TODO Remove
     handleWindowResize: true,
-    timeFormat        : 'A',
-    dayClick          : (date) => {
+    timeFormat: 'A',
+    dayClick: (date) => {
       this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
       this.addWorkDialogRef.componentInstance.date = date;
+
+      this.addWorkDialogRef.afterClosed().subscribe((event: Event) => {
+        if (event !== undefined) {
+          this.calendarOptions.events.push(this.addColor(event));
+
+          location.reload();
+        }
+      });
     },
-    eventclick        : (event) => {
+    eventclick: (event) => {
 
     },
-    events            : []
+    events: []
   };
 
   constructor(
@@ -38,11 +46,13 @@ export class WorkCalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.eventService.getAll().subscribe((events) => this.calendarOptions.events = events.map((event) => {
-      event.color = (moment(event.start).format('A') === 'AM') ? EventColors.AM : EventColors.PM;
+    this.eventService.getAll().subscribe((events) => this.calendarOptions.events = events.map((event) => this.addColor(event)));
+  }
 
-      return event;
-    }));
+  addColor (event: Event) {
+    event.color = (moment(event.start).format('A') === 'AM') ? EventColors.AM : EventColors.PM;
+
+    return event;
   }
 
 }
