@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 
 import { HttpResponseHandler } from '../http-response-handler';
 import { environment } from '../../../environments/environment';
-import { Event } from './event.model';
-
-enum EVENT_DAY_TIME { AM, PM }
+import { Event, EventDayTime } from './event.model';
 
 @Injectable()
 export class EventService extends HttpResponseHandler {
@@ -27,15 +25,15 @@ export class EventService extends HttpResponseHandler {
       .catch(this.handleError);
   }
 
-  public exists (day: string, dayTime: number): Observable<Boolean> {
+  public exists (day: string, dayTime: string): Observable<Boolean> {
     let time = '';
 
     switch (dayTime) {
-      case EVENT_DAY_TIME.AM:
+      case 'am':
         time = '09:00:00';
         break;
 
-      case EVENT_DAY_TIME.PM:
+      case 'pm':
         time = '14:00:00';
         break;
     }
@@ -56,18 +54,6 @@ export class EventService extends HttpResponseHandler {
     return this.http.post(this.url, event)
       .map(this.extractData)
       .catch(this.handleError);
-  }
-
-  public selectedDayTime (model: {am: Boolean, pm: Boolean}): number {
-    if (model.am) {
-      return EVENT_DAY_TIME.AM;
-    }
-
-    if (model.pm) {
-      return EVENT_DAY_TIME.PM;
-    }
-
-    return 0;
   }
 
 }

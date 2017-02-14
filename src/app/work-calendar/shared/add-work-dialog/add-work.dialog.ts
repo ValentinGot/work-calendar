@@ -4,6 +4,9 @@ import { MdDialogRef } from '@angular/material';
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { WorkType } from '../../../shared/work-type/work-type.model';
+import { EventService } from '../../../shared/event/event.service';
+import { SnackbarService } from '../../../shared/snackbar.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'wo-add-work-dialog',
@@ -15,16 +18,13 @@ export class AddWorkDialog implements OnInit {
   dateString: string;
   projects: Project[];
   workTypes: WorkType[];
-
-  selectedType: WorkType;
-  selectedProject: number;
-  selectedDayTime = {
-    am: false,
-    pm: false
-  };
+  form: FormGroup;
 
   constructor(
     private projectService: ProjectService,
+    private eventService: EventService,
+    private snackbarService: SnackbarService,
+    private formBuilder: FormBuilder,
     public dialogRef: MdDialogRef<AddWorkDialog>
   ) {}
 
@@ -38,25 +38,43 @@ export class AddWorkDialog implements OnInit {
       { id: 3, name: 'Arrêt maladie' }
     ];
 
-    // Pre-select work type (default on 'Project')
-    this.selectedType = this.workTypes[0];
-
-    // Pre-select day time depending on the current hour
-    if ((new Date()).getHours() <= 12) {
-      this.selectedDayTime.am = true;
-    } else {
-      this.selectedDayTime.pm = true;
-    }
+    this.form = this.formBuilder.group({
+      workType: this.workTypes[0],
+      project: null,
+      addProject: this.formBuilder.group({
+        id: '',
+        client: '',
+        project: ''
+      }),
+      dayTime: ((new Date()).getHours() <= 12) ? 'am' : 'pm',
+      comment: ''
+    });
   }
 
-  onAdd () {
-    console.log('ADD', this.selectedType, this.selectedProject);
-
-    this.dialogRef.close();
+  onSubmit (form) {
+    if (this.isProject() && form.value.project === null) {
+      this.snackbarService.error('Vous devez sélectionner un projet');
+    } else {
+      this.eventService.exists(this.date.format('YYYY-MM-DD'), form.value.dayTime).subscribe((exists) => {
+        if (exists) {
+          this.snackbarService.error('Une imputation est déjà remplie pour cette période');
+        } else {
+          this.eventService.post({
+            title: `${form.value.project.code} - ${form.value.project.name}`,
+            start: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '09' : '14'}:00:00`,
+            end: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '12' : '18'}:00:00`
+          }).subscribe(() => this.dialogRef.close());
+        }
+      });
+    }
   }
 
   capFirst (str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  isProject (): Boolean {
+    return this.form.value.workType.id === 1;
   }
 
 }
