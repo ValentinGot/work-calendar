@@ -7,33 +7,31 @@ const { app, BrowserWindow } = require('electron'),
 let win;
 
 function createWindow () {
-  setTimeout(() => {
-    // Create the browser window.
-    win = new BrowserWindow({
-      width : 1000,
-      height: 800,
-      title : 'Work Calendar',
-      icon  : 'src/favicon.png'
-    });
+  // Create the browser window.
+  win = new BrowserWindow({
+    width : 1000,
+    height: 800,
+    title : 'Work Calendar',
+    icon  : 'src/favicon.png'
+  });
 
-    // and load the index.html of the app.
-    win.loadURL(url.format({
-      pathname: 'localhost:4200',
-      protocol: 'http:',
-      slashes: true
-    }));
+  // and load the index.html of the app.
+  win.loadURL(url.format({
+    pathname: 'localhost:4200',
+    protocol: 'http:',
+    slashes: true
+  }));
 
-    // Open the DevTools
-    win.webContents.openDevTools();
+  // Open the DevTools
+  win.webContents.openDevTools();
 
-    // Emitted when the window is closed.
-    win.on('closed', () => {
-      // Dereference the window object, usually you would store windows
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
-      win = null
-    });
-  }, 2000);
+  // Emitted when the window is closed.
+  win.on('closed', () => {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    win = null
+  });
 }
 
 // This method will be called when Electron has finished
