@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { HttpResponseHandler } from '../http-response-handler';
 import { environment } from '../../../environments/environment';
-import { Event, EventDayTime } from './event.model';
+import { Event } from './event.model';
 
 @Injectable()
 export class EventService extends HttpResponseHandler {
