@@ -6,15 +6,12 @@ import { HttpResponseHandler } from '../http-response-handler';
 import { environment } from '../../../environments/environment';
 import { Event } from './event.model';
 
+enum EVENT_DAY_TIME { AM, PM }
+
 @Injectable()
 export class EventService extends HttpResponseHandler {
-  public DAY_TIME = {
-    AM: 1,
-    PM: 2
-  };
-
   private baseUrl: string = '/events';
-  private url : string;
+  private url: string;
 
   constructor (
     private http: Http
@@ -34,11 +31,11 @@ export class EventService extends HttpResponseHandler {
     let time = '';
 
     switch (dayTime) {
-      case this.DAY_TIME.AM:
+      case EVENT_DAY_TIME.AM:
         time = '09:00:00';
         break;
 
-      case this.DAY_TIME.PM:
+      case EVENT_DAY_TIME.PM:
         time = '14:00:00';
         break;
     }
@@ -51,7 +48,11 @@ export class EventService extends HttpResponseHandler {
       .catch(this.handleError);
   }
 
-  public post (event: Event): Observable<Event> {
+  public post (...events: Event[]) {
+    return Observable.forkJoin(events.map((event) => this.singlePost(event)));
+  }
+
+  public singlePost (event: Event): Observable<Event> {
     return this.http.post(this.url, event)
       .map(this.extractData)
       .catch(this.handleError);
@@ -59,11 +60,11 @@ export class EventService extends HttpResponseHandler {
 
   public selectedDayTime (model: {am: Boolean, pm: Boolean}): number {
     if (model.am) {
-      return this.DAY_TIME.AM;
+      return EVENT_DAY_TIME.AM;
     }
 
     if (model.pm) {
-      return this.DAY_TIME.PM;
+      return EVENT_DAY_TIME.PM;
     }
 
     return 0;
