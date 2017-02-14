@@ -6,6 +6,7 @@ import 'hammerjs';
 import { AppRoute } from './app.route';
 import { SharedModule } from './shared/shared.module';
 import { WorkCalendarModule } from './work-calendar/work-calendar.module';
+import { SettingsModule } from './settings/settings.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
     FlexLayoutModule,
     SharedModule.forRoot(),
     WorkCalendarModule,
+    SettingsModule,
     AppRoute
   ],
   declarations: [
