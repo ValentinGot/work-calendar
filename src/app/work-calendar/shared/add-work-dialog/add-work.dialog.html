@@ -9,7 +9,7 @@
 
   <div class="project-container">
     <div class="project-selector">
-      <md-select class="project-select" placeholder="Projets" [(ngModel)]="selectedProject" name="project">
+      <md-select class="project-select" placeholder="Projets" [(ngModel)]="selectedProject" [disabled]="selectedType.id !== 1" name="project">
         <md-option *ngFor="let project of projects" [value]="project.id">
           {{ project.code }} - {{ project.client }} - {{ project.name }}
         </md-option>
@@ -25,15 +25,15 @@
     <div class="project-creator">
       <form class="example-form">
         <md-input-container class="full-width">
-          <input md-input placeholder="ID de projet" />
+          <input md-input placeholder="ID de projet" [disabled]="selectedType.id !== 1" />
         </md-input-container>
 
         <md-input-container class="full-width">
-          <input md-input placeholder="Client" />
+          <input md-input placeholder="Client" [disabled]="selectedType.id !== 1" />
         </md-input-container>
 
         <md-input-container class="full-width">
-          <input md-input placeholder="Projet" />
+          <input md-input placeholder="Projet" [disabled]="selectedType.id !== 1" />
         </md-input-container>
       </form>
     </div>
