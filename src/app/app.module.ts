@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
@@ -12,7 +11,6 @@ import { AppComponent } from './app.component';
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
     FlexLayoutModule,
     SharedModule.forRoot(),
     WorkCalendarModule,
