@@ -6,7 +6,7 @@
   "main": "dist/entry.js",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run start:ng\" \"npm run start:electron\"",
+    "start": "concurrently \"npm run start:ng\" \"npm run start:electron\" \"npm run start:server\"",
     "start:ng": "ng serve --proxy-config proxy.conf.json",
     "start:server": "json-server --watch db.json",
     "start:electron": "electron src/electron/entry.live.js",
