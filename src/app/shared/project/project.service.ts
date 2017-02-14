@@ -25,7 +25,7 @@ export class ProjectService extends HttpResponseHandler {
       .catch(this.handleError);
   }
 
-  post (project: Project): Observable<Project> {
+  public post (project: Project): Observable<Project> {
     return this.http.post(this.url, project)
       .map(this.extractData)
       .catch(this.handleError);
