@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron'),
+const { app, BrowserWindow, Menu } = require('electron'),
   path = require('path'),
   url = require('url');
 
@@ -34,6 +34,52 @@ function createWindow () {
   });
 }
 
+function createMenu () {
+  return [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Paramètres...',
+          accelerator: 'CmdOrCtrl+P',
+          click () {
+
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Quitter',
+          accelerator: 'CmdOrCtrl+W',
+          click () {
+            app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Recharger',
+          accelerator: 'CmdOrCtrl+R',
+          click () {
+            win.reload();
+          }
+        },
+        {
+          label: 'Plein écran',
+          accelerator: 'F11',
+          click () {
+            win.setFullScreen(!win.isFullScreen());
+          }
+        }
+      ]
+    }
+  ];
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -55,6 +101,8 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+Menu.setApplicationMenu(Menu.buildFromTemplate(createMenu()))
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
