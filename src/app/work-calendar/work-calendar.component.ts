@@ -22,8 +22,6 @@ export class WorkCalendarComponent implements OnInit {
     height: 'parent',
     fixedWeekCount: false,
     editable: false,
-    eventLimit: true, // TODO Remove
-    handleWindowResize: true,
     timeFormat: 'A',
     dayClick: (date) => {
       this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
