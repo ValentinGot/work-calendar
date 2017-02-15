@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
+import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
 import { AddWorkDialog } from './shared/add-work-dialog/add-work.dialog';
@@ -13,6 +14,8 @@ import { EventColors, Event } from '../shared/event/event.model';
 })
 export class WorkCalendarComponent implements OnInit {
   addWorkDialogRef: MdDialogRef<AddWorkDialog>;
+
+  @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
   calendarOptions = {
     locale: 'fr',
@@ -28,9 +31,7 @@ export class WorkCalendarComponent implements OnInit {
 
       this.addWorkDialogRef.afterClosed().subscribe((event: Event) => {
         if (event !== undefined) {
-          this.calendarOptions.events.push(this.addColor(event));
-
-          location.reload();
+          this.myCalendar.fullCalendar('renderEvent', this.addColor(event));
         }
       });
     },
