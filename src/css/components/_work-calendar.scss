@@ -2,7 +2,9 @@
 //  Work Calendar
 //----------------------------------------
 
-$toolbar-title-color: #525257;
+$header-height: 60px;
+$header-button-text-color: #707278;
+$header-button-hover-color: #2B2D35;
 $today-color: #4186F3;
 $today-background-color: #EEF4FD;
 $border-color: #EEEEEE;
@@ -17,20 +19,111 @@ $more-color: #4A4A4A;
 
 // Header
 .fc-toolbar.fc-header-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $header-height;
   margin: 0;
-  height: 150px;
-  padding: 20px 20px 0;
-  background-image: url('assets/calendar/december.jpg');
-  background-size: cover;
-  background-position: 50% 44%;
-  background-repeat: no-repeat;
+  background-color: $wo-background-color-400;
 
-  & > .fc-left > h2 {
-    font-size: 22px;
-    color: $toolbar-title-color;
-    text-transform: capitalize;
+  & > .fc-left {
+    position: absolute;
+    left: 10px;
+
+    & > h2 {
+      font-size: 20px;
+      color: $white-color;
+      text-transform: capitalize;
+    }
+  }
+
+  & .fc-today-button {
+    outline: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    height: $header-height;
+    padding: 10px 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+    color: $header-button-text-color;
+    font-size: 13px;
+
+    &:hover,
+    &:focus {
+      background-color: $header-button-hover-color;
+    }
+
+    &:before {
+      content: '\2039';
+      height: 16px;
+      line-height: 16px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      font-size: 237%;
+      color: $white-color;
+    }
+  }
+
+  & .fc-button-group {
+    margin: 0;
+
+    & > button {
+      outline: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60px;
+      height: $header-height;
+      padding: 10px 0;
+      background: none;
+      border: 0;
+      border-radius: 0;
+      color: $white-color;
+      box-shadow: none;
+      text-shadow: none;
+
+      &:hover,
+      &:focus {
+        background-color: $header-button-hover-color;
+      }
+
+      &:after {
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        color: $header-button-text-color;
+      }
+
+      &.fc-prev-button:after {
+        content: 'Prev.';
+      }
+      &.fc-next-button:after {
+        content: 'Suiv.';
+      }
+    }
   }
 }
+//.fc-toolbar.fc-header-toolbar {
+//  margin: 0;
+//  height: 150px;
+//  padding: 20px 20px 0;
+//  background-image: url('assets/calendar/december.jpg');
+//  background-size: cover;
+//  background-position: 50% 44%;
+//  background-repeat: no-repeat;
+//
+//  & > .fc-left > h2 {
+//    font-size: 22px;
+//    color: $toolbar-title-color;
+//    text-transform: capitalize;
+//  }
+//}
 
 // Calendar head
 .fc-head-container.fc-widget-header th {

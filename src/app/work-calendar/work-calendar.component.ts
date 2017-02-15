@@ -23,6 +23,9 @@ export class WorkCalendarComponent implements OnInit {
     fixedWeekCount: false,
     editable: false,
     timeFormat: 'A',
+    buttonText: {
+      today: 'Auj.'
+    },
     dayClick: (date) => {
       this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
       this.addWorkDialogRef.componentInstance.date = date;
