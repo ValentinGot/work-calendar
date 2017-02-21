@@ -18,7 +18,7 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadURL(url.format({
     pathname: 'localhost:4200',
-    protocol: 'http:',
+    protocol: 'http',
     slashes: true
   }));
 
@@ -102,7 +102,7 @@ app.on('activate', () => {
   }
 });
 
-Menu.setApplicationMenu(Menu.buildFromTemplate(createMenu()))
+Menu.setApplicationMenu(Menu.buildFromTemplate(createMenu()));
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
