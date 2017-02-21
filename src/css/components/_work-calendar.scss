@@ -60,12 +60,7 @@ $more-color: #4A4A4A;
     }
 
     &:before {
-      content: '\2039';
-      height: 16px;
-      line-height: 16px;
-      margin-bottom: 8px;
-      font-weight: 700;
-      font-size: 237%;
+      @include material-icon('\e8df');
       color: $white-color;
     }
   }
@@ -100,11 +95,26 @@ $more-color: #4A4A4A;
         color: $header-button-text-color;
       }
 
-      &.fc-prev-button:after {
-        content: 'Prev.';
+      &.fc-prev-button {
+
+        & > .fc-icon:after {
+          @include material-icon('\e408');
+        }
+
+        &:after {
+          content: 'Prev.';
+        }
       }
-      &.fc-next-button:after {
-        content: 'Suiv.';
+
+      &.fc-next-button {
+
+        & > .fc-icon:after {
+          @include material-icon('\e409');
+        }
+
+        &:after {
+          content: 'Suiv.';
+        }
       }
     }
   }
