@@ -1,0 +1,23 @@
+//----------------------------------------
+//  Projects
+//----------------------------------------
+
+$input-color: #B9BEC8;
+
+//----------------------------------------
+
+form.dark-bg {
+
+  input {
+    color: $input-color;
+  }
+
+  .md-input-placeholder {
+    color: $input-color;
+  }
+
+  .md-input-underline {
+    border-color: $input-color;
+  }
+
+}
