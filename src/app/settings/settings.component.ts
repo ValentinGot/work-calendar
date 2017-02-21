@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wo-settings',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  menu = [
+    {
+      url: '/settings/projects',
+      name: 'Projets'
+    }
+  ];
+  active: string;
 
-  constructor() { }
+  constructor (
+    private router: Router
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.router.events.subscribe((route) => {
+      this.active = this.menu.find((item) => item.url === route.url).name;
+    });
   }
 
 }

@@ -1,5 +1,16 @@
-<h1>SETTINGS</h1>
+<nav class="menu">
+  <a routerLink="/" class="menu-item menu-item-small">
+    <md-icon>exit_to_app</md-icon>
+    Quitter les paramètres
+  </a>
 
-<a routerLink="/settings/projects" routerLinkActive="active">Projets</a>
+  <div class="separator"></div>
 
-<router-outlet></router-outlet>
+  <a [routerLink]="item.url" routerLinkActive="active" class="menu-item" *ngFor="let item of menu">{{ item.name }}</a>
+</nav>
+
+<div class="settings-content">
+  <h2>{{ active }}</h2>
+
+  <router-outlet></router-outlet>
+</div>

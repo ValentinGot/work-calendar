@@ -47,7 +47,7 @@ export class WorkCalendarComponent implements OnInit {
       customButtons : {
         settings: {
           text : 'Param.',
-          click: () => this.router.navigate([ '/settings' ])
+          click: () => this.router.navigate([ '/settings/projects' ])
         }
       },
       header        : {

@@ -1,0 +1,78 @@
+//----------------------------------------
+//  Settings
+//----------------------------------------
+
+$menu-background-color: #36373E;
+$menu-item-height: 75px;
+$menu-item-size: 19px;
+$menu-item-color: #B9BEC8;
+$menu-item-background-color: #3A4765;
+$menu-item-hover-background-color: #383F51;
+
+$menu-item-small-height: 50px;
+$menu-item-small-size: 16px;
+
+$content-background-color: #2A2b31;
+$content-title-color: #B9BEC8;
+
+//----------------------------------------
+
+:host {
+  display: flex;
+  height: 100%;
+}
+
+.menu {
+  flex: 30;
+  display: flex;
+  flex-direction: column;
+  background-color: $menu-background-color;
+
+  & > .menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: $menu-item-height;
+    padding-left: 15px;
+    font-size: $menu-item-size;
+    color: $menu-item-color;
+    text-decoration: none;
+
+    &.menu-item-small {
+      height: $menu-item-small-height;
+      font-size: $menu-item-small-size;
+    }
+
+    &.active {
+      background-color: $menu-item-background-color;
+    }
+
+    &:not(.active):hover,
+    &:not(.active):focus {
+      background-color: $menu-item-hover-background-color;
+    }
+
+    & > md-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.separator {
+  height: 1px;
+   background-color: $content-background-color;
+}
+
+.settings-content {
+  flex: 70;
+  padding: 20px 35px;
+  background-color: $content-background-color;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+
+  & > h2 {
+    margin: 0 0 10px;
+    color: $content-title-color;
+    font-weight: 500;
+    font-size: 30px;
+  }
+}
