@@ -38,7 +38,12 @@ $more-color: #4A4A4A;
     }
   }
 
-  & .fc-today-button {
+  & > .fc-right {
+    position: absolute;
+    right: 10px;
+  }
+
+  & .fc-button {
     outline: 0;
     display: flex;
     flex-direction: column;
@@ -60,62 +65,24 @@ $more-color: #4A4A4A;
     }
 
     &:before {
-      @include material-icon('\e8df');
+      margin-bottom: 2px;
       color: $white-color;
     }
-  }
 
-  & .fc-button-group {
-    margin: 0;
+    &.fc-today-button:before {
+      @include material-icon('\e8df');
+    }
 
-    & > button {
-      outline: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 60px;
-      height: $header-height;
-      padding: 10px 0;
-      background: none;
-      border: 0;
-      border-radius: 0;
-      color: $white-color;
-      box-shadow: none;
-      text-shadow: none;
+    &.fc-prev-button:before {
+      @include material-icon('\e408');
+    }
 
-      &:hover,
-      &:focus {
-        background-color: $header-button-hover-color;
-      }
+    &.fc-next-button:before {
+      @include material-icon('\e409');
+    }
 
-      &:after {
-        margin-top: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        color: $header-button-text-color;
-      }
-
-      &.fc-prev-button {
-
-        & > .fc-icon:after {
-          @include material-icon('\e408');
-        }
-
-        &:after {
-          content: 'Prev.';
-        }
-      }
-
-      &.fc-next-button {
-
-        & > .fc-icon:after {
-          @include material-icon('\e409');
-        }
-
-        &:after {
-          content: 'Suiv.';
-        }
-      }
+    &.fc-settings-button:before {
+      @include material-icon('\e8b8');
     }
   }
 }
