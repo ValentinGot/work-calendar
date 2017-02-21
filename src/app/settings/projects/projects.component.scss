@@ -1,0 +1,25 @@
+//----------------------------------------
+//  Projects
+//----------------------------------------
+
+$white-grey-color: #B9BEC8;
+
+//----------------------------------------
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+
+  & > .buttons-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+}
+
+.separator {
+  height: 1px;
+  margin: 40px 0;
+  background-color: $white-grey-color;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'wo-settings-projects',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
+  form: FormGroup;
 
-  constructor() { }
+  constructor (
+    private formBuilder: FormBuilder
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.form = this.formBuilder.group({
+      id     : '',
+      client : '',
+      project: ''
+    });
+  }
+
+  onSubmit (form) {
+    console.log(form);
   }
 
 }
