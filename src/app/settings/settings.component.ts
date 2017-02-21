@@ -21,7 +21,9 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit () {
     this.router.events.subscribe((route) => {
-      this.active = this.menu.find((item) => item.url === route.url).name;
+      let item = this.menu.find((item) => item.url === route.url);
+
+      this.active = (item !== undefined) ? item.name : '';
     });
   }
 
