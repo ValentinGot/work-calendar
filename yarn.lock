@@ -152,7 +152,7 @@
   version "2.0.40"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.40.tgz#acdd69e29b74cdec15dc3c074bcb064bc1b87213"
 
-"@types/moment@^2.13.0":
+"@types/moment@^2.11.29":
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
   dependencies:
@@ -252,19 +252,18 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular2-fullcalendar@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/angular2-fullcalendar/-/angular2-fullcalendar-1.1.1.tgz#9ce4da69a062a29e1f2ebcee6f4a4bed8947faf2"
+"angular2-fullcalendar@https://github.com/lbertenasco/ng2-fullcalendar.git":
+  version "1.0.15"
+  resolved "https://github.com/lbertenasco/ng2-fullcalendar.git#b83dc119e9b3958ee8d768418c0c666ad296776f"
   dependencies:
     "@angular/common" "^2.0.1"
     "@angular/core" "^2.0.1"
     "@angular/forms" "^2.0.1"
     "@types/fullcalendar" "^2.7.35"
     "@types/jquery" "^2.0.34"
-    "@types/moment" "^2.13.0"
+    "@types/moment" "^2.11.29"
     "@types/node" "^6.0.42"
     fullcalendar "^3.0.1"
-    rxjs "^5.0.0-beta.12"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -4793,7 +4792,7 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-rxjs@^5.0.0-beta.12, rxjs@^5.0.1:
+rxjs@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
   dependencies:
