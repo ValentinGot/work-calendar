@@ -1,0 +1,40 @@
+//----------------------------------------
+//  Dialog
+//----------------------------------------
+
+$modal-title-height: 50px;
+
+//----------------------------------------
+
+.md-dialog-container {
+
+  [md-dialog-title] {
+    height: $modal-title-height;
+    line-height: $modal-title-height;
+    margin: -24px -24px 24px -24px;
+    color: $wo-white-color;
+    background-color: $wo-accent-200-color;
+    font-weight: 500;
+    text-align: center;
+
+    &.dialog-title-no-margin {
+      margin: -24px -24px 0 -24px;
+    }
+  }
+
+  [md-dialog-content] {
+    //background-color: $wo-accent-300-color;
+
+    &.dialog-content-no-padding {
+      padding: 0;
+    }
+  }
+
+}
+
+//  Add imputation dialog
+//----------------------------------------
+
+.add-imputation-dialog-content {
+  min-width: 400px;
+}

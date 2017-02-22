@@ -1,7 +1,7 @@
-<h1 md-dialog-title>{{ dateString }} - Imputer</h1>
+<h1 md-dialog-title class="dialog-title-no-margin">{{ dateString }}</h1>
 
-<div md-dialog-content class="dialog-content">
-  <md-tab-group (selectChange)="onTabChanged($event)">
+<div md-dialog-content class="add-imputation-dialog-content dialog-content-no-padding">
+  <md-tab-group class="add-imputation-dialog-tabs" (selectChange)="onTabChanged($event)">
     <md-tab label="Rapide">
       <wo-add-quick-imputation #quickImputation></wo-add-quick-imputation>
     </md-tab>
