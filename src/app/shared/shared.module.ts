@@ -5,6 +5,7 @@ import { MdSnackBarModule } from '@angular/material';
 
 import { EventService } from './event/event.service';
 import { ProjectService } from './project/project.service';
+import { ProjectLocalService } from './project/project-local.service';
 import { SnackbarService } from './snackbar.service';
 
 @NgModule({
@@ -25,7 +26,7 @@ export class SharedModule {
         },
         {
           provide: ProjectService,
-          useClass: ProjectService
+          useClass: ProjectLocalService
         },
         SnackbarService
       ]

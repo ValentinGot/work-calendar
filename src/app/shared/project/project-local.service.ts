@@ -1,46 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import * as NeDBDataStore from 'nedb';
+import * as Datastore from 'nedb';
 
 import { Project } from './project.model';
+import { ProjectInterface } from './project.interface';
 
 @Injectable()
-export class ProjectLocalService {
+export class ProjectLocalService implements ProjectInterface {
+  projects: NeDBDataStore;
 
-  constructor () { }
-
-  public getAll (): Observable<Project[]> {
-    return Observable.create((observer) => {
-      observer.next([
-        {
-          "id": 1,
-          "code": "4036",
-          "client": "Télécom Santé",
-          "name": "Parcours Ambulatoire"
-        },
-        {
-          "id": 2,
-          "code": "4129",
-          "client": "Croix-Rouge Française",
-          "name": "GAIA Lot 2"
-        },
-        {
-          "id": 3,
-          "code": "4299",
-          "client": "Orange",
-          "name": "Module vitrine"
-        },
-        {
-          "id": 4,
-          "code": "4332",
-          "client": "ARKEA",
-          "name": "Générateur"
-        }
-      ]);
-      observer.complete();
+  constructor () {
+    this.projects = new Datastore({
+      filename: './projects.db',
+      autoload: true
     });
   }
 
-  // post (project: Project): Observable<Project> {
-  // }
+  public getAll (): Observable<Project[]> {
+    return Observable.create((observer) => {
+      this.projects.find({}, (err, projects) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.next(projects);
+        observer.complete();
+      });
+    });
+  }
 
 }
