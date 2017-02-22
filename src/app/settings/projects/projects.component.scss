@@ -28,7 +28,7 @@ form {
 
 .projects-table {
 
-  & > tbody > tr > td > .icon-remove {
+  & .icon-remove {
     transition: color .25s;
 
     &:hover {
