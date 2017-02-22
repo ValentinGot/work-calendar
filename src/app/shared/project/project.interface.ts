@@ -4,14 +4,14 @@ import { Project } from './project.model';
 
 export interface ProjectInterface {
 
-  getAll(): Observable<Project[]>;
+  getAll (): Observable<Project[]>;
 
-  get(): Observable<Project>;
+  get (id: number): Observable<Project>;
 
-  post(project: Project): Observable<Project>;
+  create (project: Project): Observable<Project>;
 
-  put(projectId: number, project: Project): Observable<Project>;
+  update (id: string, project: Project): Observable<Project>;
 
-  remove(projectId: number): Observable<void>;
+  remove (id: string): Observable<void>;
 
 }
