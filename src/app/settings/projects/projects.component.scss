@@ -2,6 +2,8 @@
 //  Projects
 //----------------------------------------
 
+@import '../../../css/abstract/colors';
+
 $white-grey-color: #B9BEC8;
 
 //----------------------------------------
@@ -22,4 +24,16 @@ form {
   height: 1px;
   margin: 40px 0;
   background-color: $white-grey-color;
+}
+
+.projects-table {
+
+  & > tbody > tr > td > .icon-remove {
+    transition: color .25s;
+
+    &:hover {
+      color: $red-500-color;
+    }
+  }
+
 }

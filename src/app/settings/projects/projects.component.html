@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit(form)" class="dark-bg" novalidate>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="dark-bg" novalidate>
   <md-input-container>
     <input md-input placeholder="ID de projet" formControlName="code" />
   </md-input-container>
@@ -14,10 +14,10 @@
   </div>
 
   <md-input-container>
-    <input md-input placeholder="Projet" formControlName="project" />
+    <input md-input placeholder="Projet" formControlName="name" />
   </md-input-container>
-  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.project.dirty || submitted) && !form.controls.project.valid">
-    <p [hidden]="!form.controls.project.errors.required">Le champ ne peut pas être vide</p>
+  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.name.dirty || submitted) && !form.controls.name.valid">
+    <p [hidden]="!form.controls.name.errors.required">Le champ ne peut pas être vide</p>
   </div>
 
   <div class="buttons-group">
@@ -27,7 +27,7 @@
 
 <div class="separator"></div>
 
-<table class="wo-table">
+<table class="wo-table projects-table">
   <thead>
     <tr>
       <th>ID Projet</th>
@@ -38,11 +38,21 @@
   </thead>
 
   <tbody>
+    <tr class="with-spinner" [hidden]="!loading">
+      <td colspan="4">
+        <md-spinner></md-spinner>
+      </td>
+    </tr>
+
     <tr *ngFor="let project of projects">
       <td>{{ project.code }}</td>
       <td>{{ project.client }}</td>
       <td>{{ project.name }}</td>
-      <td></td>
+      <td>
+        <div class="icons-container">
+          <md-icon class="icon-remove" mdTooltip="Supprimer le projet" mdTooltipPosition="above" (click)="onRemove(project)">delete</md-icon>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
