@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Inject, EventEmitter, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 
 import { ProjectInterface } from '../../../shared/project/project.interface';
 import { ProjectService } from '../../../shared/project/project.service';
@@ -13,6 +13,9 @@ import { Project } from '../../../shared/project/project.model';
 export class AddQuickImputationComponent implements OnInit {
   form: FormGroup;
   projects: Project[];
+  submitted: boolean;
+
+  @ViewChild('quickImputationForm') quickImputationForm: NgForm;
 
   $onSubmit: EventEmitter<boolean>;
 
@@ -27,16 +30,22 @@ export class AddQuickImputationComponent implements OnInit {
     this.projectService.getAll().subscribe((projects) => this.projects = projects);
 
     this.form = this.formBuilder.group({
-      project: null,
+      project: [ null, Validators.required ],
       am     : (new Date()).getHours() <= 12,
       pm     : (new Date()).getHours() > 12
     });
 
-    this.$onSubmit.subscribe(() => this.onSubmit());
+    this.$onSubmit.subscribe(() => this.quickImputationForm.ngSubmit.emit());
   }
 
   onSubmit () {
-    console.log(this.form.value);
+    this.submitted = true;
+
+    if (this.form.valid && (this.form.value.am || this.form.value.pm)) {
+      console.log(this.form.value);
+
+      this.submitted = false;
+    }
   }
 
 }

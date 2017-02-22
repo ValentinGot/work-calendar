@@ -1,9 +1,12 @@
-<form [formGroup]="form" novalidate>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" #quickImputationForm="ngForm" novalidate>
   <md-select class="project-select input-full-width" placeholder="Projets" formControlName="project">
     <md-option *ngFor="let project of projects" [value]="project">
       {{ project.code }} - {{ project.client }} - {{ project.name }}
     </md-option>
   </md-select>
+  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.project.dirty || submitted) && !form.controls.project.valid">
+    <p [hidden]="!form.controls.project.errors.required">Le champ ne peut pas être vide</p>
+  </div>
 
   <div class="day-time-container">
     <md-checkbox formControlName="am">Matin</md-checkbox>
