@@ -1,0 +1,55 @@
+//----------------------------------------
+//  Table
+//----------------------------------------
+
+$table-border-color: $wo-white-color;
+
+$table-thead-height: 40px;
+$table-thead-color: $wo-white-color;
+
+$table-tbody-height: 50px;
+$table-tbody-color: $wo-white-color;
+
+//----------------------------------------
+
+.wo-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  & th,
+  & td {
+    padding-left: 10px;
+  }
+
+  & > thead > tr {
+    height: $table-thead-height;
+    line-height: $table-thead-height;
+    background-color: $wo-accent-500-color;
+    border-top: 1px solid $table-border-color;
+    border-bottom: 1px solid $table-border-color;
+    text-align: left;
+
+    & > th {
+      font-weight: 400;
+      font-size: 14px;
+      color: $table-thead-color;
+    }
+  }
+
+  & > tbody > tr {
+    cursor: pointer;
+    height: $table-tbody-height;
+    line-height: $table-tbody-height;
+    transition: background-color .25s;
+    border-bottom: 1px solid $table-border-color;
+
+    & > td {
+      color: $table-tbody-color;
+    }
+
+    &:hover {
+      background-color: $wo-accent-400-color;
+    }
+  }
+
+}
