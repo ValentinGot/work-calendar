@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdTabChangeEvent } from '@angular/material';
+import { AddQuickImputationComponent } from '../add-quick-imputation/add-quick-imputation.component';
 
 @Component({
   selector: 'wo-add-imputation-dialog',
@@ -11,6 +12,8 @@ export class AddImputationDialog implements OnInit {
   dateString: string;
   selectedTab: number;
 
+  @ViewChild('quickImputation') quickImputationComponent: AddQuickImputationComponent;
+
   constructor(
     public dialogRef: MdDialogRef<AddImputationDialog>
   ) {}
@@ -21,6 +24,18 @@ export class AddImputationDialog implements OnInit {
 
   onTabChanged ($event: MdTabChangeEvent) {
     this.selectedTab = $event.index;
+  }
+
+  onSubmit () {
+    switch (this.selectedTab) {
+      case 0:
+      default:
+        this.quickImputationComponent.$onSubmit.emit(true);
+        break;
+
+      case 1:
+        break;
+    }
   }
 
   capitalizeFirstLetter (str) {

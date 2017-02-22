@@ -3,7 +3,7 @@
 <div md-dialog-content class="dialog-content">
   <md-tab-group (selectChange)="onTabChanged($event)">
     <md-tab label="Rapide">
-      <wo-add-quick-imputation></wo-add-quick-imputation>
+      <wo-add-quick-imputation #quickImputation></wo-add-quick-imputation>
     </md-tab>
 
     <md-tab label="Complet">Content 2</md-tab>
@@ -13,5 +13,5 @@
 <div class="dialog-actions" md-dialog-actions>
   <button md-button (click)="dialogRef.close()">Annuler</button>
   &nbsp;&nbsp;
-  <button md-raised-button color="primary" type="submit">Imputer</button>
+  <button md-raised-button color="primary" (click)="onSubmit()">Imputer</button>
 </div>
