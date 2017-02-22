@@ -10,6 +10,8 @@ $table-thead-color: $wo-white-color;
 $table-tbody-height: 50px;
 $table-tbody-color: $wo-white-color;
 
+$table-spinner-size: 50px;
+
 //----------------------------------------
 
 .wo-table {
@@ -45,10 +47,34 @@ $table-tbody-color: $wo-white-color;
 
     & > td {
       color: $table-tbody-color;
+
+      & > .icons-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     &:hover {
       background-color: $wo-accent-400-color;
+    }
+
+    &.with-spinner {
+      cursor: default;
+
+      & > td {
+        padding: 10px 0;
+
+        & > md-spinner {
+          width: $table-spinner-size;
+          height: $table-spinner-size;
+          margin: auto;
+        }
+      }
+
+      &:hover {
+        background-color: inherit;
+      }
     }
   }
 
