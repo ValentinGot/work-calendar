@@ -1,0 +1,12 @@
+<form [formGroup]="form" novalidate>
+  <md-select class="project-select input-full-width" placeholder="Projets" formControlName="project">
+    <md-option *ngFor="let project of projects" [value]="project">
+      {{ project.code }} - {{ project.client }} - {{ project.name }}
+    </md-option>
+  </md-select>
+
+  <div class="day-time-container">
+    <md-checkbox formControlName="am">Matin</md-checkbox>
+    <md-checkbox formControlName="pm">Après-midi</md-checkbox>
+  </div>
+</form>

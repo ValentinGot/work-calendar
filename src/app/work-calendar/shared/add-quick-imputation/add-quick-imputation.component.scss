@@ -1,0 +1,15 @@
+//----------------------------------------
+//  Add quick imputation
+//----------------------------------------
+
+.day-time-container {
+  margin-top: 15px;
+
+  & > md-checkbox {
+    margin-right: 8px;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
