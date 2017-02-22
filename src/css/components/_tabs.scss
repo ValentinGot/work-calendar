@@ -5,3 +5,7 @@
 .md-tab-body-wrapper {
   padding: 15px 0;
 }
+
+md-tab-body.md-tab-body-active {
+  overflow: hidden !important;
+}
