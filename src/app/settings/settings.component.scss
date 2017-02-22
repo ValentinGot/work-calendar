@@ -37,6 +37,7 @@ $content-title-color: #B9BEC8;
     font-size: $menu-item-size;
     color: $menu-item-color;
     text-decoration: none;
+    transition: background-color .25s;
 
     &.menu-item-small {
       height: $menu-item-small-height;
