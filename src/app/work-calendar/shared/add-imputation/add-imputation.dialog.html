@@ -1,0 +1,17 @@
+<h1 md-dialog-title>{{ dateString }} - Imputer</h1>
+
+<div md-dialog-content class="dialog-content">
+  <md-tab-group (selectChange)="onTabChanged($event)">
+    <md-tab label="Rapide">
+      <wo-add-quick-imputation></wo-add-quick-imputation>
+    </md-tab>
+
+    <md-tab label="Complet">Content 2</md-tab>
+  </md-tab-group>
+</div>
+
+<div class="dialog-actions" md-dialog-actions>
+  <button md-button (click)="dialogRef.close()">Annuler</button>
+  &nbsp;&nbsp;
+  <button md-raised-button color="primary" type="submit">Imputer</button>
+</div>

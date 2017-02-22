@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
-import { AddWorkDialog } from './shared/add-work-dialog/add-work.dialog';
 import { EventService } from '../shared/event/event.service';
 import { EventColors, Event } from '../shared/event/event.model';
-import { Router } from '@angular/router';
+import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./work-calendar.component.scss']
 })
 export class WorkCalendarComponent implements OnInit {
-  addWorkDialogRef: MdDialogRef<AddWorkDialog>;
+  addImputationDialogRef: MdDialogRef<AddImputationDialog>;
   calendarOptions;
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
@@ -64,10 +64,10 @@ export class WorkCalendarComponent implements OnInit {
         next : 'Suiv.'
       },
       dayClick      : (date) => {
-        this.addWorkDialogRef = this.dialog.open(AddWorkDialog);
-        this.addWorkDialogRef.componentInstance.date = date;
+        this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
+        this.addImputationDialogRef.componentInstance.date = date;
 
-        this.addWorkDialogRef.afterClosed().subscribe((event: Event) => {
+        this.addImputationDialogRef.afterClosed().subscribe((event: Event) => {
           if (event !== undefined) {
             this.myCalendar.fullCalendar('renderEvent', this.addColor(event));
           }
