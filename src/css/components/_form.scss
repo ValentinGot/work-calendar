@@ -21,3 +21,18 @@ form.dark-bg {
   }
 
 }
+
+.wo-form-alert {
+  margin: 0 0 12px;
+  font-size: 12px;
+
+  & > p {
+    margin: 0 0 5px 0;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  &.wo-form-alert-error { color: #983D3D; }
+}
