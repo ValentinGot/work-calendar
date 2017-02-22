@@ -19,7 +19,7 @@ export class ProjectLocalService implements ProjectInterface {
 
   public getAll (): Observable<Project[]> {
     return Observable.create((observer) => {
-      this.projects.find({}, (err, projects) => {
+      this.projects.find({}).sort({ code: 1 }).exec((err, projects) => {
         if (err) {
           observer.throw(err);
         }
@@ -58,13 +58,26 @@ export class ProjectLocalService implements ProjectInterface {
 
   public update (id: string, project: Project): Observable<Project> {
     return Observable.create((observer) => {
-      observer.complete();
+      this.projects.update({ _id: id }, project, (err) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.next(project);
+        observer.complete();
+      });
     });
   }
 
   public remove (id: string): Observable<void> {
     return Observable.create((observer) => {
-      observer.complete();
+      this.projects.remove({ _id: id }, (err) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.complete();
+      });
     });
   }
 }
