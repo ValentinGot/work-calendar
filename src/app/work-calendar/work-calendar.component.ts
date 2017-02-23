@@ -85,8 +85,7 @@ export class WorkCalendarComponent implements OnInit {
     return date.format('MMMM YYYY');
   }
 
-  private getCalendarOptions () {
-  mergeDayEvents (events: Array<Event>) {
+  private mergeDayEvents (events: Array<Event>) {
     events.forEach((event: Event) => {
       let findEvent = events.find((eventf: Event) => {
         return moment(event.start).format('ddd, ll') === moment(eventf.start).format('ddd, ll') &&
@@ -107,7 +106,7 @@ export class WorkCalendarComponent implements OnInit {
     return events;
   }
 
-  getCalendarOptions () {
+  private getCalendarOptions () {
     return {
       locale        : 'fr',
       height        : 'parent',
