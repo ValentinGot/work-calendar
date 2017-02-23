@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MdDialogModule, MdButtonModule, MdRadioModule, MdSelectModule, MdInputModule,
-  MdCheckboxModule, MdTabsModule
+  MdCheckboxModule, MdTabsModule, MdIconModule
 } from '@angular/material';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
@@ -12,6 +12,7 @@ import { WorkCalendarComponent } from './work-calendar.component';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { AddQuickImputationComponent } from './shared/add-quick-imputation/add-quick-imputation.component';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -23,8 +24,10 @@ import { ImputationDetailDialog } from './shared/imputation-detail/imputation-de
     MdRadioModule.forRoot(),
     MdSelectModule,
     MdInputModule,
+    MdIconModule,
     MdCheckboxModule,
     MdTabsModule,
+    FlexLayoutModule,
     WorkCalendarRoutes
   ],
   declarations: [

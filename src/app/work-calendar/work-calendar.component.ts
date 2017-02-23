@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
@@ -21,6 +21,7 @@ export class WorkCalendarComponent implements OnInit {
   addImputationDialogRef: MdDialogRef<AddImputationDialog>;
   imputationDetailDialogRef: MdDialogRef<ImputationDetailDialog>;
   calendarOptions;
+  displayDate: string;
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
 
@@ -33,6 +34,8 @@ export class WorkCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.calendarOptions = this.getCalendarOptions();
+
+    this.displayDate = this.getDisplayDate(moment());
   }
 
   toEvent (imputation: Imputation): Event {
@@ -45,7 +48,35 @@ export class WorkCalendarComponent implements OnInit {
     };
   }
 
-  getCalendarOptions () {
+  onToday () {
+    this.myCalendar.fullCalendar('today');
+
+    this.updateDisplayDate();
+  }
+
+  onPrevious () {
+    this.myCalendar.fullCalendar('prev');
+
+    this.updateDisplayDate();
+  }
+
+  onNext () {
+    this.myCalendar.fullCalendar('next');
+
+    this.updateDisplayDate();
+  }
+
+  private updateDisplayDate () {
+    let date: any = this.myCalendar.fullCalendar('getDate');
+
+    this.displayDate = this.getDisplayDate(date as moment.Moment);
+  }
+
+  private getDisplayDate (date: moment.Moment): string {
+    return date.format('MMMM YYYY');
+  }
+
+  private getCalendarOptions () {
     return {
       locale        : 'fr',
       height        : 'parent',

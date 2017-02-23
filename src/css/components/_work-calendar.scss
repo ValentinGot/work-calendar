@@ -19,8 +19,9 @@ $more-color: #4A4A4A;
 
 // Header
 .fc-toolbar.fc-header-toolbar {
+  display: none;
   position: relative;
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
   height: $header-height;

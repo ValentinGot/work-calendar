@@ -1,1 +1,27 @@
+<nav fxLayout="row">
+  <div fxFlex="25%" fxLayoutAlign="start center" class="nav-left">{{ displayDate }}</div>
+
+  <div fxFlex="50%" fxLayoutAlign="center center"  class="nav-center">
+    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" (click)="onToday()">
+      <md-icon>today</md-icon>
+      <span>Auj.</span>
+    </div>
+    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" (click)="onPrevious()">
+      <md-icon>chevron_left</md-icon>
+      <span>Prev.</span>
+    </div>
+    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" (click)="onNext()">
+      <md-icon>chevron_right</md-icon>
+      <span>Suiv.</span>
+    </div>
+  </div>
+
+  <div fxFlex="25%" fxLayoutAlign="end center"  class="nav-right">
+    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" [routerLink]="[ '/settings/projects' ]">
+      <md-icon>settings</md-icon>
+      <span>Param.</span>
+    </div>
+  </div>
+</nav>
+
 <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
