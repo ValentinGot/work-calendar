@@ -2,17 +2,17 @@
 //  Tabs
 //----------------------------------------
 
-.md-tab-body-wrapper {
+.mat-tab-body-wrapper {
   padding: 15px 0;
 }
 
-md-tab-body.md-tab-body-active {
-  overflow: hidden !important;
-}
+//md-tab-body.mat-tab-body-active {
+//  overflow: hidden !important;
+//}
 
 //  Add imputation dialog
 //----------------------------------------
 
-.add-imputation-dialog-tabs .md-tab-body-wrapper {
+.add-imputation-dialog-tabs .mat-tab-body-wrapper {
   padding: 24px;
 }
