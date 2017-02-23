@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject, EventEmitter, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 
+import { AddImputation } from '../add-imputation/add-imputation.class';
 import { ProjectInterface } from '../../../shared/project/project.interface';
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
@@ -15,7 +16,7 @@ import { SnackbarService } from '../../../shared/snackbar.service';
   templateUrl: './add-quick-imputation.component.html',
   styleUrls: ['./add-quick-imputation.component.scss']
 })
-export class AddQuickImputationComponent implements OnInit {
+export class AddQuickImputationComponent extends AddImputation implements OnInit {
   @Input() date: any;
   @Input() dialogRef: MdDialogRef<AddImputationDialog>;
 
@@ -25,16 +26,12 @@ export class AddQuickImputationComponent implements OnInit {
 
   @ViewChild('quickImputationForm') quickImputationForm: NgForm;
 
-  $onSubmit: EventEmitter<boolean>;
-
   constructor(
     @Inject(ProjectService) private projectService: ProjectInterface,
     private imputationService: ImputationService,
     private formBuilder: FormBuilder,
     private snackBar: SnackbarService
-  ) {
-    this.$onSubmit = new EventEmitter<boolean>();
-  }
+  ) { super(); }
 
   ngOnInit() {
     this.projectService.getAll().subscribe((projects) => this.projects = projects);
