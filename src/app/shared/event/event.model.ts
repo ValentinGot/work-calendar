@@ -7,5 +7,7 @@ export interface Event {
   start: moment.Moment,
   end: moment.Moment,
   color: string,
-  imputation: Imputation
+  imputation: Imputation,
+  className?: string,
+  twinEvent?: Event
 }

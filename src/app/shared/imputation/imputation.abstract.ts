@@ -2,6 +2,8 @@ import { Observable } from 'rxjs';
 
 import { Imputation, DayTime } from './imputation.model';
 import { Project } from '../project/project.model';
+import * as moment from 'moment';
+
 
 export abstract class ImputationAbstract {
 
@@ -15,9 +17,13 @@ export abstract class ImputationAbstract {
 
   abstract exists (imputation: Imputation): Observable<Boolean>;
 
-  abstract update (id: string, imputation: Imputation): Observable<Imputation>;
+  abstract update (imputations: Array<Imputation>): Observable<Imputation[]>;
 
-  abstract remove (id: string): Observable<void>;
+  abstract updateOne (id: string, imputation: Imputation): Observable<Imputation>;
+
+  abstract removeOne (id: string): Observable<void>;
+
+  abstract remove (ids: Array<string>): Observable<void[]>
 
   public make (date: any, dayTime: DayTime, project: Project, comment?: string): Imputation {
     return {
@@ -28,29 +34,29 @@ export abstract class ImputationAbstract {
     };
   }
 
-  public getStartTime (date: any, dayTime: DayTime) {
+  public getStartTime (date: any, dayTime: DayTime): number {
     let dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {
       case DayTime.AM:
       default:
-        return `${dateString}T09:00:00`;
+        return parseInt(moment(`${dateString}T09:00:00`).format('x'));
 
       case DayTime.PM:
-        return `${dateString}T14:00:00`;
+        return parseInt(moment(`${dateString}T14:00:00`).format('x'));
     }
   }
 
-  public getEndTime (date: any, dayTime: DayTime) {
+  public getEndTime (date: any, dayTime: DayTime): number {
     let dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {
       case DayTime.AM:
       default:
-        return `${dateString}T12:00:00`;
+        return parseInt(moment(`${dateString}T12:00:00`).format('x'));
 
       case DayTime.PM:
-        return `${dateString}T18:00:00`;
+        return parseInt(moment(`${dateString}T18:00:00`).format('x'));
     }
   }
 

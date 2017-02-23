@@ -44,7 +44,8 @@ export class WorkCalendarComponent implements OnInit {
       start     : moment(imputation.start),
       end       : moment(imputation.end),
       color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
-      imputation: imputation
+      imputation: imputation,
+      className : ''
     };
   }
 
@@ -85,6 +86,28 @@ export class WorkCalendarComponent implements OnInit {
   }
 
   private getCalendarOptions () {
+  mergeDayEvents (events: Array<Event>) {
+    events.forEach((event: Event) => {
+      let findEvent = events.find((eventf: Event) => {
+        return moment(event.start).format('ddd, ll') === moment(eventf.start).format('ddd, ll') &&
+          event.imputation.project._id === eventf.imputation.project._id &&
+          event.imputation._id !== eventf.imputation._id;
+      });
+      if (findEvent) {
+        if (moment(event.imputation.start).format('A') === 'AM') {
+          findEvent.start = event.start;
+        } else {
+          findEvent.end = event.end;
+        }
+        findEvent.twinEvent = event;
+        findEvent.className = 'full-day';
+        events.splice(events.indexOf(event), 1);
+      }
+    });
+    return events;
+  }
+
+  getCalendarOptions () {
     return {
       locale        : 'fr',
       height        : 'parent',
@@ -97,7 +120,7 @@ export class WorkCalendarComponent implements OnInit {
 
         this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]|undefined) => {
           if (imputations !== undefined) {
-            this.myCalendar.fullCalendar('renderEvents', imputations.map((imputation) => this.toEvent(imputation)));
+            this.myCalendar.fullCalendar('refetchEvents');
           }
         });
       },
@@ -108,18 +131,30 @@ export class WorkCalendarComponent implements OnInit {
         this.imputationDetailDialogRef.afterClosed().subscribe((event: Event|undefined) => {
           if (event !== undefined) {
             this.myCalendar.fullCalendar('removeEvents', event._id);
+
           }
         });
       },
-      eventDrop     : (event: Event) => {
+      eventDrop     : (event: Event, delta) => {
         let dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM: DayTime.PM;
+        let eventsToUpdate: Array<Imputation> = [event.imputation];
         event.imputation.start = this.imputationService.getStartTime(event.start, dayTime);
         event.imputation.end = this.imputationService.getEndTime(event.end, dayTime);
-        this.imputationService.update(event.imputation._id, event.imputation).subscribe(
-          () => {},
+        if (event.twinEvent) {
+          let twinImputation: Imputation = event.twinEvent.imputation;
+          twinImputation.start += delta._days * 86400000;
+          twinImputation.end += delta._days * 86400000;
+          eventsToUpdate.push(twinImputation);
+        }
+
+        this.imputationService.update(eventsToUpdate).subscribe(
+          () => this.myCalendar.fullCalendar('refetchEvents'),
           (err) => this.snackBar.error(err));
+
       },
-      events        : (start, end, timezone, cb) => this.imputationService.getAll().subscribe((imputations) => cb(imputations.map((imputation) => this.toEvent(imputation))))
+      events        : (start, end, timezone, cb) => {
+        this.imputationService.getAllRange(start, end).subscribe((imputations) => cb(this.mergeDayEvents(imputations.map((imputation) => this.toEvent(imputation)))));
+      }
     };
   }
 

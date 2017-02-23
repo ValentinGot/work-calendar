@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
+import * as moment from 'moment';
 
 import { ImputationAbstract } from './imputation.abstract';
-import { Imputation } from './imputation.model';
+import {Imputation, DayTime} from './imputation.model';
 
 @Injectable()
 export class ImputationService extends ImputationAbstract {
@@ -22,6 +23,32 @@ export class ImputationService extends ImputationAbstract {
   public getAll (): Observable<Imputation[]> {
     return Observable.create((observer) => {
       this.imputations.find({}).exec((err, imputations) => {
+        if (err) {
+          observer.error(err);
+        }
+
+        observer.next(imputations);
+        observer.complete();
+      });
+    });
+  }
+
+  public getAllRange (start: moment.Moment, end: moment.Moment): Observable<Imputation[]> {
+    return Observable.create((observer) => {
+      this.imputations.find({start: {$gt: parseInt(start.format('x')), $lt: parseInt(end.format('x')) } }).exec((err, imputations) => {
+        if (err) {
+          observer.error(err);
+        }
+
+        observer.next(imputations);
+        observer.complete();
+      });
+    });
+  }
+
+  public getForDay (day: moment.Moment): Observable<Imputation[]> {
+    return Observable.create((observer) => {
+      this.imputations.find({start: {$in: [this.getStartTime(day, DayTime.AM), this.getStartTime(day, DayTime.PM)] } }).exec((err, imputations) => {
         if (err) {
           observer.error(err);
         }
@@ -81,7 +108,11 @@ export class ImputationService extends ImputationAbstract {
     });
   }
 
-  public update (id: string, imputation: Imputation): Observable<Imputation> {
+  public update (imputations: Array<Imputation>) {
+    return Observable.forkJoin(imputations.map((imputation) => this.updateOne(imputation._id, imputation)));
+  }
+
+  public updateOne (id: string, imputation: Imputation): Observable<Imputation> {
     return Observable.create((observer) => {
       this.imputations.update({ _id: id }, imputation, (err) => {
         if (err) {
@@ -94,7 +125,11 @@ export class ImputationService extends ImputationAbstract {
     });
   }
 
-  public remove (id: string): Observable<void> {
+  public remove (ids: Array<string>): Observable<void[]> {
+    return Observable.forkJoin(ids.map((id) => this.removeOne(id)));
+  }
+
+  public removeOne (id: string): Observable<void> {
     return Observable.create((observer) => {
       this.imputations.remove({ _id: id }, (err) => {
         if (err) {

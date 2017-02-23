@@ -2,8 +2,8 @@ import { Project } from '../project/project.model';
 
 export interface Imputation {
   _id?: string,
-  start: string,
-  end?: string,
+  start: number,
+  end?: number,
   project: Project,
   comment?: string
 }
