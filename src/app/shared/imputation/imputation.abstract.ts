@@ -13,6 +13,8 @@ export abstract class ImputationAbstract {
 
   abstract createOne (imputation: Imputation): Observable<Imputation>;
 
+  abstract exists (imputation: Imputation): Observable<Boolean>;
+
   abstract update (id: string, imputation: Imputation): Observable<Imputation>;
 
   abstract remove (id: string): Observable<void>;

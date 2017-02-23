@@ -21,7 +21,7 @@ export class ProjectLocalService implements ProjectInterface {
     return Observable.create((observer) => {
       this.projects.find({}).sort({ code: 1 }).exec((err, projects) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(projects);
@@ -34,7 +34,7 @@ export class ProjectLocalService implements ProjectInterface {
     return Observable.create((observer) => {
       this.projects.find({ _id: id }, (err, project) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(project);
@@ -47,7 +47,7 @@ export class ProjectLocalService implements ProjectInterface {
     return Observable.create((observer) => {
       this.projects.insert(project, (err, created) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(created);
@@ -60,7 +60,7 @@ export class ProjectLocalService implements ProjectInterface {
     return Observable.create((observer) => {
       this.projects.update({ _id: id }, project, (err) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(project);
@@ -73,7 +73,7 @@ export class ProjectLocalService implements ProjectInterface {
     return Observable.create((observer) => {
       this.projects.remove({ _id: id }, (err) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.complete();

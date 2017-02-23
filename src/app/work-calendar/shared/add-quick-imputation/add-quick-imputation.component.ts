@@ -8,6 +8,7 @@ import { Project } from '../../../shared/project/project.model';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
 import { Imputation, DayTime } from '../../../shared/imputation/imputation.model';
 import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
+import { SnackbarService } from '../../../shared/snackbar.service';
 
 @Component({
   selector: 'wo-add-quick-imputation',
@@ -29,7 +30,8 @@ export class AddQuickImputationComponent implements OnInit {
   constructor(
     @Inject(ProjectService) private projectService: ProjectInterface,
     private imputationService: ImputationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: SnackbarService
   ) {
     this.$onSubmit = new EventEmitter<boolean>();
   }
@@ -62,7 +64,9 @@ export class AddQuickImputationComponent implements OnInit {
 
       this.submitted = false;
 
-      this.imputationService.create(...imputations).subscribe((imputations) => this.dialogRef.close(imputations));
+      this.imputationService.create(...imputations).subscribe(
+        (imputations) => this.dialogRef.close(imputations),
+        (err) => this.snackBar.error(err));
     }
   }
 

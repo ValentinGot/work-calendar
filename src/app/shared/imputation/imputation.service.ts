@@ -23,7 +23,7 @@ export class ImputationService extends ImputationAbstract {
     return Observable.create((observer) => {
       this.imputations.find({}).exec((err, imputations) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(imputations);
@@ -36,7 +36,7 @@ export class ImputationService extends ImputationAbstract {
     return Observable.create((observer) => {
       this.imputations.find({ _id: id }, (err, imputation) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(imputation);
@@ -51,12 +51,31 @@ export class ImputationService extends ImputationAbstract {
 
   public createOne (imputation: Imputation): Observable<Imputation> {
     return Observable.create((observer) => {
-      this.imputations.insert(imputation, (err, created) => {
+      this.exists(imputation).subscribe((exists) => {
+        if (!exists) {
+          this.imputations.insert(imputation, (err, created) => {
+            if (err) {
+              observer.error(err);
+            }
+
+            observer.next(created);
+            observer.complete();
+          });
+        } else {
+          observer.error(`There is already an imputation at this day time`);
+        }
+      });
+    });
+  }
+
+  public exists (imputation: Imputation): Observable<Boolean> {
+    return Observable.create((observer) => {
+      this.imputations.find({ start: imputation.start }, (err, imputations) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
-        observer.next(created);
+        observer.next(imputations.length > 0);
         observer.complete();
       });
     });
@@ -66,7 +85,7 @@ export class ImputationService extends ImputationAbstract {
     return Observable.create((observer) => {
       this.imputations.update({ _id: id }, imputation, (err) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.next(imputation);
@@ -79,7 +98,7 @@ export class ImputationService extends ImputationAbstract {
     return Observable.create((observer) => {
       this.imputations.remove({ _id: id }, (err) => {
         if (err) {
-          observer.throw(err);
+          observer.error(err);
         }
 
         observer.complete();
