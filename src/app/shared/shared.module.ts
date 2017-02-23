@@ -2,8 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MdSnackBarModule } from '@angular/material';
 
-
-import { EventService } from './event/event.service';
+import { ImputationService } from './imputation/imputation.service';
 import { ProjectService } from './project/project.service';
 import { ProjectLocalService } from './project/project-local.service';
 import { SnackbarService } from './snackbar.service';
@@ -20,7 +19,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        EventService,
+        ImputationService,
         {
           provide: ProjectService,
           useClass: ProjectLocalService

@@ -1,34 +1,34 @@
 import { Observable } from 'rxjs';
 
-import { Event, DayTime } from './event.model';
+import { Imputation, DayTime } from './imputation.model';
 import { Project } from '../project/project.model';
 
-export abstract class EventAbstract {
+export abstract class ImputationAbstract {
 
-  abstract getAll (): Observable<Event[]>;
+  abstract getAll (): Observable<Imputation[]>;
 
-  abstract get (id: number): Observable<Event>;
+  abstract get (id: number): Observable<Imputation>;
 
-  abstract create (...events: Event[]): Observable<Event[]>;
+  abstract create (...imputations: Imputation[]): Observable<Imputation[]>;
 
-  abstract createOne (event: Event): Observable<Event>;
+  abstract createOne (imputation: Imputation): Observable<Imputation>;
 
-  abstract update (id: string, event: Event): Observable<Event>;
+  abstract update (id: string, imputation: Imputation): Observable<Imputation>;
 
   abstract remove (id: string): Observable<void>;
 
-  public make (date: any, dayTime: DayTime, project: Project, comment?: string): Event {
-    let event: Event = {
+  public make (date: any, dayTime: DayTime, project: Project, comment?: string): Imputation {
+    let imputation: Imputation = {
       start: this.getStartTime(date, dayTime),
       end: this.getEndTime(date, dayTime),
       project: project,
     };
 
     if (comment) {
-      event.comment = comment;
+      imputation.comment = comment;
     }
 
-    return event;
+    return imputation;
   }
 
   public getStartTime (date: any, dayTime: DayTime) {

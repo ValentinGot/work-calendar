@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { WorkType } from '../../../shared/work-type/work-type.model';
-import { EventService } from '../../../shared/event/event.service';
-import { SnackbarService } from '../../../shared/snackbar.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Event } from '../../../shared/event/event.model';
 
 @Component({
   selector: 'wo-add-work-dialog',
@@ -23,8 +20,6 @@ export class AddWorkDialog implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private eventService: EventService,
-    private snackbarService: SnackbarService,
     private formBuilder: FormBuilder,
     public dialogRef: MdDialogRef<AddWorkDialog>
   ) {}
@@ -52,25 +47,25 @@ export class AddWorkDialog implements OnInit {
     });
   }
 
-  onSubmit (form) {
-    if (this.isProject() && form.value.project === null) {
-      this.snackbarService.error('Vous devez sélectionner un projet');
-    } else {
-      this.eventService.exists(this.date.format('YYYY-MM-DD'), form.value.dayTime).subscribe((exists) => {
-        if (exists) {
-          this.snackbarService.error('Une imputation est déjà remplie pour cette période');
-        } else {
-          let event: Event = {
-            title: `${form.value.project.code} - ${form.value.project.name}`,
-            start: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '09' : '14'}:00:00`,
-            end: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '12' : '18'}:00:00`
-          };
-
-          this.eventService.post(event).subscribe(() => this.dialogRef.close(event));
-        }
-      });
-    }
-  }
+  // onSubmit (form) {
+  //   if (this.isProject() && form.value.project === null) {
+  //     this.snackbarService.error('Vous devez sélectionner un projet');
+  //   } else {
+  //     this.eventService.exists(this.date.format('YYYY-MM-DD'), form.value.dayTime).subscribe((exists) => {
+  //       if (exists) {
+  //         this.snackbarService.error('Une imputation est déjà remplie pour cette période');
+  //       } else {
+  //         let event: Event = {
+  //           title: `${form.value.project.code} - ${form.value.project.name}`,
+  //           start: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '09' : '14'}:00:00`,
+  //           end: `${this.date.format('YYYY-MM-DD')}T${form.value.dayTime === 'am' ? '12' : '18'}:00:00`
+  //         };
+  //
+  //         this.eventService.post(event).subscribe(() => this.dialogRef.close(event));
+  //       }
+  //     });
+  //   }
+  // }
 
   capFirst (str) {
     return str.charAt(0).toUpperCase() + str.slice(1);

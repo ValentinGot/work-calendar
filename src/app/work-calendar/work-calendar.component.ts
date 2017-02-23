@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
-import { EventService } from '../shared/event/event.service';
-import { EventColors, Event } from '../shared/event/event.model';
+import { ImputationService } from '../shared/imputation/imputation.service';
+import { ImputationColors, Imputation } from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 
 @Component({
@@ -21,20 +21,20 @@ export class WorkCalendarComponent implements OnInit {
 
   constructor(
     private dialog: MdDialog,
-    private eventService: EventService,
+    private imputationService: ImputationService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.calendarOptions = this.getCalendarOptions();
 
-    this.eventService.getAll().subscribe((events) => this.calendarOptions.events = events.map((event) => this.addColor(event)));
+    // this.eventService.getAll().subscribe((events) => this.calendarOptions.events = events.map((event) => this.addColor(event)));
   }
 
-  addColor (event: Event) {
-    event.color = (moment(event.start).format('A') === 'AM') ? EventColors.AM : EventColors.PM;
+  addColor (imputation: Imputation) {
+    imputation.color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
 
-    return event;
+    return imputation;
   }
 
   getCalendarOptions () {
@@ -67,10 +67,11 @@ export class WorkCalendarComponent implements OnInit {
         this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
         this.addImputationDialogRef.componentInstance.date = date;
 
-        this.addImputationDialogRef.afterClosed().subscribe((event: Event) => {
-          if (event !== undefined) {
-            this.myCalendar.fullCalendar('renderEvent', this.addColor(event));
-          }
+        this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]) => {
+          console.log('CLOSED WITH IMPUTATIONS', imputations);
+          // if (event !== undefined) {
+          //   this.myCalendar.fullCalendar('renderEvent', this.addColor(event));
+          // }
         });
       },
       eventclick    : (event) => {

@@ -3,55 +3,55 @@ import { Observable } from 'rxjs';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
 
-import { EventAbstract } from './event.abstract';
-import { Event } from './event.model';
+import { ImputationAbstract } from './imputation.abstract';
+import { Imputation } from './imputation.model';
 
 @Injectable()
-export class EventService extends EventAbstract {
-  events: NeDBDataStore;
+export class ImputationService extends ImputationAbstract {
+  imputations: NeDBDataStore;
 
   constructor () {
     super();
 
-    this.events = new Datastore({
-      filename: './events.db',
+    this.imputations = new Datastore({
+      filename: './imputations.db',
       autoload: true
     });
   }
 
-  public getAll (): Observable<Event[]> {
+  public getAll (): Observable<Imputation[]> {
     return Observable.create((observer) => {
-      this.events.find({}).exec((err, events) => {
+      this.imputations.find({}).exec((err, imputations) => {
         if (err) {
           observer.throw(err);
         }
 
-        observer.next(events);
+        observer.next(imputations);
         observer.complete();
       });
     });
   }
 
-  public get (id: number): Observable<Event> {
+  public get (id: number): Observable<Imputation> {
     return Observable.create((observer) => {
-      this.events.find({ _id: id }, (err, event) => {
+      this.imputations.find({ _id: id }, (err, imputation) => {
         if (err) {
           observer.throw(err);
         }
 
-        observer.next(event);
+        observer.next(imputation);
         observer.complete();
       });
     });
   }
 
-  public create (...events: Event[]): Observable<Event[]> {
-    return Observable.forkJoin(events.map((event) => this.createOne(event)));
+  public create (...imputations: Imputation[]): Observable<Imputation[]> {
+    return Observable.forkJoin(imputations.map((imputation) => this.createOne(imputation)));
   }
 
-  public createOne (event: Event): Observable<Event> {
+  public createOne (imputation: Imputation): Observable<Imputation> {
     return Observable.create((observer) => {
-      this.events.insert(event, (err, created) => {
+      this.imputations.insert(imputation, (err, created) => {
         if (err) {
           observer.throw(err);
         }
@@ -62,14 +62,14 @@ export class EventService extends EventAbstract {
     });
   }
 
-  public update (id: string, event: Event): Observable<Event> {
+  public update (id: string, imputation: Imputation): Observable<Imputation> {
     return Observable.create((observer) => {
-      this.events.update({ _id: id }, event, (err) => {
+      this.imputations.update({ _id: id }, imputation, (err) => {
         if (err) {
           observer.throw(err);
         }
 
-        observer.next(event);
+        observer.next(imputation);
         observer.complete();
       });
     });
@@ -77,7 +77,7 @@ export class EventService extends EventAbstract {
 
   public remove (id: string): Observable<void> {
     return Observable.create((observer) => {
-      this.events.remove({ _id: id }, (err) => {
+      this.imputations.remove({ _id: id }, (err) => {
         if (err) {
           observer.throw(err);
         }

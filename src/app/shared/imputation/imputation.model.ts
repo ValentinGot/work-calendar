@@ -1,6 +1,6 @@
 import { Project } from '../project/project.model';
 
-export interface Event {
+export interface Imputation {
   _id?: string,
   start: string,
   end?: string,
@@ -13,7 +13,7 @@ export enum DayTime {
   AM, PM
 }
 
-export const EventColors = {
+export const ImputationColors = {
   AM: '#ED7F68',
   PM: '#86D286'
 };
