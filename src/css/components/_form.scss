@@ -12,11 +12,15 @@ form.dark-bg {
     color: $input-color;
   }
 
-  .md-input-placeholder {
+  .mat-input-placeholder {
     color: $input-color;
+
+    &.mat-focused {
+      color: map-get($theme-app-primary, 500);
+    }
   }
 
-  .md-input-underline {
+  .mat-input-underline {
     border-color: $input-color;
   }
 

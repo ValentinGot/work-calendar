@@ -1,20 +1,20 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dark-bg" novalidate>
   <md-input-container>
-    <input md-input placeholder="ID de projet" formControlName="code" />
+    <input mdInput placeholder="ID de projet" formControlName="code" />
   </md-input-container>
   <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.code.dirty || submitted) && !form.controls.code.valid">
     <p [hidden]="!form.controls.code.errors.required">Le champ ne peut pas être vide</p>
   </div>
 
   <md-input-container>
-    <input md-input placeholder="Client" formControlName="client" />
+    <input mdInput placeholder="Client" formControlName="client" />
   </md-input-container>
   <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.client.dirty || submitted) && !form.controls.client.valid">
     <p [hidden]="!form.controls.client.errors.required">Le champ ne peut pas être vide</p>
   </div>
 
   <md-input-container>
-    <input md-input placeholder="Projet" formControlName="name" />
+    <input mdInput placeholder="Projet" formControlName="name" />
   </md-input-container>
   <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.name.dirty || submitted) && !form.controls.name.valid">
     <p [hidden]="!form.controls.name.errors.required">Le champ ne peut pas être vide</p>
