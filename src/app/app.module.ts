@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 @NgModule({
   imports: [
     BrowserModule,
-    FlexLayoutModule,
     SharedModule.forRoot(),
     WorkCalendarModule,
     SettingsModule,
