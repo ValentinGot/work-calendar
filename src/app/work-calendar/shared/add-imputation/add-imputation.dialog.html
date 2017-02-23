@@ -3,7 +3,7 @@
 <div md-dialog-content class="add-imputation-dialog-content dialog-content-no-padding">
   <md-tab-group class="add-imputation-dialog-tabs" (selectChange)="onTabChanged($event)">
     <md-tab label="Rapide">
-      <wo-add-quick-imputation #quickImputation></wo-add-quick-imputation>
+      <wo-add-quick-imputation [date]="date" [dialogRef]="dialogRef" #quickImputation></wo-add-quick-imputation>
     </md-tab>
 
     <md-tab label="Complet">Content 2</md-tab>
