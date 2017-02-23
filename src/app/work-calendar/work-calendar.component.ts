@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { ImputationService } from '../shared/imputation/imputation.service';
 import { ImputationColors, Imputation } from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
+import { Event } from '../shared/event/event.model';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -28,13 +29,16 @@ export class WorkCalendarComponent implements OnInit {
   ngOnInit() {
     this.calendarOptions = this.getCalendarOptions();
 
-    // this.eventService.getAll().subscribe((events) => this.calendarOptions.events = events.map((event) => this.addColor(event)));
+    this.imputationService.getAll().subscribe((imputations) => this.myCalendar.fullCalendar('renderEvents', imputations.map((imputation) => this.toEvent(imputation))));
   }
 
-  addColor (imputation: Imputation) {
-    imputation.color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
-
-    return imputation;
+  toEvent (imputation: Imputation): Event {
+    return {
+      title: `${imputation.project.code} - ${imputation.project.name}`,
+      start: imputation.start,
+      end  : imputation.end,
+      color: (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM
+    };
   }
 
   getCalendarOptions () {
@@ -68,10 +72,7 @@ export class WorkCalendarComponent implements OnInit {
         this.addImputationDialogRef.componentInstance.date = date;
 
         this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]) => {
-          console.log('CLOSED WITH IMPUTATIONS', imputations);
-          // if (event !== undefined) {
-          //   this.myCalendar.fullCalendar('renderEvent', this.addColor(event));
-          // }
+          this.myCalendar.fullCalendar('renderEvents', imputations.map((imputation) => this.toEvent(imputation)));
         });
       },
       eventclick    : (event) => {

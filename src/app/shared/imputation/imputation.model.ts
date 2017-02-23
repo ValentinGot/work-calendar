@@ -4,7 +4,6 @@ export interface Imputation {
   _id?: string,
   start: string,
   end?: string,
-  color?: string,
   project: Project,
   comment?: string
 }
