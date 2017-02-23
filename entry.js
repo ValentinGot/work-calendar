@@ -10,14 +10,11 @@ function createWindow () {
     width : 1000,
     height: 800,
     title : 'Work Calendar',
-    icon  : 'src/favicon.png'
+    icon  : 'favicon.png'
   });
 
   // and load the index.html of the app.
   win.loadURL(`file://${__dirname}/index.html`);
-
-  // Open the DevTools.
-  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
