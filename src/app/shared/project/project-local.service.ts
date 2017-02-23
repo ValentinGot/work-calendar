@@ -12,7 +12,7 @@ export class ProjectLocalService implements ProjectInterface {
 
   constructor () {
     this.projects = new Datastore({
-      filename: './projects.db',
+      filename: 'projects',
       autoload: true
     });
   }

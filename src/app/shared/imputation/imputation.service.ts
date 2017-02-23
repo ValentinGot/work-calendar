@@ -15,7 +15,7 @@ export class ImputationService extends ImputationAbstract {
     super();
 
     this.imputations = new Datastore({
-      filename: './imputations.db',
+      filename: 'imputations',
       autoload: true
     });
   }
