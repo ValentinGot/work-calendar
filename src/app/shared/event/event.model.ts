@@ -1,10 +1,16 @@
+import { Project } from '../project/project.model';
+
 export interface Event {
-  id?: number,
-  title: string,
+  _id?: string,
   start: string,
   end?: string,
   color?: string,
+  project: Project,
   comment?: string
+}
+
+export enum DayTime {
+  AM, PM
 }
 
 export const EventColors = {

@@ -20,10 +20,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        {
-          provide: EventService,
-          useClass: EventService
-        },
+        EventService,
         {
           provide: ProjectService,
           useClass: ProjectLocalService

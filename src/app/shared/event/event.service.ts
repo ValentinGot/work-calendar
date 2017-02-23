@@ -1,59 +1,89 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
+import * as NeDBDataStore from 'nedb';
+import * as Datastore from 'nedb';
 
-import { HttpResponseHandler } from '../http-response-handler';
-import { environment } from '../../../environments/environment';
+import { EventAbstract } from './event.abstract';
 import { Event } from './event.model';
 
 @Injectable()
-export class EventService extends HttpResponseHandler {
-  private baseUrl: string = '/events';
-  private url: string;
+export class EventService extends EventAbstract {
+  events: NeDBDataStore;
 
-  constructor (
-    private http: Http
-  ) {
+  constructor () {
     super();
 
-    this.url = `${environment.url}${this.baseUrl}`;
+    this.events = new Datastore({
+      filename: './events.db',
+      autoload: true
+    });
   }
 
   public getAll (): Observable<Event[]> {
-    return this.http.get(this.url)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return Observable.create((observer) => {
+      this.events.find({}).exec((err, events) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.next(events);
+        observer.complete();
+      });
+    });
   }
 
-  public exists (day: string, dayTime: string): Observable<Boolean> {
-    let time = '';
+  public get (id: number): Observable<Event> {
+    return Observable.create((observer) => {
+      this.events.find({ _id: id }, (err, event) => {
+        if (err) {
+          observer.throw(err);
+        }
 
-    switch (dayTime) {
-      case 'am':
-        time = '09:00:00';
-        break;
-
-      case 'pm':
-        time = '14:00:00';
-        break;
-    }
-
-    return this.http.get(this.url, {
-      search: `start=${day}T${time}`
-    })
-      .map(this.extractData)
-      .map((events) => events.length >= 1)
-      .catch(this.handleError);
+        observer.next(event);
+        observer.complete();
+      });
+    });
   }
 
-  public post (...events: Event[]) {
-    return Observable.forkJoin(events.map((event) => this.singlePost(event)));
+  public create (...events: Event[]): Observable<Event[]> {
+    return Observable.forkJoin(events.map((event) => this.createOne(event)));
   }
 
-  public singlePost (event: Event): Observable<Event> {
-    return this.http.post(this.url, event)
-      .map(this.extractData)
-      .catch(this.handleError);
+  public createOne (event: Event): Observable<Event> {
+    return Observable.create((observer) => {
+      this.events.insert(event, (err, created) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.next(created);
+        observer.complete();
+      });
+    });
   }
 
+  public update (id: string, event: Event): Observable<Event> {
+    return Observable.create((observer) => {
+      this.events.update({ _id: id }, event, (err) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.next(event);
+        observer.complete();
+      });
+    });
+  }
+
+  public remove (id: string): Observable<void> {
+    return Observable.create((observer) => {
+      this.events.remove({ _id: id }, (err) => {
+        if (err) {
+          observer.throw(err);
+        }
+
+        observer.complete();
+      });
+    });
+  }
 }
