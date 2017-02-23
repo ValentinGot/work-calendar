@@ -45,8 +45,7 @@ export class WorkCalendarComponent implements OnInit {
       end       : moment(imputation.end),
       color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
       imputation: imputation,
-      className : '',
-      allDay    : false
+      className : ''
     };
   }
 
@@ -101,7 +100,6 @@ export class WorkCalendarComponent implements OnInit {
         }
         findEvent.twinEvent = event;
         findEvent.className = 'full-day';
-        findEvent.allDay = true;
         events.splice(events.indexOf(event), 1);
       }
     });
@@ -114,7 +112,14 @@ export class WorkCalendarComponent implements OnInit {
       height        : 'parent',
       fixedWeekCount: false,
       editable      : true,
-      timeFormat    : 'A',
+      timeFormat    : ' ',
+      eventRender: function(event: Event, el) {
+        if (!event.twinEvent) {
+          el.find('.fc-title').html(`<b>${moment(event.imputation.start).format('A')}</b> ${event.title}`);
+        } else {
+          el.find('.fc-title').html(event.title);
+        }
+      },
       dayClick      : (date) => {
         this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
         this.addImputationDialogRef.componentInstance.date = date;
