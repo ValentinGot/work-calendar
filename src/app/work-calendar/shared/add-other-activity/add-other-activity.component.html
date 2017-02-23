@@ -1,3 +1,5 @@
-<p>
-  add-other-activity works!
-</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" #otherActivityForm="ngForm" novalidate>
+  <md-radio-group class="activities-group" formControlName="activity" fxLayout="column">
+    <md-radio-button *ngFor="let activity of activities" [value]="activity">{{ activity.name }}</md-radio-button>
+  </md-radio-group>
+</form>
