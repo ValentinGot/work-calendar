@@ -28,6 +28,10 @@ $modal-title-height: 50px;
     &.dialog-content-no-padding {
       padding: 0;
     }
+
+    &.dialog-content-top-padding {
+      padding: 24px 24px 0 24px;
+    }
   }
 
   .dialog-actions-right {
@@ -41,6 +45,7 @@ $modal-title-height: 50px;
 //  Add imputation dialog
 //----------------------------------------
 
-.add-imputation-dialog-content {
+.add-imputation-dialog-content,
+.imputation-detail-dialog-content {
   min-width: 400px;
 }

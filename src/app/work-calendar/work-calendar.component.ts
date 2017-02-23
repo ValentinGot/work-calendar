@@ -8,6 +8,7 @@ import { ImputationService } from '../shared/imputation/imputation.service';
 import { ImputationColors, Imputation } from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
+import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -16,6 +17,7 @@ import { Event } from '../shared/event/event.model';
 })
 export class WorkCalendarComponent implements OnInit {
   addImputationDialogRef: MdDialogRef<AddImputationDialog>;
+  imputationDetailDialogRef: MdDialogRef<ImputationDetailDialog>;
   calendarOptions;
 
   @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
@@ -77,7 +79,8 @@ export class WorkCalendarComponent implements OnInit {
         });
       },
       eventClick    : (event: Event) => {
-        console.log(event);
+        this.imputationDetailDialogRef = this.dialog.open(ImputationDetailDialog);
+        this.imputationDetailDialogRef.componentInstance.imputation = event.imputation;
       },
       events        : (start, end, timezone, cb) => this.imputationService.getAll().subscribe((imputations) => cb(imputations.map((imputation) => this.toEvent(imputation))))
     };
