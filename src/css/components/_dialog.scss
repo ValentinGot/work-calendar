@@ -30,6 +30,12 @@ $modal-title-height: 50px;
     }
   }
 
+  .dialog-actions-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
 }
 
 //  Add imputation dialog
