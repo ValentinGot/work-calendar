@@ -5,10 +5,12 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
-import { ImputationColors, Imputation } from '../shared/imputation/imputation.model';
+import {ImputationColors, Imputation, DayTime} from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
+
+import { SnackbarService } from '../shared/snackbar.service';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -25,7 +27,8 @@ export class WorkCalendarComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private imputationService: ImputationService,
-    private router: Router
+    private router: Router,
+    private snackBar: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -35,8 +38,8 @@ export class WorkCalendarComponent implements OnInit {
   toEvent (imputation: Imputation): Event {
     return {
       title     : `${imputation.project.code} - ${imputation.project.name}`,
-      start     : imputation.start,
-      end       : imputation.end,
+      start     : moment(imputation.start),
+      end       : moment(imputation.end),
       color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
       imputation: imputation
     };
@@ -47,7 +50,7 @@ export class WorkCalendarComponent implements OnInit {
       locale        : 'fr',
       height        : 'parent',
       fixedWeekCount: false,
-      editable      : false,
+      editable      : true,
       timeFormat    : 'A',
       customButtons : {
         settings: {
@@ -87,6 +90,14 @@ export class WorkCalendarComponent implements OnInit {
             this.myCalendar.fullCalendar('removeEvents', event._id);
           }
         });
+      },
+      eventDrop     : (event: Event) => {
+        let dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM: DayTime.PM;
+        event.imputation.start = this.imputationService.getStartTime(event.start, dayTime);
+        event.imputation.end = this.imputationService.getEndTime(event.end, dayTime);
+        this.imputationService.update(event.imputation._id, event.imputation).subscribe(
+          () => {},
+          (err) => this.snackBar.error(err));
       },
       events        : (start, end, timezone, cb) => this.imputationService.getAll().subscribe((imputations) => cb(imputations.map((imputation) => this.toEvent(imputation))))
     };
