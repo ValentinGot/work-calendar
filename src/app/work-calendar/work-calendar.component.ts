@@ -83,25 +83,6 @@ export class WorkCalendarComponent implements OnInit {
       fixedWeekCount: false,
       editable      : true,
       timeFormat    : 'A',
-      customButtons : {
-        settings: {
-          text : 'Param.',
-          click: () => this.router.navigate([ '/settings/projects' ])
-        }
-      },
-      header        : {
-        center: 'today,prev,next',
-        right : 'settings'
-      },
-      buttonIcons   : {
-        prev: '',
-        next: ''
-      },
-      buttonText    : {
-        today: 'Auj.',
-        prev : 'Prev.',
-        next : 'Suiv.'
-      },
       dayClick      : (date) => {
         this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
         this.addImputationDialogRef.componentInstance.date = date;
