@@ -101,6 +101,7 @@ export class ImputationService extends ImputationAbstract {
           observer.error(err);
         }
 
+        observer.next(id);
         observer.complete();
       });
     });

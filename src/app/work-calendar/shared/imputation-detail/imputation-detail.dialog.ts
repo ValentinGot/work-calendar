@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
-import { Imputation } from '../../../shared/imputation/imputation.model';
+import { ImputationService } from '../../../shared/imputation/imputation.service';
+import { Event } from '../../../shared/event/event.model';
 
 @Component({
   selector: 'wo-imputation-detail',
@@ -9,10 +10,15 @@ import { Imputation } from '../../../shared/imputation/imputation.model';
   styleUrls: ['imputation-detail.dialog.scss']
 })
 export class ImputationDetailDialog {
-  imputation: Imputation;
+  event: Event;
 
   constructor(
-    public dialogRef: MdDialogRef<ImputationDetailDialog>
+    public dialogRef: MdDialogRef<ImputationDetailDialog>,
+    private imputationService: ImputationService
   ) { }
+
+  onRemove () {
+    this.imputationService.remove(this.event.imputation._id).subscribe(() => this.dialogRef.close(this.event));
+  }
 
 }

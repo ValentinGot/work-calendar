@@ -20,17 +20,12 @@ export abstract class ImputationAbstract {
   abstract remove (id: string): Observable<void>;
 
   public make (date: any, dayTime: DayTime, project: Project, comment?: string): Imputation {
-    let imputation: Imputation = {
-      start: this.getStartTime(date, dayTime),
-      end: this.getEndTime(date, dayTime),
+    return {
+      start  : this.getStartTime(date, dayTime),
+      end    : this.getEndTime(date, dayTime),
       project: project,
+      comment: comment
     };
-
-    if (comment) {
-      imputation.comment = comment;
-    }
-
-    return imputation;
   }
 
   public getStartTime (date: any, dayTime: DayTime) {

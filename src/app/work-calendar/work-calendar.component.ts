@@ -80,7 +80,13 @@ export class WorkCalendarComponent implements OnInit {
       },
       eventClick    : (event: Event) => {
         this.imputationDetailDialogRef = this.dialog.open(ImputationDetailDialog);
-        this.imputationDetailDialogRef.componentInstance.imputation = event.imputation;
+        this.imputationDetailDialogRef.componentInstance.event = event;
+
+        this.imputationDetailDialogRef.afterClosed().subscribe((event: Event|undefined) => {
+          if (event !== undefined) {
+            this.myCalendar.fullCalendar('removeEvents', event._id);
+          }
+        });
       },
       events        : (start, end, timezone, cb) => this.imputationService.getAll().subscribe((imputations) => cb(imputations.map((imputation) => this.toEvent(imputation))))
     };
