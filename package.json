@@ -1,6 +1,6 @@
 {
   "name": "work-calendar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "angular-cli": {},
   "main": "dist/entry.js",
@@ -11,9 +11,10 @@
     "start:server": "json-server --watch db.json",
     "start:electron": "electron src/electron/entry.live.js",
     "build:production": "ng build --prod --aot",
-    "build:electron": "npm run build:production && cp src/electron/* dist/",
+    "build:electron": "npm run build:production && cp src/electron/* dist/ && cp package.json dist/",
     "electron": "npm run build:electron && electron dist/",
-    "package:linux": "electron-packager dist/ electron-explorer-$npm_package_version --out=packages --platform=linux --arch=all --overwrite",
+    "package:linux": "electron-packager dist/ work-calendar --out=packages --platform=linux --arch=all --overwrite",
+    "package:windows": "electron-packager dist/ work-calendar --out=packages --platform=win32 --arch=all --overwrite",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
