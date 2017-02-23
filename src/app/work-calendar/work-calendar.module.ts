@@ -14,7 +14,6 @@ import { WorkCalendarComponent } from './work-calendar.component';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { AddQuickImputationComponent } from './shared/add-quick-imputation/add-quick-imputation.component';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
-import { AddOtherActivityDialog } from './shared/add-other-activity/add-other-activity.dialog';
 
 @NgModule({
   imports: [
@@ -38,13 +37,11 @@ import { AddOtherActivityDialog } from './shared/add-other-activity/add-other-ac
     WorkCalendarComponent,
     AddImputationDialog,
     AddQuickImputationComponent,
-    ImputationDetailDialog,
-    AddOtherActivityDialog
+    ImputationDetailDialog
   ],
   entryComponents: [
     AddImputationDialog,
-    ImputationDetailDialog,
-    AddOtherActivityDialog
+    ImputationDetailDialog
   ]
 })
 export class WorkCalendarModule { }

@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
@@ -9,7 +8,6 @@ import { ImputationColors, Imputation, DayTime } from '../shared/imputation/impu
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
-import { AddOtherActivityDialog } from './shared/add-other-activity/add-other-activity.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 
 @Component({
@@ -19,7 +17,6 @@ import { SnackbarService } from '../shared/snackbar.service';
 })
 export class WorkCalendarComponent implements OnInit {
   addImputationDialogRef: MdDialogRef<AddImputationDialog>;
-  addOtherActivityDialogRef: MdDialogRef<AddOtherActivityDialog>;
   imputationDetailDialogRef: MdDialogRef<ImputationDetailDialog>;
   calendarOptions;
   displayDate: string;
@@ -65,14 +62,6 @@ export class WorkCalendarComponent implements OnInit {
     this.myCalendar.fullCalendar('next');
 
     this.updateDisplayDate();
-  }
-
-  onOtherActivity () {
-    this.addOtherActivityDialogRef = this.dialog.open(AddOtherActivityDialog);
-
-    this.addOtherActivityDialogRef.afterClosed().subscribe(() => {
-      // TODO Add imputation to calendar
-    });
   }
 
   private updateDisplayDate () {
