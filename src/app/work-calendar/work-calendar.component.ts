@@ -34,10 +34,11 @@ export class WorkCalendarComponent implements OnInit {
 
   toEvent (imputation: Imputation): Event {
     return {
-      title: `${imputation.project.code} - ${imputation.project.name}`,
-      start: imputation.start,
-      end  : imputation.end,
-      color: (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM
+      title     : `${imputation.project.code} - ${imputation.project.name}`,
+      start     : imputation.start,
+      end       : imputation.end,
+      color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
+      imputation: imputation
     };
   }
 
@@ -71,14 +72,15 @@ export class WorkCalendarComponent implements OnInit {
         this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
         this.addImputationDialogRef.componentInstance.date = date;
 
-        this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]) => {
-          this.myCalendar.fullCalendar('renderEvents', imputations.map((imputation) => this.toEvent(imputation)));
+        this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]|undefined) => {
+          if (imputations !== undefined) {
+            this.myCalendar.fullCalendar('renderEvents', imputations.map((imputation) => this.toEvent(imputation)));
+          }
         });
       },
-      eventclick    : (event) => {
-
-      },
-      events        : []
+      eventclick    : (event: Event) => {
+        console.log(event);
+      }
     };
   }
 
