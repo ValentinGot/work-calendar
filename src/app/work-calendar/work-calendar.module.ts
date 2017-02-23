@@ -5,6 +5,8 @@ import {
   MdDialogModule, MdButtonModule, MdRadioModule, MdSelectModule, MdInputModule,
   MdCheckboxModule, MdTabsModule, MdIconModule
 } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DatePickerModule } from 'ng2-datepicker';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
 import { WorkCalendarRoutes } from './work-calendar.route';
@@ -12,7 +14,7 @@ import { WorkCalendarComponent } from './work-calendar.component';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { AddQuickImputationComponent } from './shared/add-quick-imputation/add-quick-imputation.component';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { AddOtherActivityDialog } from './shared/add-other-activity/add-other-activity.dialog';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MdCheckboxModule,
     MdTabsModule,
     FlexLayoutModule,
+    DatePickerModule,
     WorkCalendarRoutes
   ],
   declarations: [
@@ -35,11 +38,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     WorkCalendarComponent,
     AddImputationDialog,
     AddQuickImputationComponent,
-    ImputationDetailDialog
+    ImputationDetailDialog,
+    AddOtherActivityDialog
   ],
   entryComponents: [
     AddImputationDialog,
-    ImputationDetailDialog
+    ImputationDetailDialog,
+    AddOtherActivityDialog
   ]
 })
 export class WorkCalendarModule { }

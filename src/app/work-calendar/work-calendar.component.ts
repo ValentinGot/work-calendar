@@ -5,11 +5,11 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
-import {ImputationColors, Imputation, DayTime} from '../shared/imputation/imputation.model';
+import { ImputationColors, Imputation, DayTime } from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
-
+import { AddOtherActivityDialog } from './shared/add-other-activity/add-other-activity.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 
 @Component({
@@ -19,6 +19,7 @@ import { SnackbarService } from '../shared/snackbar.service';
 })
 export class WorkCalendarComponent implements OnInit {
   addImputationDialogRef: MdDialogRef<AddImputationDialog>;
+  addOtherActivityDialogRef: MdDialogRef<AddOtherActivityDialog>;
   imputationDetailDialogRef: MdDialogRef<ImputationDetailDialog>;
   calendarOptions;
   displayDate: string;
@@ -28,7 +29,6 @@ export class WorkCalendarComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private imputationService: ImputationService,
-    private router: Router,
     private snackBar: SnackbarService
   ) { }
 
@@ -64,6 +64,14 @@ export class WorkCalendarComponent implements OnInit {
     this.myCalendar.fullCalendar('next');
 
     this.updateDisplayDate();
+  }
+
+  onOtherActivity () {
+    this.addOtherActivityDialogRef = this.dialog.open(AddOtherActivityDialog);
+
+    this.addOtherActivityDialogRef.afterClosed().subscribe(() => {
+      // TODO Add imputation to calendar
+    });
   }
 
   private updateDisplayDate () {

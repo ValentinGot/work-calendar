@@ -3526,7 +3526,7 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "2.55.0"
 
-moment@*, moment@>=2.14.0, moment@>=2.9.0:
+moment@*, moment@>=2.14.0, moment@>=2.9.0, moment@^2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
@@ -3579,6 +3579,17 @@ negotiator@0.4.9:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+ng2-datepicker@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/ng2-datepicker/-/ng2-datepicker-1.7.0.tgz#6918c0497234abb36d13ac0414ff061b623a6e19"
+  dependencies:
+    moment "^2.17.1"
+    ng2-slimscroll "^1.2.1"
+
+ng2-slimscroll@^1.2.1:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/ng2-slimscroll/-/ng2-slimscroll-1.2.5.tgz#77c4d260eda64078eaf44767b95a8f328ffaeb97"
 
 no-case@^2.2.0:
   version "2.3.1"
