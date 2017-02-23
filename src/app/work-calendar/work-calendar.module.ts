@@ -6,7 +6,6 @@ import {
   MdCheckboxModule, MdTabsModule, MdIconModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DatePickerModule } from 'ng2-datepicker';
 import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
 import { WorkCalendarRoutes } from './work-calendar.route';
@@ -30,7 +29,6 @@ import { AddOtherActivityComponent } from './shared/add-other-activity/add-other
     MdCheckboxModule,
     MdTabsModule,
     FlexLayoutModule,
-    DatePickerModule,
     WorkCalendarRoutes
   ],
   declarations: [
