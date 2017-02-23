@@ -76,7 +76,7 @@ export class WorkCalendarComponent implements OnInit {
           }
         });
       },
-      eventclick    : (event: Event) => {
+      eventClick    : (event: Event) => {
         console.log(event);
       },
       events        : (start, end, timezone, cb) => this.imputationService.getAll().subscribe((imputations) => cb(imputations.map((imputation) => this.toEvent(imputation))))
