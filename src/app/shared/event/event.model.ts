@@ -9,5 +9,6 @@ export interface Event {
   color: string,
   imputation: Imputation,
   className?: string,
-  twinEvent?: Event
+  twinEvent?: Event,
+  allDay: boolean
 }

@@ -45,7 +45,8 @@ export class WorkCalendarComponent implements OnInit {
       end       : moment(imputation.end),
       color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
       imputation: imputation,
-      className : ''
+      className : '',
+      allDay    : false
     };
   }
 
@@ -100,6 +101,7 @@ export class WorkCalendarComponent implements OnInit {
         }
         findEvent.twinEvent = event;
         findEvent.className = 'full-day';
+        findEvent.allDay = true;
         events.splice(events.indexOf(event), 1);
       }
     });
