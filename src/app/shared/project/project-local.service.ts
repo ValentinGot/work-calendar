@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
@@ -10,7 +10,9 @@ import { ProjectInterface } from './project.interface';
 export class ProjectLocalService implements ProjectInterface {
   projects: NeDBDataStore;
 
-  constructor () {
+  constructor (
+    private zone: NgZone
+  ) {
     this.projects = new Datastore({
       filename: 'projects',
       autoload: true
@@ -25,7 +27,7 @@ export class ProjectLocalService implements ProjectInterface {
         }
 
         observer.next(projects);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -38,7 +40,7 @@ export class ProjectLocalService implements ProjectInterface {
         }
 
         observer.next(project);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -51,7 +53,7 @@ export class ProjectLocalService implements ProjectInterface {
         }
 
         observer.next(created);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -64,7 +66,7 @@ export class ProjectLocalService implements ProjectInterface {
         }
 
         observer.next(project);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -76,7 +78,7 @@ export class ProjectLocalService implements ProjectInterface {
           observer.error(err);
         }
 
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
