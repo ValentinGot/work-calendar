@@ -23,8 +23,8 @@ export enum DayTime {
 }
 
 export const ImputationColors = {
-  AM        : '#ED7F68',
-  PM        : '#86D286',
+  AM        : '#49C6E5',
+  PM        : '#FFA69E',
   ACTIVITY  : '#AFB3F7',
   COMMERCIAL: '#94C9A9'
 };
