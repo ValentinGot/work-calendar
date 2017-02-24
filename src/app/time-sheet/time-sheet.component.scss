@@ -84,7 +84,9 @@ $time-sheet-item-color: #B9BEC8;
         flex-direction: row;
 
         li.imput-day {
-          display: block;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           color: $time-sheet-item-color;
           list-style-type: none;
           margin-right: 2px;
@@ -100,6 +102,9 @@ $time-sheet-item-color: #B9BEC8;
             width: 20px;
             height: 20px;
             border: 1px solid $time-sheet-item-color;
+            &.selected {
+              background-color: $time-sheet-item-color;
+            }
           }
         }
       }

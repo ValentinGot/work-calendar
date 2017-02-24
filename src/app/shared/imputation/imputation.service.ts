@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import { Observable } from 'rxjs';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
@@ -11,7 +11,7 @@ import {Imputation, DayTime} from './imputation.model';
 export class ImputationService extends ImputationAbstract {
   imputations: NeDBDataStore;
 
-  constructor () {
+  constructor (private zone: NgZone) {
     super();
 
     this.imputations = new Datastore({
@@ -28,7 +28,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputations);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -41,7 +41,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputations);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -54,7 +54,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputations);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -67,7 +67,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputation);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -86,7 +86,7 @@ export class ImputationService extends ImputationAbstract {
             }
 
             observer.next(created);
-            observer.complete();
+            this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
           });
         } else {
           observer.error(`There is already an imputation at this day time`);
@@ -103,7 +103,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputations.length > 0);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -120,7 +120,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(imputation);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }
@@ -137,7 +137,7 @@ export class ImputationService extends ImputationAbstract {
         }
 
         observer.next(id);
-        observer.complete();
+        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
       });
     });
   }

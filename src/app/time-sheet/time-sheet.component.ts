@@ -9,24 +9,21 @@ import {Imputation, ImputationData, ImputationType} from "../shared/imputation/i
   styleUrls: ['./time-sheet.component.scss']
 })
 export class TimeSheetComponent implements OnInit {
-  timeSheet: any;
+  dayInMonth: any;
   activities: Array<{
     type: ImputationType,
     data: Object
   }>;
-  imputations: Array<Imputation>;
 
   constructor(private imputationService: ImputationService) { }
 
   ngOnInit() {
     let month = moment();
-    this.timeSheet = {
-      dayInMonth : this.dayInMonth(month)
-    }
+    this.dayInMonth = this.calculDayInMonth(month);
     this.getImputation(month);
   }
 
-  dayInMonth (month: moment.Moment) {
+  calculDayInMonth (month: moment.Moment) {
     let dayInMonth = [];
     let baseDate = moment(month).startOf('month');
     for (let i = 0; i <  moment(month).startOf('month').daysInMonth(); i++) {
@@ -43,17 +40,26 @@ export class TimeSheetComponent implements OnInit {
 
   getImputation (month: moment.Moment) {
     this.imputationService.getAllRange(moment(month).startOf('month'), moment(month).endOf('month')).subscribe((imputations: Array<Imputation>) => {
-      this.imputations = imputations;
       this.activities = [];
       while(imputations.length > 0) {
-        let activity = imputations[0].data;
-        this.activities.push({
+        let activity = {
           type: imputations[0].type,
-          data: activity
+          data: imputations[0].data,
+          am: [],
+          pm: []
+        };
+        this.activities.push(activity);
+        imputations = imputations.filter((imputation) => {
+          if ( (<ImputationData>imputation.data)._id === (<ImputationData>activity.data)._id) {
+            if (moment(imputation.start).format('A') === 'AM') {
+              activity.am.push(moment(imputation.start).date());
+            }else{
+              activity.pm.push(moment(imputation.start).date());
+            }
+          }
+          return (<ImputationData>imputation.data)._id !== (<ImputationData>activity.data)._id;
         });
-        imputations = imputations.filter((imputation) => (<ImputationData>imputation.data)._id !== (<ImputationData>activity)._id);
       }
-      console.log(this.activities);
     });
   }
 

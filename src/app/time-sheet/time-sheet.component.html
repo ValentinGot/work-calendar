@@ -8,10 +8,10 @@
       <div class="imput-name">{{activity.data.name}}</div>
       <div class="imput-details">
         <ul>
-          <li class="imput-day" *ngFor="let day of timeSheet.dayInMonth" [class.separator]="day.dayOfWeek === 6">
-            <div class="imput-day">{{day.dayNumber}}</div>
-            <div class="impt-half-day imput-am"></div>
-            <div class="impt-half-day imput-pm"></div>
+          <li class="imput-day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
+            <div class="">{{day.dayNumber}}</div>
+            <div class="impt-half-day imput-am" [class.selected]="activity.am.indexOf(day.dayNumber) !== -1">&nbsp;</div>
+            <div class="impt-half-day imput-pm" [class.selected]="activity.pm.indexOf(day.dayNumber) !== -1">&nbsp;</div>
           </li>
         </ul>
       </div>
