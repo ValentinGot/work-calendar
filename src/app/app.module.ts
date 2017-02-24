@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { WorkCalendarModule } from './work-calendar/work-calendar.module';
 import { SettingsModule } from './settings/settings.module';
 import { AppComponent } from './app.component';
+import {TimeSheetModule} from "./time-sheet/time-sheet.module";
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
     SharedModule.forRoot(),
     WorkCalendarModule,
     SettingsModule,
+    TimeSheetModule,
     AppRoute
   ],
   declarations: [

@@ -1,0 +1,108 @@
+//----------------------------------------
+//  Settings
+//----------------------------------------
+
+$menu-background-color: #36373E;
+$menu-item-height: 75px;
+$menu-item-size: 19px;
+$menu-item-color: #B9BEC8;
+$menu-item-background-color: #3A4765;
+$menu-item-hover-background-color: #383F51;
+
+$menu-item-small-height: 50px;
+$menu-item-small-size: 16px;
+
+$content-background-color: #2A2B31;
+$content-title-color: #B9BEC8;
+
+$time-sheet-item-color: #B9BEC8;
+
+//----------------------------------------
+
+:host {
+  display: flex;
+  height: 100%;
+}
+
+.separator {
+  height: 1px;
+  background-color: $content-background-color;
+}
+
+.time-sheet-content {
+  flex: 70;
+  padding: 20px 35px;
+  background-color: $content-background-color;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+
+  & > h2 {
+    margin: 0 0 10px;
+    color: $content-title-color;
+    font-weight: 500;
+    font-size: 30px;
+  }
+
+  & > .menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: $menu-item-height;
+    padding-left: 15px;
+    font-size: $menu-item-size;
+    color: $menu-item-color;
+    text-decoration: none;
+    transition: background-color .25s;
+
+    &.menu-item-small {
+      height: $menu-item-small-height;
+      font-size: $menu-item-small-size;
+    }
+
+    & > md-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .time-sheet {
+    .imput-line {
+      border: 1px solid white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .imput-name {
+        color: $time-sheet-item-color;
+      }
+
+      .imput-details {
+
+      }
+
+      ul {
+        display: flex;
+        flex-direction: row;
+
+        li.imput-day {
+          display: block;
+          color: $time-sheet-item-color;
+          list-style-type: none;
+          margin-right: 2px;
+          & > div {
+            margin-bottom: 2px;
+          }
+
+          &.separator {
+            margin-right: 15px;
+          }
+
+          .impt-half-day {
+            width: 20px;
+            height: 20px;
+            border: 1px solid $time-sheet-item-color;
+          }
+        }
+      }
+
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<div class="time-sheet-content">
+  <a routerLink="/" class="menu-item menu-item-small">
+    <md-icon>exit_to_app</md-icon>
+    Quitter la feuille de temps
+  </a>
+  <div class="time-sheet">
+    <div class="imput-line">
+      <div class="imput-name">Mon projet qui tue</div>
+      <div class="imput-details">
+        <ul>
+          <li class="imput-day" *ngFor="let day of timeSheet.dayInMonth" [class.separator]="day.dayOfWeek === 6">
+            <div class="imput-day">{{day.dayNumber}}</div>
+            <div class="impt-half-day imput-am"></div>
+            <div class="impt-half-day imput-pm"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
