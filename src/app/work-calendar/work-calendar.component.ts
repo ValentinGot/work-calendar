@@ -4,7 +4,7 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
-import { ImputationColors, Imputation, DayTime } from '../shared/imputation/imputation.model';
+import { Imputation, DayTime } from '../shared/imputation/imputation.model';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
@@ -35,17 +35,6 @@ export class WorkCalendarComponent implements OnInit {
     this.displayDate = this.getDisplayDate(moment());
   }
 
-  toEvent (imputation: Imputation): Event {
-    return {
-      title     : `${imputation.project.code} - ${imputation.project.name}`,
-      start     : moment(imputation.start),
-      end       : moment(imputation.end),
-      color     : (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM,
-      imputation: imputation,
-      className : ''
-    };
-  }
-
   onToday () {
     this.myCalendar.fullCalendar('today');
 
@@ -74,27 +63,6 @@ export class WorkCalendarComponent implements OnInit {
     return date.format('MMMM YYYY');
   }
 
-  private mergeDayEvents (events: Array<Event>) {
-    events.forEach((event: Event) => {
-      let findEvent = events.find((eventf: Event) => {
-        return moment(event.start).format('ddd, ll') === moment(eventf.start).format('ddd, ll') &&
-          event.imputation.project._id === eventf.imputation.project._id &&
-          event.imputation._id !== eventf.imputation._id;
-      });
-      if (findEvent) {
-        if (moment(event.imputation.start).format('A') === 'AM') {
-          findEvent.start = event.start;
-        } else {
-          findEvent.end = event.end;
-        }
-        findEvent.twinEvent = event;
-        findEvent.className = 'full-day';
-        events.splice(events.indexOf(event), 1);
-      }
-    });
-    return events;
-  }
-
   private getCalendarOptions () {
     return {
       locale        : 'fr',
@@ -102,7 +70,7 @@ export class WorkCalendarComponent implements OnInit {
       fixedWeekCount: false,
       editable      : true,
       timeFormat    : ' ',
-      eventRender: function(event: Event, el) {
+      eventRender   : function (event: Event, el) {
         if (!event.twinEvent) {
           el.find('.fc-title').html(`<b>${moment(event.imputation.start).format('A')}</b> ${event.title}`);
         } else {
@@ -131,8 +99,8 @@ export class WorkCalendarComponent implements OnInit {
         });
       },
       eventDrop     : (event: Event, delta) => {
-        let dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM: DayTime.PM;
-        let eventsToUpdate: Array<Imputation> = [event.imputation];
+        let dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM : DayTime.PM;
+        let eventsToUpdate: Array<Imputation> = [ event.imputation ];
         event.imputation.start = this.imputationService.getStartTime(event.start, dayTime);
         event.imputation.end = this.imputationService.getEndTime(event.end, dayTime);
         if (event.twinEvent) {
@@ -148,7 +116,11 @@ export class WorkCalendarComponent implements OnInit {
 
       },
       events        : (start, end, timezone, cb) => {
-        this.imputationService.getAllRange(start, end).subscribe((imputations) => cb(this.mergeDayEvents(imputations.map((imputation) => this.toEvent(imputation)))));
+        this.imputationService.getAllRange(start, end).subscribe((imputations) => {
+          let events = imputations.map((imputation) => this.imputationService.toEvent(imputation));
+
+          cb(this.imputationService.mergeDayEvents(events));
+        });
       }
     };
   }

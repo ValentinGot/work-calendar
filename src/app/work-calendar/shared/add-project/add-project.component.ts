@@ -8,7 +8,7 @@ import { ProjectInterface } from '../../../shared/project/project.interface';
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
-import { Imputation, DayTime } from '../../../shared/imputation/imputation.model';
+import { Imputation, DayTime, ImputationType } from '../../../shared/imputation/imputation.model';
 import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
 
@@ -54,10 +54,10 @@ export class AddProjectComponent extends AddImputation implements OnInit {
       let imputations: Imputation[] = [];
 
       if (this.form.value.am) {
-        imputations.push(this.imputationService.make(this.date, DayTime.AM, this.form.value.project as Project, this.form.value.comment));
+        imputations.push(this.imputationService.make(this.date, DayTime.AM, ImputationType.PROJECT, this.form.value.project, this.form.value.comment));
       }
       if (this.form.value.pm) {
-        imputations.push(this.imputationService.make(this.date, DayTime.PM, this.form.value.project as Project, this.form.value.comment));
+        imputations.push(this.imputationService.make(this.date, DayTime.PM, ImputationType.PROJECT, this.form.value.project, this.form.value.comment));
       }
 
       this.submitted = false;

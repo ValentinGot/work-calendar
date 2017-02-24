@@ -1,14 +1,15 @@
-import { Project } from '../project/project.model';
 
-// export interface Imputation<T> {
 export interface Imputation {
   _id?: string,
   start: number,
   end?: number,
-  // typeOf: ImputationType,
-  // type: T,
-  project: Project,
+  type: ImputationType,
+  data: Object,
   comment?: string
+}
+
+export interface ImputationData {
+  _id: string
 }
 
 export enum ImputationType {
@@ -22,6 +23,8 @@ export enum DayTime {
 }
 
 export const ImputationColors = {
-  AM: '#ED7F68',
-  PM: '#86D286'
+  AM        : '#ED7F68',
+  PM        : '#86D286',
+  ACTIVITY  : '#AFB3F7',
+  COMMERCIAL: '#94C9A9'
 };

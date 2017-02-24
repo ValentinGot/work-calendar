@@ -1,8 +1,12 @@
 import { Observable } from 'rxjs';
-
-import { Imputation, DayTime } from './imputation.model';
-import { Project } from '../project/project.model';
 import * as moment from 'moment';
+
+import { Imputation, DayTime, ImputationType, ImputationColors } from './imputation.model';
+import { Project } from '../project/project.model';
+import { Event } from '../event/event.model';
+import { Activity } from '../activity/activity.model';
+import { Commercial } from '../commercial/commercial.model';
+import { ImputationData } from '../../../../../../../SII/vgot/Workspace/work-calendar/src/app/shared/imputation/imputation.model';
 
 export abstract class ImputationAbstract {
 
@@ -24,11 +28,12 @@ export abstract class ImputationAbstract {
 
   abstract remove (ids: Array<string>): Observable<void[]>
 
-  public make (date: moment.Moment, dayTime: DayTime, project: Project, comment?: string): Imputation {
+  public make (date: moment.Moment, dayTime: DayTime, type: ImputationType, data: Object, comment?: string): Imputation {
     return {
       start  : this.getStartTime(date, dayTime),
       end    : this.getEndTime(date, dayTime),
-      project: project,
+      type   : type,
+      data   : data,
       comment: comment
     };
   }
@@ -59,4 +64,57 @@ export abstract class ImputationAbstract {
     }
   }
 
+  public toEvent (imputation: Imputation): Event {
+    let title: string,
+      color: string;
+
+    switch (imputation.type) {
+      case ImputationType.PROJECT:
+        let project: Project = imputation.data as Project;
+
+        title = `${project.code} - ${project.name}`;
+        color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
+        break;
+
+      case ImputationType.ACTIVITY:
+        title = (<Activity> imputation.data).name;
+        color = ImputationColors.ACTIVITY;
+        break;
+
+      case ImputationType.COMMERCIAL:
+        title = (<Commercial> imputation.data).name;
+        color = ImputationColors.COMMERCIAL;
+        break;
+    }
+
+    return {
+      title     : title,
+      start     : moment(imputation.start),
+      end       : moment(imputation.end),
+      color     : color,
+      imputation: imputation
+    };
+  }
+
+  public mergeDayEvents (events: Event[]) {
+    events.forEach((event: Event) => {
+      let findEvent = events.find((eventf: Event) => {
+        return moment(event.start).format('ddd, ll') === moment(eventf.start).format('ddd, ll') &&
+          (<ImputationData> event.imputation.data)._id === (<ImputationData> eventf.imputation.data)._id &&
+          event.imputation._id !== eventf.imputation._id;
+      });
+      if (findEvent) {
+        if (moment(event.imputation.start).format('A') === 'AM') {
+          findEvent.start = event.start;
+        } else {
+          findEvent.end = event.end;
+        }
+        findEvent.twinEvent = event;
+        findEvent.className = 'full-day';
+        events.splice(events.indexOf(event), 1);
+      }
+    });
+
+    return events;
+  }
 }
