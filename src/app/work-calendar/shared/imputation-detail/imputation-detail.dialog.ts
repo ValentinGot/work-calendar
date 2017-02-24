@@ -19,12 +19,12 @@ export class ImputationDetailDialog {
 
   onRemove () {
     let eventToRemove: Array<string> = [this.event.imputation._id];
+
     if (this.event.twinEvent) {
       eventToRemove.push(this.event.twinEvent.imputation._id);
     }
+
     this.imputationService.remove(eventToRemove).subscribe(() => this.dialogRef.close(this.event));
-
-
   }
 
 }

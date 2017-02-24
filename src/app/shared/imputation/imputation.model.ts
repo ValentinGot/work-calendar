@@ -1,4 +1,3 @@
-
 export interface Imputation {
   _id?: string,
   start: number,
