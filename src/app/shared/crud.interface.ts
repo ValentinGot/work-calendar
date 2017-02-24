@@ -8,13 +8,13 @@ export interface CRUDInterface<T> {
 
   create (...types: T[]): Observable<T[]>;
 
-  createOne (types: T): Observable<T>;
+  createOne (type: T): Observable<T>;
 
-  exists (types: T): Observable<Boolean>;
+  exists (type: T): Observable<Boolean>;
 
   update (...types: T[]): Observable<T>;
 
-  updateOne (id: string, imputation: T): Observable<T>;
+  updateOne (id: string, type: T): Observable<T>;
 
   remove (...id: string[]): Observable<void>;
 
