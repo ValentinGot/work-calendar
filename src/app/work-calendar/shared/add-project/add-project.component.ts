@@ -12,11 +12,11 @@ import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
 
 @Component({
-  selector: 'wo-add-quick-imputation',
-  templateUrl: './add-quick-imputation.component.html',
-  styleUrls: ['./add-quick-imputation.component.scss']
+  selector: 'wo-add-project',
+  templateUrl: 'add-project.component.html',
+  styleUrls: ['add-project.component.scss']
 })
-export class AddQuickImputationComponent extends AddImputation implements OnInit {
+export class AddProjectComponent extends AddImputation implements OnInit {
   @Input() date: any;
   @Input() dialogRef: MdDialogRef<AddImputationDialog>;
 
@@ -24,7 +24,7 @@ export class AddQuickImputationComponent extends AddImputation implements OnInit
   projects: Project[];
   submitted: boolean;
 
-  @ViewChild('quickImputationForm') quickImputationForm: NgForm;
+  @ViewChild('projectForm') projectForm: NgForm;
 
   constructor(
     @Inject(ProjectService) private projectService: ProjectInterface,
@@ -43,7 +43,7 @@ export class AddQuickImputationComponent extends AddImputation implements OnInit
       comment: ''
     });
 
-    this.$onSubmit.subscribe(() => this.quickImputationForm.ngSubmit.emit());
+    this.$onSubmit.subscribe(() => this.projectForm.ngSubmit.emit());
   }
 
   onSubmit () {

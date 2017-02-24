@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" #quickImputationForm="ngForm" novalidate>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" #projectForm="ngForm" novalidate>
   <md-select class="project-select input-full-width" placeholder="Projets" formControlName="project">
     <md-option *ngFor="let project of projects" [value]="project">
       {{ project.code }} - {{ project.client }} - {{ project.name }}

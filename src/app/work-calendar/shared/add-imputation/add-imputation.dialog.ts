@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdTabChangeEvent } from '@angular/material';
 
-import { AddQuickImputationComponent } from '../add-quick-imputation/add-quick-imputation.component';
+import { AddProjectComponent } from '../add-project/add-project.component';
 import { AddOtherActivityComponent } from '../add-other-activity/add-other-activity.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class AddImputationDialog implements OnInit {
   dateString: string;
   selectedTab: number;
 
-  @ViewChild('quickImputation') quickImputationComponent: AddQuickImputationComponent;
+  @ViewChild('project') projectComponent: AddProjectComponent;
   @ViewChild('otherActivity') otherActivityComponent: AddOtherActivityComponent;
 
   constructor(
@@ -33,7 +33,7 @@ export class AddImputationDialog implements OnInit {
     switch (this.selectedTab) {
       case 0:
       default:
-        this.quickImputationComponent.$onSubmit.emit(true);
+        this.projectComponent.$onSubmit.emit(true);
         break;
 
       case 1:

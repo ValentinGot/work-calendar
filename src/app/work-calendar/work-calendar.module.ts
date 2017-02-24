@@ -11,7 +11,7 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import { WorkCalendarRoutes } from './work-calendar.route';
 import { WorkCalendarComponent } from './work-calendar.component';
 import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
-import { AddQuickImputationComponent } from './shared/add-quick-imputation/add-quick-imputation.component';
+import { AddProjectComponent } from './shared/add-project/add-project.component';
 import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
 import { AddOtherActivityComponent } from './shared/add-other-activity/add-other-activity.component';
 
@@ -35,7 +35,7 @@ import { AddOtherActivityComponent } from './shared/add-other-activity/add-other
     CalendarComponent,
     WorkCalendarComponent,
     AddImputationDialog,
-    AddQuickImputationComponent,
+    AddProjectComponent,
     ImputationDetailDialog,
     AddOtherActivityComponent
   ],
