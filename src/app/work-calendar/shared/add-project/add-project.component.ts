@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
+import * as moment from 'moment';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
 import { ProjectInterface } from '../../../shared/project/project.interface';
@@ -17,7 +18,7 @@ import { SnackbarService } from '../../../shared/snackbar.service';
   styleUrls: ['add-project.component.scss']
 })
 export class AddProjectComponent extends AddImputation implements OnInit {
-  @Input() date: any;
+  @Input() date: moment.Moment;
   @Input() dialogRef: MdDialogRef<AddImputationDialog>;
 
   form: FormGroup;

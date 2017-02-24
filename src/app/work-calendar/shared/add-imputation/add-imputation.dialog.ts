@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdTabChangeEvent } from '@angular/material';
+import * as moment from 'moment';
 
 import { AddProjectComponent } from '../add-project/add-project.component';
 import { AddOtherActivityComponent } from '../add-other-activity/add-other-activity.component';
@@ -10,7 +11,7 @@ import { AddOtherActivityComponent } from '../add-other-activity/add-other-activ
   styleUrls: [ './add-imputation.dialog.scss' ]
 })
 export class AddImputationDialog implements OnInit {
-  date: any;
+  date: moment.Moment;
   dateString: string;
   selectedTab: number;
 

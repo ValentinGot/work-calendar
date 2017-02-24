@@ -4,7 +4,6 @@ import { Imputation, DayTime } from './imputation.model';
 import { Project } from '../project/project.model';
 import * as moment from 'moment';
 
-
 export abstract class ImputationAbstract {
 
   abstract getAll (): Observable<Imputation[]>;
@@ -25,7 +24,7 @@ export abstract class ImputationAbstract {
 
   abstract remove (ids: Array<string>): Observable<void[]>
 
-  public make (date: any, dayTime: DayTime, project: Project, comment?: string): Imputation {
+  public make (date: moment.Moment, dayTime: DayTime, project: Project, comment?: string): Imputation {
     return {
       start  : this.getStartTime(date, dayTime),
       end    : this.getEndTime(date, dayTime),
@@ -34,7 +33,7 @@ export abstract class ImputationAbstract {
     };
   }
 
-  public getStartTime (date: any, dayTime: DayTime): number {
+  public getStartTime (date: moment.Moment, dayTime: DayTime): number {
     let dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {
@@ -47,7 +46,7 @@ export abstract class ImputationAbstract {
     }
   }
 
-  public getEndTime (date: any, dayTime: DayTime): number {
+  public getEndTime (date: moment.Moment, dayTime: DayTime): number {
     let dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {

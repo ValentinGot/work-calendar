@@ -6,6 +6,7 @@ import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../../../shared/activity/activity.model';
 import { ActivityService } from '../../../shared/activity/activity.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'wo-add-other-activity',
@@ -13,7 +14,7 @@ import { ActivityService } from '../../../shared/activity/activity.service';
   styleUrls: ['./add-other-activity.component.scss']
 })
 export class AddOtherActivityComponent extends AddImputation implements OnInit {
-  @Input() date: any;
+  @Input() date: moment.Moment;
   @Input() dialogRef: MdDialogRef<AddImputationDialog>;
 
   activities: Activity[];
