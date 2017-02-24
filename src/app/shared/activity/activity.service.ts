@@ -28,23 +28,32 @@ export class ActivityService implements CRUDInterface<Activity> {
     throw new Error('Not implemented');
   }
 
-  public create (...types: Activity[]): Observable<Activity[]> {
+  public create (...activities: Activity[]): Observable<Activity[]> {
     throw new Error('Not implemented');
   }
 
-  public createOne (types: Activity): Observable<Activity> {
+  public createOne (activity: Activity): Observable<Activity> {
+    return Observable.create((observer) => {
+      this.activities.insert(activity, (err, created) => {
+        if (err) {
+          observer.error(err);
+        }
+
+        observer.next(created);
+        observer.complete();
+      });
+    });
+  }
+
+  public exists (type: Activity): Observable<Boolean> {
     throw new Error('Not implemented');
   }
 
-  public exists (types: Activity): Observable<Boolean> {
+  public update (...type: Activity[]): Observable<Activity> {
     throw new Error('Not implemented');
   }
 
-  public update (...types: Activity[]): Observable<Activity> {
-    throw new Error('Not implemented');
-  }
-
-  public updateOne (id: string, imputation: Activity): Observable<Activity> {
+  public updateOne (id: string, type: Activity): Observable<Activity> {
     throw new Error('Not implemented');
   }
 

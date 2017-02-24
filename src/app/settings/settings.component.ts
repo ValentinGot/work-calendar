@@ -11,6 +11,10 @@ export class SettingsComponent implements OnInit {
     {
       url: '/settings/projects',
       name: 'Projets'
+    },
+    {
+      url: '/settings/activities',
+      name: 'Activités'
     }
   ];
   active: string;

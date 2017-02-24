@@ -9,6 +9,7 @@ import {
 import { SettingsRoutes } from './settings.route';
 import { SettingsComponent } from './settings.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ProjectsComponent } from './projects/projects.component';
   ],
   declarations: [
     SettingsComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    ActivitiesComponent
   ]
 })
 export class SettingsModule { }
