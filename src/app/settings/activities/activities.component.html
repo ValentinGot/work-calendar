@@ -1,3 +1,40 @@
-<p>
-  activities works!
-</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form dark-bg" novalidate>
+  <md-input-container>
+    <input mdInput placeholder="Activité" formControlName="name" />
+  </md-input-container>
+  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.name.dirty || submitted) && !form.controls.name.valid">
+    <p [hidden]="!form.controls.name.errors.required">Le champ ne peut pas être vide</p>
+  </div>
+
+  <div class="buttons-group">
+    <button md-raised-button color="primary" type="submit">{{ buttonName }}</button>
+  </div>
+</form>
+
+<div class="settings-separator"></div>
+
+<table class="wo-table settings-table">
+  <thead>
+  <tr>
+    <th>Activité</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr class="with-spinner" [hidden]="!loading">
+    <td colspan="4">
+      <md-spinner></md-spinner>
+    </td>
+  </tr>
+
+  <tr *ngFor="let activity of activities" [class.no-hover]="activity.fixed" (click)="!activity.fixed && onEdit(activity)">
+    <td>{{ activity.name }}</td>
+    <td>
+      <div class="icons-container">
+        <md-icon class="icon-remove" mdTooltip="Supprimer l'activité" mdTooltipPosition="above" (click)="onRemove(activity)" *ngIf="!activity.fixed">delete</md-icon>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>

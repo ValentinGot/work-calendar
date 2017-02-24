@@ -1,4 +1,5 @@
 export interface Activity {
   _id?: string,
-  name: string
+  name: string,
+  fixed?: boolean
 }

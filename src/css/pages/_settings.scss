@@ -1,14 +1,8 @@
 //----------------------------------------
-//  Projects
+//  Settings
 //----------------------------------------
 
-@import '../../../css/abstract/colors';
-
-$white-grey-color: #B9BEC8;
-
-//----------------------------------------
-
-form {
+.settings-form {
   display: flex;
   flex-direction: column;
   padding-top: 15px;
@@ -20,10 +14,10 @@ form {
   }
 }
 
-.separator {
+.settings-separator {
   height: 1px;
   margin: 40px 0;
-  background-color: $white-grey-color;
+  background-color: $wo-white-color;
 }
 
 .settings-table {

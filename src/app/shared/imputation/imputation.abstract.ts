@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import {Imputation, DayTime, ImputationType, ImputationColors, ImputationData} from './imputation.model';
+import { Imputation, DayTime, ImputationType, ImputationColors, ImputationData } from './imputation.model';
 import { Project } from '../project/project.model';
 import { Event } from '../event/event.model';
 import { Activity } from '../activity/activity.model';

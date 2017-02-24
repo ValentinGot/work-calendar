@@ -39,11 +39,14 @@ $table-spinner-size: 50px;
   }
 
   & > tbody > tr {
-    cursor: pointer;
     height: $table-tbody-height;
     line-height: $table-tbody-height;
     transition: background-color .25s;
     border-bottom: 1px solid $table-border-color;
+
+    &:not(.no-hover) {
+      cursor: pointer;
+    }
 
     & > td {
       color: $table-tbody-color;
@@ -55,7 +58,7 @@ $table-spinner-size: 50px;
       }
     }
 
-    &:hover {
+    &:not(.no-hover):hover {
       background-color: $wo-accent-400-color;
     }
 
