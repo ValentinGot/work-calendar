@@ -9,3 +9,19 @@
   }
 
 }
+
+.day-time-container {
+  margin-top: 25px;
+
+  & > md-checkbox {
+    margin-right: 8px;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
+
+.comment-container {
+  margin-top: 25px;
+}

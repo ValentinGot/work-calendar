@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
+import * as moment from 'moment';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
 import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../../../shared/activity/activity.model';
 import { ActivityService } from '../../../shared/activity/activity.service';
-import * as moment from 'moment';
+import { ImputationService } from '../../../shared/imputation/imputation.service';
+import { DayTime, Imputation, ImputationType } from '../../../shared/imputation/imputation.model';
 
 @Component({
   selector: 'wo-add-other-activity',
@@ -25,6 +27,7 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
 
   constructor(
     private activityService: ActivityService,
+    private imputationService: ImputationService,
     private formBuilder: FormBuilder
   ) { super(); }
 
@@ -32,7 +35,10 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
     this.activityService.getAll().subscribe((activities) => this.activities = activities);
 
     this.form = this.formBuilder.group({
-      activity: [ null, Validators.required ]
+      activity: [ null, Validators.required ],
+      am      : (new Date()).getHours() <= 12,
+      pm      : (new Date()).getHours() > 12,
+      comment : ''
     });
 
     this.$onSubmit.subscribe(() => this.otherActivityForm.ngSubmit.emit());
@@ -42,7 +48,14 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
     this.submitted = true;
 
     if (this.form.valid) {
-      console.log(this.form.value);
+      let imputations: Imputation[] = [];
+
+      if (this.form.value.am) {
+        imputations.push(this.imputationService.make(this.date, DayTime.AM, ImputationType.ACTIVITY, this.form.value.activity, this.form.value.comment));
+      }
+      if (this.form.value.pm) {
+        imputations.push(this.imputationService.make(this.date, DayTime.PM, ImputationType.ACTIVITY, this.form.value.activity, this.form.value.comment));
+      }
 
       this.submitted = false;
     }

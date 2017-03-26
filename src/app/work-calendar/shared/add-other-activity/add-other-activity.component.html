@@ -2,4 +2,16 @@
   <md-radio-group class="activities-group" formControlName="activity" fxLayout="column">
     <md-radio-button *ngFor="let activity of activities" [value]="activity">{{ activity.name }}</md-radio-button>
   </md-radio-group>
+  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.activity.dirty || submitted) && !form.controls.activity.valid">
+    <p [hidden]="!form.controls.activity.errors.required">Vous devez sélectionner une activité</p>
+  </div>
+
+  <div class="day-time-container">
+    <md-checkbox formControlName="am">Matin</md-checkbox>
+    <md-checkbox formControlName="pm">Après-midi</md-checkbox>
+  </div>
+
+  <md-input-container class="comment-container input-full-width">
+    <textarea mdInput placeholder="Commentaire" formControlName="comment"></textarea>
+  </md-input-container>
 </form>
