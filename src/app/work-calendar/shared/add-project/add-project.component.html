@@ -4,6 +4,9 @@
       {{ project.code }} - {{ project.client }} - {{ project.name }}
     </md-option>
   </md-select>
+  <small fxLayout="row" fxLayoutAlign="end center">
+    <a (click)="goToSettingsProjects()" class="link">Projet non présent ?</a>
+  </small>
   <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.project.dirty || submitted) && !form.controls.project.valid">
     <p [hidden]="!form.controls.project.errors.required">Le champ ne peut pas être vide</p>
   </div>

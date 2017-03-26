@@ -15,3 +15,17 @@ body {
   font-family: $mat-font-family;
   box-sizing: border-box;
 }
+
+a,
+.link {
+  cursor: pointer;
+  color: map-get($mat-cyan, 500);
+  text-decoration: none;
+  transition: color .25s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken(map-get($mat-cyan, 500), 10%);
+  }
+}

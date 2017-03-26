@@ -11,6 +11,7 @@ import { ImputationService } from '../../../shared/imputation/imputation.service
 import { Imputation, DayTime, ImputationType } from '../../../shared/imputation/imputation.model';
 import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wo-add-project',
@@ -31,7 +32,8 @@ export class AddProjectComponent extends AddImputation implements OnInit {
     @Inject(ProjectService) private projectService: ProjectInterface,
     private imputationService: ImputationService,
     private formBuilder: FormBuilder,
-    private snackBar: SnackbarService
+    private snackBar: SnackbarService,
+    private router: Router
   ) { super(); }
 
   ngOnInit() {
@@ -66,6 +68,10 @@ export class AddProjectComponent extends AddImputation implements OnInit {
         (imputations) => this.dialogRef.close(imputations),
         (err) => this.snackBar.error(err));
     }
+  }
+
+  goToSettingsProjects () {
+    this.router.navigateByUrl('/settings/projects').then(() => this.dialogRef.close());
   }
 
 }
