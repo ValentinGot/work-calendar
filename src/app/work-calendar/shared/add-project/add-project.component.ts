@@ -65,7 +65,11 @@ export class AddProjectComponent extends AddImputation implements OnInit {
       this.submitted = false;
 
       this.imputationService.create(...imputations).subscribe(
-        (imputations) => this.dialogRef.close(imputations),
+        (imputations) => {
+          this.submitted = false;
+
+          this.dialogRef.close(imputations)
+        },
         (err) => this.snackBar.error(err));
     }
   }

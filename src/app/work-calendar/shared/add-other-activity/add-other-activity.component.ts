@@ -9,6 +9,7 @@ import { Activity } from '../../../shared/activity/activity.model';
 import { ActivityService } from '../../../shared/activity/activity.service';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
 import { DayTime, Imputation, ImputationType } from '../../../shared/imputation/imputation.model';
+import { SnackbarService } from '../../../shared/snackbar.service';
 
 @Component({
   selector: 'wo-add-other-activity',
@@ -28,7 +29,8 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
   constructor(
     private activityService: ActivityService,
     private imputationService: ImputationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: SnackbarService
   ) { super(); }
 
   ngOnInit() {
@@ -57,7 +59,13 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
         imputations.push(this.imputationService.make(this.date, DayTime.PM, ImputationType.ACTIVITY, this.form.value.activity, this.form.value.comment));
       }
 
-      this.submitted = false;
+      this.imputationService.create(...imputations).subscribe(
+        (imputations) => {
+          this.submitted = false;
+
+          this.dialogRef.close(imputations)
+        },
+        (err) => this.snackBar.error(err));
     }
   }
 

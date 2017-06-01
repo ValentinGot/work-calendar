@@ -97,23 +97,40 @@ export abstract class ImputationAbstract {
 
   public mergeDayEvents (events: Event[]) {
     events.forEach((event: Event) => {
-      let findEvent = events.find((eventf: Event) => {
-        return moment(event.start).format('ddd, ll') === moment(eventf.start).format('ddd, ll') &&
-          (<ImputationData> event.imputation.data)._id === (<ImputationData> eventf.imputation.data)._id &&
-          event.imputation._id !== eventf.imputation._id;
+      let findEvent = events.find((val: Event) => {
+        return moment(event.start).isSame(moment(val.start), 'year') &&
+          moment(event.start).isSame(moment(val.start), 'month') &&
+          moment(event.start).isSame(moment(val.start), 'day') &&
+          (<ImputationData> event.imputation.data)._id === (<ImputationData> val.imputation.data)._id &&
+          event.imputation._id !== val.imputation._id
       });
+
       if (findEvent) {
-        if (moment(event.imputation.start).format('A') === 'AM') {
-          findEvent.start = event.start;
-        } else {
-          findEvent.end = event.end;
-        }
+        findEvent.start = moment(this.getStartTime(moment(event.start), DayTime.AM));
+        findEvent.end = moment(this.getEndTime(moment(event.end), DayTime.PM));
         findEvent.twinEvent = event;
         findEvent.className = 'full-day';
+        findEvent.color = this.getColorFromType(findEvent.imputation.type);
+
         events.splice(events.indexOf(event), 1);
       }
     });
 
     return events;
   }
+
+  private getColorFromType (type: ImputationType) {
+    switch (type) {
+      case ImputationType.ACTIVITY:
+        return ImputationColors.ACTIVITY;
+
+      case ImputationType.COMMERCIAL:
+        return ImputationColors.COMMERCIAL;
+
+      case ImputationType.PROJECT:
+      default:
+        return ImputationColors.DAY_EVENT;
+    }
+  }
+
 }
