@@ -40,30 +40,30 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
   }
 
   protected create (project: Project) {
-    this.projectService.create(project).subscribe((project: Project) => {
-      this.projects.push(project);
+    this.projectService.create(project).subscribe((createdProject: Project) => {
+      this.projects.push(createdProject);
 
-      this.snackBar.success(`Le projet '${project.code} - ${project.name}' a été créé`);
+      this.snackBar.success(`Le projet '${createdProject.code} - ${createdProject.name}' a été créé`);
     });
   }
 
   protected update (project: Project) {
-    this.projectService.update(project._id, project).subscribe((project: Project) => {
+    this.projectService.update(project._id, project).subscribe((updatedProject: Project) => {
       this.projects = this.projects.map((item) => {
-        if (item._id === project._id) {
-          item = project;
+        if (item._id === updatedProject._id) {
+          item = updatedProject;
         }
 
         return item;
       });
 
-      this.snackBar.success(`Le projet '${project.code} - ${project.name}' a été modifié`);
+      this.snackBar.success(`Le projet '${updatedProject.code} - ${updatedProject.name}' a été modifié`);
     });
   }
 
   protected remove (project: Project) {
-    let snackBarRef = this.snackBar.info('Projet supprimé', 'Annuler'),
-      undo = false;
+    const snackBarRef = this.snackBar.info('Projet supprimé', 'Annuler');
+    let undo = false;
 
     this.projects = this.projects.filter((item) => item._id !== project._id);
 

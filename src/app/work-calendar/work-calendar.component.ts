@@ -5,9 +5,9 @@ import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
 import { Imputation, DayTime } from '../shared/imputation/imputation.model';
-import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
+import { AddImputationDialogComponent } from './shared/add-imputation/add-imputation.dialog';
 import { Event } from '../shared/event/event.model';
-import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
+import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 
 @Component({
@@ -16,8 +16,8 @@ import { SnackbarService } from '../shared/snackbar.service';
   styleUrls: ['./work-calendar.component.scss']
 })
 export class WorkCalendarComponent implements OnInit {
-  addImputationDialogRef: MdDialogRef<AddImputationDialog>;
-  imputationDetailDialogRef: MdDialogRef<ImputationDetailDialog>;
+  addImputationDialogRef: MdDialogRef<AddImputationDialogComponent>;
+  imputationDetailDialogRef: MdDialogRef<ImputationDetailDialogComponent>;
   calendarOptions;
   displayDate: string;
 
@@ -54,7 +54,7 @@ export class WorkCalendarComponent implements OnInit {
   }
 
   private updateDisplayDate () {
-    let date: any = this.myCalendar.fullCalendar('getDate');
+    const date: any = this.myCalendar.fullCalendar('getDate');
 
     this.displayDate = this.getDisplayDate(date as moment.Moment);
   }
@@ -78,7 +78,7 @@ export class WorkCalendarComponent implements OnInit {
         }
       },
       dayClick      : (date) => {
-        this.addImputationDialogRef = this.dialog.open(AddImputationDialog);
+        this.addImputationDialogRef = this.dialog.open(AddImputationDialogComponent);
         this.addImputationDialogRef.componentInstance.date = date;
 
         this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]|undefined) => {
@@ -88,23 +88,26 @@ export class WorkCalendarComponent implements OnInit {
         });
       },
       eventClick    : (event: Event) => {
-        this.imputationDetailDialogRef = this.dialog.open(ImputationDetailDialog);
+        this.imputationDetailDialogRef = this.dialog.open(ImputationDetailDialogComponent);
         this.imputationDetailDialogRef.componentInstance.event = event;
 
-        this.imputationDetailDialogRef.afterClosed().subscribe((event: Event|undefined) => {
-          if (event !== undefined) {
-            this.myCalendar.fullCalendar('removeEvents', event._id);
+        this.imputationDetailDialogRef.afterClosed().subscribe((item: Event|undefined) => {
+          if (item !== undefined) {
+            this.myCalendar.fullCalendar('removeEvents', item._id);
 
           }
         });
       },
       eventDrop     : (event: Event, delta) => {
-        let dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM : DayTime.PM;
-        let eventsToUpdate: Array<Imputation> = [ event.imputation ];
+        const dayTime: DayTime = moment(event.imputation.start).format('A') === 'AM' ? DayTime.AM : DayTime.PM;
+        const eventsToUpdate: Array<Imputation> = [ event.imputation ];
+
         event.imputation.start = this.imputationService.getStartTime(event.start, dayTime);
         event.imputation.end = this.imputationService.getEndTime(event.end, dayTime);
+
         if (event.twinEvent) {
-          let twinImputation: Imputation = event.twinEvent.imputation;
+          const twinImputation: Imputation = event.twinEvent.imputation;
+
           twinImputation.start += delta._days * 86400000;
           twinImputation.end += delta._days * 86400000;
           eventsToUpdate.push(twinImputation);
@@ -117,7 +120,7 @@ export class WorkCalendarComponent implements OnInit {
       },
       events        : (start, end, timezone, cb) => {
         this.imputationService.getAllRange(start, end).subscribe((imputations) => {
-          let events = imputations.map((imputation) => this.imputationService.toEvent(imputation));
+          const events = imputations.map((imputation) => this.imputationService.toEvent(imputation));
 
           cb(this.imputationService.mergeDayEvents(events));
         });

@@ -11,24 +11,16 @@ import { ActivityService } from './activity/activity.service';
 @NgModule({
   imports: [
     HttpModule,
-    MdSnackBarModule.forRoot()
+    MdSnackBarModule
+  ],
+  providers: [
+    ImputationService,
+    {
+      provide: ProjectService,
+      useClass: ProjectLocalService
+    },
+    ActivityService,
+    SnackbarService
   ]
 })
-export class SharedModule {
-
-  static forRoot (): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ImputationService,
-        {
-          provide: ProjectService,
-          useClass: ProjectLocalService
-        },
-        ActivityService,
-        SnackbarService
-      ]
-    }
-  }
-
-}
+export class SharedModule {}

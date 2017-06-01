@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
 

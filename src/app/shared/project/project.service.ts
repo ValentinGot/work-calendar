@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 import { HttpResponseHandler } from '../http-response-handler';
 import { environment } from '../../../environments/environment';
@@ -8,8 +8,8 @@ import { Project } from './project.model';
 
 @Injectable()
 export class ProjectService extends HttpResponseHandler {
-  private baseUrl: string = '/projects';
-  private url : string;
+  private baseUrl = '/projects';
+  private url: string;
 
   constructor (
     private http: Http

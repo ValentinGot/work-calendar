@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MdIconModule, MdInputModule, MdButtonModule, MdProgressSpinnerModule,
-  MdTooltipModule
+MdIconModule, MdInputModule, MdButtonModule, MdProgressSpinnerModule,
+MdTooltipModule
 } from '@angular/material';
 
 import { SettingsRoutes } from './settings.route';
@@ -18,7 +18,7 @@ import { ActivitiesComponent } from './activities/activities.component';
     ReactiveFormsModule,
     MdInputModule,
     MdButtonModule,
-    MdIconModule.forRoot(),
+    MdIconModule,
     MdProgressSpinnerModule,
     MdTooltipModule,
     SettingsRoutes

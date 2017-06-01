@@ -3,7 +3,7 @@ import { MdDialogRef } from '@angular/material';
 import * as moment from 'moment';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
-import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
+import { AddImputationDialogComponent } from '../add-imputation/add-imputation.dialog';
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../../../shared/activity/activity.model';
 import { ActivityService } from '../../../shared/activity/activity.service';
@@ -18,7 +18,7 @@ import { SnackbarService } from '../../../shared/snackbar.service';
 })
 export class AddOtherActivityComponent extends AddImputation implements OnInit {
   @Input() date: moment.Moment;
-  @Input() dialogRef: MdDialogRef<AddImputationDialog>;
+  @Input() dialogRef: MdDialogRef<AddImputationDialogComponent>;
 
   activities: Activity[];
   form: FormGroup;
@@ -50,20 +50,32 @@ export class AddOtherActivityComponent extends AddImputation implements OnInit {
     this.submitted = true;
 
     if (this.form.valid) {
-      let imputations: Imputation[] = [];
+      const imputations: Imputation[] = [];
 
       if (this.form.value.am) {
-        imputations.push(this.imputationService.make(this.date, DayTime.AM, ImputationType.ACTIVITY, this.form.value.activity, this.form.value.comment));
+        imputations.push(this.imputationService.make(
+          this.date,
+          DayTime.AM,
+          ImputationType.ACTIVITY,
+          this.form.value.activity,
+          this.form.value.comment
+        ));
       }
       if (this.form.value.pm) {
-        imputations.push(this.imputationService.make(this.date, DayTime.PM, ImputationType.ACTIVITY, this.form.value.activity, this.form.value.comment));
+        imputations.push(this.imputationService.make(
+          this.date,
+          DayTime.PM,
+          ImputationType.ACTIVITY,
+          this.form.value.activity,
+          this.form.value.comment
+        ));
       }
 
       this.imputationService.create(...imputations).subscribe(
-        (imputations) => {
+        (items) => {
           this.submitted = false;
 
-          this.dialogRef.close(imputations)
+          this.dialogRef.close(items);
         },
         (err) => this.snackBar.error(err));
     }

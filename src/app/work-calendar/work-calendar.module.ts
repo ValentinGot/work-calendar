@@ -10,9 +10,9 @@ import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 
 import { WorkCalendarRoutes } from './work-calendar.route';
 import { WorkCalendarComponent } from './work-calendar.component';
-import { AddImputationDialog } from './shared/add-imputation/add-imputation.dialog';
+import { AddImputationDialogComponent } from './shared/add-imputation/add-imputation.dialog';
 import { AddProjectComponent } from './shared/add-project/add-project.component';
-import { ImputationDetailDialog } from './shared/imputation-detail/imputation-detail.dialog';
+import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { AddOtherActivityComponent } from './shared/add-other-activity/add-other-activity.component';
 
 @NgModule({
@@ -20,9 +20,9 @@ import { AddOtherActivityComponent } from './shared/add-other-activity/add-other
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MdDialogModule.forRoot(),
+    MdDialogModule,
     MdButtonModule,
-    MdRadioModule.forRoot(),
+    MdRadioModule,
     MdSelectModule,
     MdInputModule,
     MdIconModule,
@@ -34,14 +34,14 @@ import { AddOtherActivityComponent } from './shared/add-other-activity/add-other
   declarations: [
     CalendarComponent,
     WorkCalendarComponent,
-    AddImputationDialog,
+    AddImputationDialogComponent,
     AddProjectComponent,
-    ImputationDetailDialog,
+    ImputationDetailDialogComponent,
     AddOtherActivityComponent
   ],
   entryComponents: [
-    AddImputationDialog,
-    ImputationDetailDialog
+    AddImputationDialogComponent,
+    ImputationDetailDialogComponent
   ]
 })
 export class WorkCalendarModule { }

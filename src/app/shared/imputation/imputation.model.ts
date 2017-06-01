@@ -1,14 +1,14 @@
 export interface Imputation {
-  _id?: string,
-  start: number,
-  end?: number,
-  type: ImputationType,
-  data: Object,
-  comment?: string
+  _id?: string;
+  start: number;
+  end?: number;
+  type: ImputationType;
+  data: Object;
+  comment?: string;
 }
 
 export interface ImputationData {
-  _id: string
+  _id: string;
 }
 
 export enum ImputationType {

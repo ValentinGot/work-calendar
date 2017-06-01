@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class WorkCalendarPage {
+export class WorkCalendarNewPage {
   navigateTo() {
     return browser.get('/');
   }

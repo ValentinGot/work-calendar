@@ -9,16 +9,16 @@ import { Event } from '../../../shared/event/event.model';
   templateUrl: 'imputation-detail.dialog.html',
   styleUrls: ['imputation-detail.dialog.scss']
 })
-export class ImputationDetailDialog {
+export class ImputationDetailDialogComponent {
   event: Event;
 
   constructor(
-    public dialogRef: MdDialogRef<ImputationDetailDialog>,
+    public dialogRef: MdDialogRef<ImputationDetailDialogComponent>,
     private imputationService: ImputationService
   ) { }
 
   onRemove () {
-    let eventToRemove: Array<string> = [this.event.imputation._id];
+    const eventToRemove: Array<string> = [this.event.imputation._id];
 
     if (this.event.twinEvent) {
       eventToRemove.push(this.event.twinEvent.imputation._id);

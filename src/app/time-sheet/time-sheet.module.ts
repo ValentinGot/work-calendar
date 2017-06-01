@@ -11,7 +11,7 @@ import {MdInputModule, MdButtonModule, MdIconModule} from "@angular/material";
     FormsModule,
     MdInputModule,
     MdButtonModule,
-    MdIconModule.forRoot(),
+    MdIconModule,
     TimeSheetRoutes
   ],
   declarations: [TimeSheetComponent]

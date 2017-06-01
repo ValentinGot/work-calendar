@@ -1,5 +1,5 @@
 import {Injectable, NgZone} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import * as NeDBDataStore from 'nedb';
 import * as Datastore from 'nedb';
 import * as moment from 'moment';
@@ -48,14 +48,16 @@ export class ImputationService extends ImputationAbstract {
 
   public getForDay (day: moment.Moment): Observable<Imputation[]> {
     return Observable.create((observer) => {
-      this.imputations.find({start: {$in: [this.getStartTime(day, DayTime.AM), this.getStartTime(day, DayTime.PM)] } }).exec((err, imputations) => {
-        if (err) {
-          observer.error(err);
-        }
+      this.imputations
+        .find({start: {$in: [this.getStartTime(day, DayTime.AM), this.getStartTime(day, DayTime.PM)] } })
+        .exec((err, imputations) => {
+          if (err) {
+            observer.error(err);
+          }
 
-        observer.next(imputations);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
+          observer.next(imputations);
+          this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
+        });
     });
   }
 

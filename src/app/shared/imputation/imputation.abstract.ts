@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
 
-import { Imputation, DayTime, ImputationType, ImputationColors, ImputationData } from './imputation.model';
+import { Imputation, DayTime, ImputationType, ImputationColors } from './imputation.model';
 import { Project } from '../project/project.model';
 import { Event } from '../event/event.model';
 import { Activity } from '../activity/activity.model';
@@ -38,7 +38,7 @@ export abstract class ImputationAbstract {
   }
 
   public getStartTime (date: moment.Moment, dayTime: DayTime): number {
-    let dateString: string = date.format('YYYY-MM-DD');
+    const dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {
       case DayTime.AM:
@@ -51,7 +51,7 @@ export abstract class ImputationAbstract {
   }
 
   public getEndTime (date: moment.Moment, dayTime: DayTime): number {
-    let dateString: string = date.format('YYYY-MM-DD');
+    const dateString: string = date.format('YYYY-MM-DD');
 
     switch (dayTime) {
       case DayTime.AM:
@@ -72,7 +72,7 @@ export abstract class ImputationAbstract {
 
     switch (imputation.type) {
       case ImputationType.PROJECT:
-        let project: Project = imputation.data as Project;
+        const project: Project = imputation.data as Project;
 
         id    = project._id + imputationDay.unix();
         title = `${project.code} - ${project.name}`;
@@ -80,7 +80,7 @@ export abstract class ImputationAbstract {
         break;
 
       case ImputationType.ACTIVITY:
-        let activity: Activity = imputation.data as Activity;
+        const activity: Activity = imputation.data as Activity;
 
         id    = activity._id + imputationDay.unix();
         title = activity.name;
@@ -88,7 +88,7 @@ export abstract class ImputationAbstract {
         break;
 
       case ImputationType.COMMERCIAL:
-        let commercial = imputation.data as Commercial;
+        const commercial = imputation.data as Commercial;
 
         id    = commercial._id + imputationDay.unix();
         title = commercial.name;
@@ -107,7 +107,7 @@ export abstract class ImputationAbstract {
   }
 
   public mergeDayEvents (events: Event[]) {
-    let eventsMap = new Map<string, Event>();
+    const eventsMap = new Map<string, Event>();
 
     events.forEach((event: Event) => {
       if (eventsMap.has(event._id)) {

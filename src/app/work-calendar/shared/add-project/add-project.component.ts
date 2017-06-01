@@ -9,7 +9,7 @@ import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
 import { Imputation, DayTime, ImputationType } from '../../../shared/imputation/imputation.model';
-import { AddImputationDialog } from '../add-imputation/add-imputation.dialog';
+import { AddImputationDialogComponent } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class AddProjectComponent extends AddImputation implements OnInit {
   @Input() date: moment.Moment;
-  @Input() dialogRef: MdDialogRef<AddImputationDialog>;
+  @Input() dialogRef: MdDialogRef<AddImputationDialogComponent>;
 
   form: FormGroup;
   projects: Project[];
@@ -53,22 +53,34 @@ export class AddProjectComponent extends AddImputation implements OnInit {
     this.submitted = true;
 
     if (this.form.valid && (this.form.value.am || this.form.value.pm)) {
-      let imputations: Imputation[] = [];
+      const imputations: Imputation[] = [];
 
       if (this.form.value.am) {
-        imputations.push(this.imputationService.make(this.date, DayTime.AM, ImputationType.PROJECT, this.form.value.project, this.form.value.comment));
+        imputations.push(this.imputationService.make(
+          this.date,
+          DayTime.AM,
+          ImputationType.PROJECT,
+          this.form.value.project,
+          this.form.value.comment
+        ));
       }
       if (this.form.value.pm) {
-        imputations.push(this.imputationService.make(this.date, DayTime.PM, ImputationType.PROJECT, this.form.value.project, this.form.value.comment));
+        imputations.push(this.imputationService.make(
+          this.date,
+          DayTime.PM,
+          ImputationType.PROJECT,
+          this.form.value.project,
+          this.form.value.comment
+        ));
       }
 
       this.submitted = false;
 
       this.imputationService.create(...imputations).subscribe(
-        (imputations) => {
+        (items) => {
           this.submitted = false;
 
-          this.dialogRef.close(imputations)
+          this.dialogRef.close(items);
         },
         (err) => this.snackBar.error(err));
     }

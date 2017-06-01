@@ -10,7 +10,7 @@ import { AddOtherActivityComponent } from '../add-other-activity/add-other-activ
   templateUrl: './add-imputation.dialog.html',
   styleUrls: [ './add-imputation.dialog.scss' ]
 })
-export class AddImputationDialog implements OnInit {
+export class AddImputationDialogComponent implements OnInit {
   date: moment.Moment;
   dateString: string;
   selectedTab: number;
@@ -19,11 +19,14 @@ export class AddImputationDialog implements OnInit {
   @ViewChild('otherActivity') otherActivityComponent: AddOtherActivityComponent;
 
   constructor(
-    public dialogRef: MdDialogRef<AddImputationDialog>
+    public dialogRef: MdDialogRef<AddImputationDialogComponent>
   ) {}
 
   ngOnInit () {
-    this.dateString = `${this.capitalizeFirstLetter(this.date.format('dddd'))} ${this.date.format('DD')} ${this.capitalizeFirstLetter(this.date.format('MMMM'))}`;
+    const dayName = this.capitalizeFirstLetter(this.date.format('dddd')),
+      monthName = this.capitalizeFirstLetter(this.date.format('MMMM'));
+
+    this.dateString = `${dayName} ${this.date.format('DD')} ${monthName}`;
   }
 
   onTabChanged ($event: MdTabChangeEvent) {

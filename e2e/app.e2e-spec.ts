@@ -1,10 +1,10 @@
-import { WorkCalendarPage } from './app.po';
+import { WorkCalendarNewPage } from './app.po';
 
-describe('work-calendar App', function() {
-  let page: WorkCalendarPage;
+describe('work-calendar-new App', () => {
+  let page: WorkCalendarNewPage;
 
   beforeEach(() => {
-    page = new WorkCalendarPage();
+    page = new WorkCalendarNewPage();
   });
 
   it('should display message saying app works', () => {

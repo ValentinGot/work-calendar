@@ -49,7 +49,7 @@ export abstract class SettingsFormAbstract<T> {
   }
 
   protected switchMode (mode: FormMode) {
-    switch(mode) {
+    switch (mode) {
       case FormMode.CREATE:
         this.mode = FormMode.CREATE;
         this.buttonName = 'Créer';

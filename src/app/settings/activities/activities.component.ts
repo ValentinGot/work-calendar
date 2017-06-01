@@ -37,30 +37,30 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
   }
 
   protected create (activity: Activity) {
-    this.activityService.createOne(activity).subscribe((activity: Activity) => {
-      this.activities.push(activity);
+    this.activityService.createOne(activity).subscribe((createdActivity: Activity) => {
+      this.activities.push(createdActivity);
 
-      this.snackBar.success(`L'activité '${activity.name}' a été créé`);
+      this.snackBar.success(`L'activité '${createdActivity.name}' a été créé`);
     });
   }
 
   protected update (activity: Activity) {
-    this.activityService.updateOne(activity._id, activity).subscribe((activity: Activity) => {
+    this.activityService.updateOne(activity._id, activity).subscribe((updatedActivity: Activity) => {
       this.activities = this.activities.map((item) => {
-        if (item._id === activity._id) {
-          item = activity;
+        if (item._id === updatedActivity._id) {
+          item = updatedActivity;
         }
 
         return item;
       });
 
-      this.snackBar.success(`L'activité '${activity.name}' a été modifié`);
+      this.snackBar.success(`L'activité '${updatedActivity.name}' a été modifié`);
     });
   }
 
   protected remove (activity: Activity) {
-    let snackBarRef = this.snackBar.info('Activité supprimé', 'Annuler'),
-      undo = false;
+    const snackBarRef = this.snackBar.info('Activité supprimé', 'Annuler');
+    let undo = false;
 
     this.activities = this.activities.filter((item) => item._id !== activity._id);
 

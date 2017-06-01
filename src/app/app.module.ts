@@ -1,26 +1,28 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import 'hammerjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
 import { AppRoute } from './app.route';
 import { SharedModule } from './shared/shared.module';
-import { WorkCalendarModule } from './work-calendar/work-calendar.module';
-import { SettingsModule } from './settings/settings.module';
-import { AppComponent } from './app.component';
-import {TimeSheetModule} from "./time-sheet/time-sheet.module";
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    SharedModule.forRoot(),
-    WorkCalendarModule,
-    SettingsModule,
-    TimeSheetModule,
-    AppRoute
-  ],
   declarations: [
     AppComponent
   ],
-  bootstrap: [ AppComponent ]
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpModule,
+    RouterModule,
+    SharedModule,
+    AppRoute
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

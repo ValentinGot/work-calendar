@@ -1,10 +1,10 @@
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 export class HttpResponseHandler {
 
   public extractData (res: Response) {
-    let body = res.json();
+    const body = res.json();
 
     return body || {};
   }
