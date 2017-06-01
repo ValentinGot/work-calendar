@@ -64,29 +64,40 @@ export abstract class ImputationAbstract {
   }
 
   public toEvent (imputation: Imputation): Event {
-    let title: string,
+    let id: string, // Unique ID to match current date (not time) + imputation type
+      title: string,
       color: string;
+
+    const imputationDay = moment(imputation.start).hour(0);
 
     switch (imputation.type) {
       case ImputationType.PROJECT:
         let project: Project = imputation.data as Project;
 
+        id    = project._id + imputationDay.unix();
         title = `${project.code} - ${project.name}`;
         color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
         break;
 
       case ImputationType.ACTIVITY:
-        title = (<Activity> imputation.data).name;
+        let activity: Activity = imputation.data as Activity;
+
+        id    = activity._id + imputationDay.unix();
+        title = activity.name;
         color = ImputationColors.ACTIVITY;
         break;
 
       case ImputationType.COMMERCIAL:
-        title = (<Commercial> imputation.data).name;
+        let commercial = imputation.data as Commercial;
+
+        id    = commercial._id + imputationDay.unix();
+        title = commercial.name;
         color = ImputationColors.COMMERCIAL;
         break;
     }
 
     return {
+      _id       : id,
       title     : title,
       start     : moment(imputation.start),
       end       : moment(imputation.end),
@@ -96,27 +107,25 @@ export abstract class ImputationAbstract {
   }
 
   public mergeDayEvents (events: Event[]) {
+    let eventsMap = new Map<string, Event>();
+
     events.forEach((event: Event) => {
-      let findEvent = events.find((val: Event) => {
-        return moment(event.start).isSame(moment(val.start), 'year') &&
-          moment(event.start).isSame(moment(val.start), 'month') &&
-          moment(event.start).isSame(moment(val.start), 'day') &&
-          (<ImputationData> event.imputation.data)._id === (<ImputationData> val.imputation.data)._id &&
-          event.imputation._id !== val.imputation._id
-      });
+      if (eventsMap.has(event._id)) {
+        const existingEvent = eventsMap.get(event._id);
 
-      if (findEvent) {
-        findEvent.start = moment(this.getStartTime(moment(event.start), DayTime.AM));
-        findEvent.end = moment(this.getEndTime(moment(event.end), DayTime.PM));
-        findEvent.twinEvent = event;
-        findEvent.className = 'full-day';
-        findEvent.color = this.getColorFromType(findEvent.imputation.type);
+        existingEvent.start = moment(this.getStartTime(moment(event.start), DayTime.AM));
+        existingEvent.end = moment(this.getEndTime(moment(event.end), DayTime.PM));
+        existingEvent.twinEvent = event;
+        existingEvent.className = 'full-day';
+        existingEvent.color = this.getColorFromType(existingEvent.imputation.type);
 
-        events.splice(events.indexOf(event), 1);
+        eventsMap.set(event._id, existingEvent);
+      } else {
+        eventsMap.set(event._id, event);
       }
     });
 
-    return events;
+    return Array.from(eventsMap).map((item) => item[1]);
   }
 
   private getColorFromType (type: ImputationType) {
