@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialogRef, MdDialog } from '@angular/material';
-import { CalendarComponent } from 'angular2-fullcalendar/src/calendar/calendar';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
@@ -9,6 +8,7 @@ import { AddImputationDialogComponent } from './shared/add-imputation/add-imputa
 import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
+import { FullCalendarComponent } from './shared/full-calendar/full-calendar.component';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -21,7 +21,7 @@ export class WorkCalendarComponent implements OnInit {
   calendarOptions;
   displayDate: string;
 
-  @ViewChild(CalendarComponent) myCalendar: CalendarComponent;
+  @ViewChild(FullCalendarComponent) myCalendar: FullCalendarComponent;
 
   constructor(
     private dialog: MdDialog,
