@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MdIconModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -11,7 +12,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { AppRoute } from './app.route';
 import { SharedModule } from './shared/shared.module';
+import { AuthGuard } from './shared/auth.guard';
 import { environment } from '../environments/environment';
+import { AuthenticatedGuard } from './shared/authenticated.guard';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,16 @@ import { environment } from '../environments/environment';
     HttpModule,
     RouterModule,
     SharedModule,
+    MdIconModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRoute
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthenticatedGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

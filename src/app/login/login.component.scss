@@ -1,0 +1,46 @@
+//----------------------------------------
+//  Login
+//----------------------------------------
+
+$btn-height: 60px;
+
+$btn-google-icon-background-color: #E48D8B;
+$btn-google-background-color: #D9534F;
+$btn-google-color: #FFFFFF;
+
+//----------------------------------------
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  line-height: $btn-height;
+  background-color: $btn-google-background-color;
+  color: $btn-google-color;
+  border-radius: 5px;
+
+  & > .icon-container {
+    display: flex;
+    padding: 0 20px;
+    background-color: $btn-google-icon-background-color;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    & > md-icon {
+      height: $btn-height;
+    }
+  }
+
+  & > span {
+    flex: 1;
+    text-align: center;
+  }
+}
