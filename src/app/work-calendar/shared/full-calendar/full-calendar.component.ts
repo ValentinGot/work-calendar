@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 import { Options } from 'fullcalendar';
 import * as $ from 'jquery';
+import 'fullcalendar';
 
 @Component({
   selector: 'wo-full-calendar',
@@ -13,13 +14,13 @@ export class FullCalendarComponent implements AfterViewInit {
     private element: ElementRef
   ) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     setTimeout(() => {
       $('wo-full-calendar').fullCalendar(this.options);
     }, 100);
   }
 
-  fullCalendar(...args: any[]) {
+  fullCalendar (...args: any[]) {
     if (!args) {
       return;
     }
