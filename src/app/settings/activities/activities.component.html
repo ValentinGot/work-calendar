@@ -7,7 +7,7 @@
   </div>
 
   <div class="buttons-group">
-    <button md-raised-button color="primary" type="submit">{{ buttonName }}</button>
+    <button md-raised-button color="primary" type="submit" [disabled]="loading">{{ buttonName }}</button>
   </div>
 </form>
 
