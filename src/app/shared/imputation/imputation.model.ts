@@ -1,5 +1,5 @@
 export interface Imputation {
-  _id?: string;
+  $key?: string;
   start: number;
   end?: number;
   type: ImputationType;
@@ -8,7 +8,7 @@ export interface Imputation {
 }
 
 export interface ImputationData {
-  _id: string;
+  $key?: string;
 }
 
 export enum ImputationType {

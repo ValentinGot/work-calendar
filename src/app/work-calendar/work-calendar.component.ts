@@ -93,7 +93,7 @@ export class WorkCalendarComponent implements OnInit {
 
         this.imputationDetailDialogRef.afterClosed().subscribe((item: Event|undefined) => {
           if (item !== undefined) {
-            this.myCalendar.fullCalendar('removeEvents', item._id);
+            this.myCalendar.fullCalendar('removeEvents', item.$key);
 
           }
         });

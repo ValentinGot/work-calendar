@@ -61,7 +61,7 @@ export class TimeSheetComponent implements OnInit {
         this.activities.push(activity);
 
         imputations = imputations.filter((imputation) => {
-          if ( (<ImputationData>imputation.data)._id === (<ImputationData>activity.data)._id) {
+          if ((<ImputationData>imputation.data).$key === (<ImputationData>activity.data).$key) {
             if (moment(imputation.start).format('A') === 'AM') {
               activity.am.push(moment(imputation.start).date());
             } else {
@@ -69,7 +69,7 @@ export class TimeSheetComponent implements OnInit {
             }
           }
 
-          return (<ImputationData>imputation.data)._id !== (<ImputationData>activity.data)._id;
+          return (<ImputationData>imputation.data).$key !== (<ImputationData>activity.data).$key;
         });
       }
     });

@@ -74,7 +74,7 @@ export abstract class ImputationAbstract {
       case ImputationType.PROJECT:
         const project: Project = imputation.data as Project;
 
-        id    = project._id + imputationDay.unix();
+        id = project.$key + imputationDay.unix();
         title = `${project.code} - ${project.name}`;
         color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
         break;
@@ -82,7 +82,7 @@ export abstract class ImputationAbstract {
       case ImputationType.ACTIVITY:
         const activity: Activity = imputation.data as Activity;
 
-        id    = activity._id + imputationDay.unix();
+        id = activity.$key + imputationDay.unix();
         title = activity.name;
         color = ImputationColors.ACTIVITY;
         break;
@@ -90,14 +90,14 @@ export abstract class ImputationAbstract {
       case ImputationType.COMMERCIAL:
         const commercial = imputation.data as Commercial;
 
-        id    = commercial._id + imputationDay.unix();
+        id = commercial.$key + imputationDay.unix();
         title = commercial.name;
         color = ImputationColors.COMMERCIAL;
         break;
     }
 
     return {
-      _id       : id,
+      $key      : id,
       title     : title,
       start     : moment(imputation.start),
       end       : moment(imputation.end),
@@ -110,8 +110,8 @@ export abstract class ImputationAbstract {
     const eventsMap = new Map<string, Event>();
 
     events.forEach((event: Event) => {
-      if (eventsMap.has(event._id)) {
-        const existingEvent = eventsMap.get(event._id);
+      if (eventsMap.has(event.$key)) {
+        const existingEvent = eventsMap.get(event.$key);
 
         existingEvent.start = moment(this.getStartTime(moment(event.start), DayTime.AM));
         existingEvent.end = moment(this.getEndTime(moment(event.end), DayTime.PM));
@@ -119,13 +119,13 @@ export abstract class ImputationAbstract {
         existingEvent.className = 'full-day';
         existingEvent.color = this.getColorFromType(existingEvent.imputation.type);
 
-        eventsMap.set(event._id, existingEvent);
+        eventsMap.set(event.$key, existingEvent);
       } else {
-        eventsMap.set(event._id, event);
+        eventsMap.set(event.$key, event);
       }
     });
 
-    return Array.from(eventsMap).map((item) => item[1]);
+    return Array.from(eventsMap).map((item) => item[ 1 ]);
   }
 
   private getColorFromType (type: ImputationType) {

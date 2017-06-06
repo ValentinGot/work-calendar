@@ -1,8 +1,8 @@
-import { Imputation } from '../imputation/imputation.model';
 import * as moment from 'moment';
+import { Imputation } from '../imputation/imputation.model';
 
 export interface Event {
-  _id?: string;
+  $key?: string;
   title: string;
   start: moment.Moment;
   end: moment.Moment;

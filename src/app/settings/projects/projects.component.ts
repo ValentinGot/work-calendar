@@ -1,9 +1,8 @@
-import { Component, OnInit, Inject, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { ProjectService } from '../../shared/project/project.service';
 import { Project } from '../../shared/project/project.model';
-import { ProjectInterface } from '../../shared/project/project.interface';
 import { SnackbarService } from '../../shared/snackbar.service';
 import { SettingsFormAbstract, FormMode } from '../settings-form.abstract';
 
@@ -16,7 +15,7 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
   projects: Project[];
 
   constructor (
-    @Inject(ProjectService) private projectService: ProjectInterface,
+    private projectService: ProjectService,
     private formBuilder: FormBuilder,
     private snackBar: SnackbarService
   ) { super(); }
@@ -32,7 +31,7 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
     });
 
     this.form = this.formBuilder.group({
-      _id   : '',
+      $key  : '',
       code  : [ '', Validators.required ],
       client: [ '', Validators.required ],
       name  : [ '', Validators.required ]
@@ -48,16 +47,16 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
   }
 
   protected update (project: Project) {
-    this.projectService.update(project._id, project).subscribe((updatedProject: Project) => {
+    this.projectService.update(project.$key, project).subscribe(() => {
       this.projects = this.projects.map((item) => {
-        if (item._id === updatedProject._id) {
-          item = updatedProject;
+        if (item.$key === project.$key) {
+          item = project;
         }
 
         return item;
       });
 
-      this.snackBar.success(`Le projet '${updatedProject.code} - ${updatedProject.name}' a été modifié`);
+      this.snackBar.success(`Le projet '${project.code} - ${project.name}' a été modifié`);
     });
   }
 
@@ -65,12 +64,12 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
     const snackBarRef = this.snackBar.info('Projet supprimé', 'Annuler');
     let undo = false;
 
-    this.projects = this.projects.filter((item) => item._id !== project._id);
+    this.projects = this.projects.filter((item) => item.$key !== project.$key);
 
     snackBarRef.onAction().subscribe(() => undo = true);
     snackBarRef.afterDismissed().subscribe(() => {
       if (!undo) {
-        this.projectService.remove(project._id).subscribe();
+        this.projectService.remove(project.$key).subscribe();
       } else {
         this.projects.push(project);
       }

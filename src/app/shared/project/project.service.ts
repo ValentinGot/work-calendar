@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
-import { HttpResponseHandler } from '../http-response-handler';
-import { environment } from '../../../environments/environment';
 import { Project } from './project.model';
+import { CRUDInterface } from '../crud.interface';
 
 @Injectable()
-export class ProjectService extends HttpResponseHandler {
-  private baseUrl = '/projects';
-  private url: string;
+export class ProjectService implements CRUDInterface<Project> {
+  static COLLECTION = 'projects';
 
   constructor (
-    private http: Http
-  ) {
-    super();
+    private db: AngularFireDatabase
+  ) {}
 
-    this.url = `${environment.url}${this.baseUrl}`;
+  getAll (): Observable<Project[]> {
+    return this.db.list(ProjectService.COLLECTION);
   }
 
-  public getAll (): Observable<Project[]> {
-    return this.http.get(this.url)
-      .map(this.extractData)
-      .catch(this.handleError);
+  create (project: Project): Observable<Project> {
+    return Observable.fromPromise(this.db.list(ProjectService.COLLECTION).push(project));
   }
 
-  public post (project: Project): Observable<Project> {
-    return this.http.post(this.url, project)
-      .map(this.extractData)
-      .catch(this.handleError);
+  update (id: string, project: Project): Observable<void> {
+    delete project.$key;
+
+    return Observable.fromPromise(this.db.list(ProjectService.COLLECTION).update(id, project));
+  }
+
+  remove (id: string): Observable<void> {
+    return Observable.fromPromise(this.db.list(ProjectService.COLLECTION).remove(id));
   }
 
 }

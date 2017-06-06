@@ -111,7 +111,7 @@ export class ImputationService extends ImputationAbstract {
   }
 
   public update (imputations: Array<Imputation>) {
-    return Observable.forkJoin(imputations.map((imputation) => this.updateOne(imputation._id, imputation)));
+    return Observable.forkJoin(imputations.map((imputation) => this.updateOne(imputation.$key, imputation)));
   }
 
   public updateOne (id: string, imputation: Imputation): Observable<Imputation> {

@@ -1,10 +1,9 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { MdSnackBarModule } from '@angular/material';
 
 import { ImputationService } from './imputation/imputation.service';
 import { ProjectService } from './project/project.service';
-import { ProjectLocalService } from './project/project-local.service';
 import { SnackbarService } from './snackbar.service';
 import { ActivityService } from './activity/activity.service';
 
@@ -15,10 +14,7 @@ import { ActivityService } from './activity/activity.service';
   ],
   providers: [
     ImputationService,
-    {
-      provide: ProjectService,
-      useClass: ProjectLocalService
-    },
+    ProjectService,
     ActivityService,
     SnackbarService
   ]

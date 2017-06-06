@@ -31,13 +31,13 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
     });
 
     this.form = this.formBuilder.group({
-      _id : '',
+      $key : '',
       name: [ '', Validators.required ]
     });
   }
 
   protected create (activity: Activity) {
-    this.activityService.createOne(activity).subscribe((createdActivity: Activity) => {
+    this.activityService.create(activity).subscribe((createdActivity: Activity) => {
       this.activities.push(createdActivity);
 
       this.snackBar.success(`L'activité '${createdActivity.name}' a été créé`);
@@ -45,16 +45,16 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
   }
 
   protected update (activity: Activity) {
-    this.activityService.updateOne(activity._id, activity).subscribe((updatedActivity: Activity) => {
+    this.activityService.update(activity.$key, activity).subscribe(() => {
       this.activities = this.activities.map((item) => {
-        if (item._id === updatedActivity._id) {
-          item = updatedActivity;
+        if (item.$key === activity.$key) {
+          item = activity;
         }
 
         return item;
       });
 
-      this.snackBar.success(`L'activité '${updatedActivity.name}' a été modifié`);
+      this.snackBar.success(`L'activité '${activity.name}' a été modifié`);
     });
   }
 
@@ -62,12 +62,12 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
     const snackBarRef = this.snackBar.info('Activité supprimé', 'Annuler');
     let undo = false;
 
-    this.activities = this.activities.filter((item) => item._id !== activity._id);
+    this.activities = this.activities.filter((item) => item.$key !== activity.$key);
 
     snackBarRef.onAction().subscribe(() => undo = true);
     snackBarRef.afterDismissed().subscribe(() => {
       if (!undo) {
-        this.activityService.removeOne(activity._id).subscribe();
+        this.activityService.remove(activity.$key).subscribe();
       } else {
         this.activities.push(activity);
       }

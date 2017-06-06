@@ -18,10 +18,10 @@ export class ImputationDetailDialogComponent {
   ) { }
 
   onRemove () {
-    const eventToRemove: Array<string> = [this.event.imputation._id];
+    const eventToRemove: Array<string> = [this.event.imputation.$key];
 
     if (this.event.twinEvent) {
-      eventToRemove.push(this.event.twinEvent.imputation._id);
+      eventToRemove.push(this.event.twinEvent.imputation.$key);
     }
 
     this.imputationService.remove(eventToRemove).subscribe(() => this.dialogRef.close(this.event));

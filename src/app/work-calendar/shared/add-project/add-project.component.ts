@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 import * as moment from 'moment';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
-import { ProjectInterface } from '../../../shared/project/project.interface';
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
@@ -29,7 +28,7 @@ export class AddProjectComponent extends AddImputation implements OnInit {
   @ViewChild('projectForm') projectForm: NgForm;
 
   constructor(
-    @Inject(ProjectService) private projectService: ProjectInterface,
+    private projectService: ProjectService,
     private imputationService: ImputationService,
     private formBuilder: FormBuilder,
     private snackBar: SnackbarService,

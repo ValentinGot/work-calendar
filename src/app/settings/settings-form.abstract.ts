@@ -1,8 +1,9 @@
 import { FormGroup } from '@angular/forms';
+import { ImputationData } from '../shared/imputation/imputation.model';
 
 export enum FormMode { CREATE, UPDATE }
 
-export abstract class SettingsFormAbstract<T> {
+export abstract class SettingsFormAbstract<T extends ImputationData> {
   form: FormGroup;
   submitted: boolean;
   loading: boolean;
@@ -22,7 +23,7 @@ export abstract class SettingsFormAbstract<T> {
     if (this.form.valid) {
       switch (this.mode) {
         case FormMode.CREATE:
-          delete this.form.value._id;
+          delete this.form.value.$key;
 
           this.create(this.form.value as T);
           break;
@@ -41,7 +42,9 @@ export abstract class SettingsFormAbstract<T> {
   onEdit (type: T) {
     this.switchMode(FormMode.UPDATE);
 
-    this.form.setValue(type);
+    this.form.setValue(Object.assign({
+      $key: type.$key
+    }, type));
   }
 
   onRemove (type: T) {

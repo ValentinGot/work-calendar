@@ -1,5 +1,6 @@
-export interface Project {
-  _id?: string;
+import { ImputationData } from '../imputation/imputation.model';
+
+export interface Project extends ImputationData {
   code: string;
   client: string;
   name: string;
