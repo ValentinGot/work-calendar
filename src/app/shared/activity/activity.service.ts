@@ -18,14 +18,14 @@ export class ActivityService implements CRUDInterface<Activity> {
       .map((activities) => this.defaultActivities().concat(activities));
   }
 
-  create (project: Activity): Observable<Activity> {
-    return Observable.fromPromise(this.db.list(ActivityService.COLLECTION).push(project));
+  create (activity: Activity): Observable<Activity> {
+    return Observable.fromPromise(this.db.list(ActivityService.COLLECTION).push(activity));
   }
 
-  update (id: string, project: Activity): Observable<void> {
-    delete project.$key;
+  update (id: string, activity: Activity): Observable<void> {
+    delete activity.$key;
 
-    return Observable.fromPromise(this.db.list(ActivityService.COLLECTION).update(id, project));
+    return Observable.fromPromise(this.db.list(ActivityService.COLLECTION).update(id, activity));
   }
 
   remove (id: string): Observable<void> {

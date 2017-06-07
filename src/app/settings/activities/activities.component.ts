@@ -37,23 +37,13 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
   }
 
   protected create (activity: Activity) {
-    this.activityService.create(activity).subscribe((createdActivity: Activity) => {
-      this.activities.push(createdActivity);
-
-      this.snackBar.success(`L'activité '${createdActivity.name}' a été créé`);
+    this.activityService.create(activity).subscribe(() => {
+      this.snackBar.success(`L'activité '${activity.name}' a été créé`);
     });
   }
 
   protected update (activity: Activity) {
     this.activityService.update(activity.$key, activity).subscribe(() => {
-      this.activities = this.activities.map((item) => {
-        if (item.$key === activity.$key) {
-          item = activity;
-        }
-
-        return item;
-      });
-
       this.snackBar.success(`L'activité '${activity.name}' a été modifié`);
     });
   }
