@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
 import * as moment from 'moment';
 
@@ -10,7 +11,6 @@ import { ImputationService } from '../../../shared/imputation/imputation.service
 import { Imputation, DayTime, ImputationType } from '../../../shared/imputation/imputation.model';
 import { AddImputationDialogComponent } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'wo-add-project',

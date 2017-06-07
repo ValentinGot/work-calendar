@@ -9,24 +9,6 @@ import { Commercial } from '../commercial/commercial.model';
 
 export abstract class ImputationAbstract {
 
-  abstract getAll (): Observable<Imputation[]>;
-
-  abstract get (id: number): Observable<Imputation>;
-
-  abstract create (...imputations: Imputation[]): Observable<Imputation[]>;
-
-  abstract createOne (imputation: Imputation): Observable<Imputation>;
-
-  abstract exists (imputation: Imputation): Observable<Boolean>;
-
-  abstract update (imputations: Array<Imputation>): Observable<Imputation[]>;
-
-  abstract updateOne (id: string, imputation: Imputation): Observable<Imputation>;
-
-  abstract removeOne (id: string): Observable<void>;
-
-  abstract remove (ids: Array<string>): Observable<void[]>
-
   public make (date: moment.Moment, dayTime: DayTime, type: ImputationType, data: Object, comment?: string): Imputation {
     return {
       start  : this.getStartTime(date, dayTime),

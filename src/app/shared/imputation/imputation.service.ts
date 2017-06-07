@@ -1,76 +1,28 @@
-import {Injectable, NgZone} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import * as NeDBDataStore from 'nedb';
-import * as Datastore from 'nedb';
 import * as moment from 'moment';
 
 import { ImputationAbstract } from './imputation.abstract';
-import {Imputation, DayTime} from './imputation.model';
+import { Imputation } from './imputation.model';
 
 @Injectable()
 export class ImputationService extends ImputationAbstract {
-  imputations: NeDBDataStore;
+  static COLLECTION = 'imputations';
 
-  constructor (private zone: NgZone) {
+  constructor (
+    private db: AngularFireDatabase
+  ) {
     super();
-
-    this.imputations = new Datastore({
-      filename: 'imputations',
-      autoload: true
-    });
-  }
-
-  public getAll (): Observable<Imputation[]> {
-    return Observable.create((observer) => {
-      this.imputations.find({}).exec((err, imputations) => {
-        if (err) {
-          observer.error(err);
-        }
-
-        observer.next(imputations);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
-    });
   }
 
   public getAllRange (start: moment.Moment, end: moment.Moment): Observable<Imputation[]> {
-    return Observable.create((observer) => {
-      this.imputations.find({start: {$gt: parseInt(start.format('x')), $lt: parseInt(end.format('x')) } }).exec((err, imputations) => {
-        if (err) {
-          observer.error(err);
-        }
-
-        observer.next(imputations);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
-    });
-  }
-
-  public getForDay (day: moment.Moment): Observable<Imputation[]> {
-    return Observable.create((observer) => {
-      this.imputations
-        .find({start: {$in: [this.getStartTime(day, DayTime.AM), this.getStartTime(day, DayTime.PM)] } })
-        .exec((err, imputations) => {
-          if (err) {
-            observer.error(err);
-          }
-
-          observer.next(imputations);
-          this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-        });
-    });
-  }
-
-  public get (id: number): Observable<Imputation> {
-    return Observable.create((observer) => {
-      this.imputations.find({ _id: id }, (err, imputation) => {
-        if (err) {
-          observer.error(err);
-        }
-
-        observer.next(imputation);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
+    return this.db.list(ImputationService.COLLECTION, {
+      query: {
+        orderByChild: 'start',
+        startAt: parseInt(start.format('x')),
+        endAt: parseInt(end.format('x')),
+      }
     });
   }
 
@@ -79,52 +31,17 @@ export class ImputationService extends ImputationAbstract {
   }
 
   public createOne (imputation: Imputation): Observable<Imputation> {
-    return Observable.create((observer) => {
-      this.exists(imputation).subscribe((exists) => {
-        if (!exists) {
-          this.imputations.insert(imputation, (err, created) => {
-            if (err) {
-              observer.error(err);
-            }
-
-            observer.next(created);
-            this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-          });
-        } else {
-          observer.error(`There is already an imputation at this day time`);
-        }
-      });
-    });
-  }
-
-  public exists (imputation: Imputation): Observable<Boolean> {
-    return Observable.create((observer) => {
-      this.imputations.find({ start: imputation.start }, (err, imputations) => {
-        if (err) {
-          observer.error(err);
-        }
-
-        observer.next(imputations.length > 0);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
-    });
+    return Observable.fromPromise(this.db.list(ImputationService.COLLECTION).push(imputation));
   }
 
   public update (imputations: Array<Imputation>) {
     return Observable.forkJoin(imputations.map((imputation) => this.updateOne(imputation.$key, imputation)));
   }
 
-  public updateOne (id: string, imputation: Imputation): Observable<Imputation> {
-    return Observable.create((observer) => {
-      this.imputations.update({ _id: id }, imputation, (err) => {
-        if (err) {
-          observer.error(err);
-        }
+  public updateOne (id: string, imputation: Imputation): Observable<void> {
+    delete imputation.$key;
 
-        observer.next(imputation);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
-    });
+    return Observable.fromPromise(this.db.list(ImputationService.COLLECTION).update(id, imputation));
   }
 
   public remove (ids: Array<string>): Observable<void[]> {
@@ -132,15 +49,7 @@ export class ImputationService extends ImputationAbstract {
   }
 
   public removeOne (id: string): Observable<void> {
-    return Observable.create((observer) => {
-      this.imputations.remove({ _id: id }, (err) => {
-        if (err) {
-          observer.error(err);
-        }
-
-        observer.next(id);
-        this.zone.run((() => observer.complete())); // NeDB is running outside the angular context
-      });
-    });
+    return Observable.fromPromise(this.db.list(ImputationService.COLLECTION).remove(id));
   }
+
 }
