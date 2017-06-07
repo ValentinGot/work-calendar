@@ -39,23 +39,13 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
   }
 
   protected create (project: Project) {
-    this.projectService.create(project).subscribe((createdProject: Project) => {
-      this.projects.push(createdProject);
-
-      this.snackBar.success(`Le projet '${createdProject.code} - ${createdProject.name}' a été créé`);
+    this.projectService.create(project).subscribe(() => {
+      this.snackBar.success(`Le projet '${project.code} - ${project.name}' a été créé`);
     });
   }
 
   protected update (project: Project) {
     this.projectService.update(project.$key, project).subscribe(() => {
-      this.projects = this.projects.map((item) => {
-        if (item.$key === project.$key) {
-          item = project;
-        }
-
-        return item;
-      });
-
       this.snackBar.success(`Le projet '${project.code} - ${project.name}' a été modifié`);
     });
   }
