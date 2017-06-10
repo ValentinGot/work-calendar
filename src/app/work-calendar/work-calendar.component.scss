@@ -67,6 +67,7 @@ nav {
   transition: opacity .25s;
 
   &.hidden {
+    pointer-events: none;
     opacity: 0;
   }
 }
