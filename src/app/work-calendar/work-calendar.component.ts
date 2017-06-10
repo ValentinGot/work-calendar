@@ -9,6 +9,7 @@ import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 import { FullCalendarComponent } from './shared/full-calendar/full-calendar.component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -20,6 +21,7 @@ export class WorkCalendarComponent implements OnInit {
   imputationDetailDialogRef: MdDialogRef<ImputationDetailDialogComponent>;
   calendarOptions;
   displayDate: string;
+  loading: boolean;
 
   @ViewChild(FullCalendarComponent) myCalendar: FullCalendarComponent;
 
@@ -70,7 +72,10 @@ export class WorkCalendarComponent implements OnInit {
       fixedWeekCount: false,
       editable      : true,
       timeFormat    : ' ',
-      eventRender   : function (event: Event, el) {
+      loading: (isLoading: boolean) =>{
+        this.loading = isLoading;
+      },
+      eventRender   : (event: Event, el) => {
         if (!event.twinEvent) {
           el.find('.fc-title').html(`<b>${moment(event.imputation.start).format('A')}</b> ${event.title}`);
         } else {
@@ -81,7 +86,7 @@ export class WorkCalendarComponent implements OnInit {
         this.addImputationDialogRef = this.dialog.open(AddImputationDialogComponent);
         this.addImputationDialogRef.componentInstance.date = date;
 
-        this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[]|undefined) => {
+        this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[] | undefined) => {
           if (imputations !== undefined) {
             this.myCalendar.fullCalendar('refetchEvents');
           }
@@ -91,7 +96,7 @@ export class WorkCalendarComponent implements OnInit {
         this.imputationDetailDialogRef = this.dialog.open(ImputationDetailDialogComponent);
         this.imputationDetailDialogRef.componentInstance.event = event;
 
-        this.imputationDetailDialogRef.afterClosed().subscribe((item: Event|undefined) => {
+        this.imputationDetailDialogRef.afterClosed().subscribe((item: Event | undefined) => {
           if (item !== undefined) {
             this.myCalendar.fullCalendar('removeEvents', item.$key);
 
@@ -119,7 +124,7 @@ export class WorkCalendarComponent implements OnInit {
 
       },
       events        : (start, end, timezone, cb) => {
-        this.imputationService.getAllRange(start, end).subscribe((imputations) => {
+        this.imputationService.getAllRange(start, end).toPromise().then((imputations) => {
           const events = imputations.map((imputation) => this.imputationService.toEvent(imputation));
 
           cb(this.imputationService.mergeDayEvents(events));

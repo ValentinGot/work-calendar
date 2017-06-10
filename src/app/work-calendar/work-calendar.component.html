@@ -28,4 +28,8 @@
   </div>
 </nav>
 
+<div class="loading" [class.hidden]="!loading">
+  <md-progress-spinner mode="indeterminate" ></md-progress-spinner>
+</div>
+
 <wo-full-calendar [options]="calendarOptions"></wo-full-calendar>

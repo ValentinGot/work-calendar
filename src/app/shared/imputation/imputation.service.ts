@@ -23,7 +23,7 @@ export class ImputationService extends ImputationAbstract {
         startAt: parseInt(start.format('x')),
         endAt: parseInt(end.format('x')),
       }
-    });
+    }).take(1);
   }
 
   public create (...imputations: Imputation[]): Observable<Imputation[]> {

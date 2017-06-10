@@ -46,7 +46,7 @@ export abstract class ImputationAbstract {
   }
 
   public toEvent (imputation: Imputation): Event {
-    let id: string, // Unique ID to match current date (not time) + imputation type
+    let $key: string, // Unique ID to match current date (not time) + imputation type
       title: string,
       color: string;
 
@@ -56,7 +56,7 @@ export abstract class ImputationAbstract {
       case ImputationType.PROJECT:
         const project: Project = imputation.data as Project;
 
-        id = project.$key + imputationDay.unix();
+        $key = project.code + imputationDay.unix();
         title = `${project.code} - ${project.name}`;
         color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
         break;
@@ -64,7 +64,7 @@ export abstract class ImputationAbstract {
       case ImputationType.ACTIVITY:
         const activity: Activity = imputation.data as Activity;
 
-        id = activity.$key + imputationDay.unix();
+        $key = activity.name + imputationDay.unix();
         title = activity.name;
         color = ImputationColors.ACTIVITY;
         break;
@@ -72,14 +72,14 @@ export abstract class ImputationAbstract {
       case ImputationType.COMMERCIAL:
         const commercial = imputation.data as Commercial;
 
-        id = commercial.$key + imputationDay.unix();
+        $key = commercial.name + imputationDay.unix();
         title = commercial.name;
         color = ImputationColors.COMMERCIAL;
         break;
     }
 
     return {
-      $key      : id,
+      $key      : $key,
       title     : title,
       start     : moment(imputation.start),
       end       : moment(imputation.end),

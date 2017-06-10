@@ -20,7 +20,7 @@ export class FullCalendarComponent implements AfterViewInit {
     }, 100);
   }
 
-  fullCalendar (...args: any[]) {
+  fullCalendar (...args: any[]): any {
     if (!args) {
       return;
     }
