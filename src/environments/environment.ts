@@ -5,7 +5,6 @@
 
 export const environment = {
   production: false,
-  url       : '/api',
   firebase  : {
     apiKey           : 'AIzaSyAJ1vSjEE_5uXquahEUsPLK_pTBHUOvQpM',
     authDomain       : 'work-calendar-9df00.firebaseapp.com',
