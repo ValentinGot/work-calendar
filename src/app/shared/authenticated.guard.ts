@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class AuthenticatedGuard implements CanLoad {
@@ -10,14 +12,17 @@ export class AuthenticatedGuard implements CanLoad {
     private afAuth: AngularFireAuth
   ) {}
 
-  canLoad () {
-    return this.afAuth.authState
-      .first()
-      .map((authState) => !!authState)
-      .do((authenticated: boolean) => {
-        if (authenticated) {
-          this.router.navigate([ '/work-calendar' ]);
-        }
-      });
+  canLoad (): Observable<boolean> {
+    return this.afAuth.authState.take(1).map((authState) => {
+      const isAuthenticated = !!authState;
+
+      if (isAuthenticated) {
+        this.router.navigate([ '/work-calendar' ]);
+
+        return false;
+      }
+
+      return true;
+    });
   }
 }

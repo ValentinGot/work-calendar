@@ -11,13 +11,16 @@ export class AuthGuard implements CanLoad {
   ) {}
 
   canLoad () {
-    return this.afAuth.authState
-      .first()
-      .map((authState) => !!authState)
-      .do((authenticated: boolean) => {
-        if (!authenticated) {
-          this.router.navigate([ '/login' ]);
-        }
-      });
+    return this.afAuth.authState.take(1).map((authState) => {
+      const isAuthenticated = !!authState;
+
+      if (!isAuthenticated) {
+        this.router.navigate([ '/login' ]);
+
+        return false;
+      }
+
+      return true;
+    });
   }
 }
