@@ -83,8 +83,12 @@ export class WorkCalendarComponent implements OnInit {
         }
       },
       dayClick      : (date) => {
+        const dayEvents = this.myCalendar.fullCalendar('clientEvents', (event) =>
+          moment(date).isSameOrAfter(event.start, 'day') && moment(date).isSameOrBefore(event.end, 'day'));
+
         this.addImputationDialogRef = this.dialog.open(AddImputationDialogComponent);
         this.addImputationDialogRef.componentInstance.date = date;
+        this.addImputationDialogRef.componentInstance.dayEvents = dayEvents;
 
         this.addImputationDialogRef.afterClosed().subscribe((imputations: Imputation[] | undefined) => {
           if (imputations !== undefined) {

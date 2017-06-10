@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
-import * as moment from 'moment';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
-import { AddImputationDialogComponent } from '../add-imputation/add-imputation.dialog';
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../../../shared/activity/activity.model';
 import { ActivityService } from '../../../shared/activity/activity.service';
@@ -17,9 +14,6 @@ import { SnackbarService } from '../../../shared/snackbar.service';
   styleUrls: ['./add-other-activity.component.scss']
 })
 export class AddOtherActivityComponent extends AddImputation implements OnInit {
-  @Input() date: moment.Moment;
-  @Input() dialogRef: MdDialogRef<AddImputationDialogComponent>;
-
   activities: Activity[];
   form: FormGroup;
   submitted: boolean;

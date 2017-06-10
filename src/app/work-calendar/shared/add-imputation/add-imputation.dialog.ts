@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { AddProjectComponent } from '../add-project/add-project.component';
 import { AddOtherActivityComponent } from '../add-other-activity/add-other-activity.component';
+import { Event } from '../../../shared/event/event.model';
 
 @Component({
   selector: 'wo-add-imputation-dialog',
@@ -12,6 +13,7 @@ import { AddOtherActivityComponent } from '../add-other-activity/add-other-activ
 })
 export class AddImputationDialogComponent implements OnInit {
   date: moment.Moment;
+  dayEvents: Event[];
   dateString: string;
   selectedTab: number;
 

@@ -3,11 +3,11 @@
 <div md-dialog-content class="add-imputation-dialog-content dialog-content-no-padding">
   <md-tab-group class="add-imputation-dialog-tabs" (selectChange)="onTabChanged($event)">
     <md-tab label="Projet">
-      <wo-add-project [date]="date" [dialogRef]="dialogRef" #project></wo-add-project>
+      <wo-add-project [date]="date" [dayEvents]="dayEvents" [dialogRef]="dialogRef" #project></wo-add-project>
     </md-tab>
 
     <md-tab label="Autres activités">
-      <wo-add-other-activity [date]="date" [dialogRef]="dialogRef" #otherActivity></wo-add-other-activity>
+      <wo-add-other-activity [date]="date" [dayEvents]="dayEvents" [dialogRef]="dialogRef" #otherActivity></wo-add-other-activity>
     </md-tab>
   </md-tab-group>
 </div>

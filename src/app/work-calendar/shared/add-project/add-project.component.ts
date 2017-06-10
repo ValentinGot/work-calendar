@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MdDialogRef } from '@angular/material';
-import * as moment from 'moment';
 
 import { AddImputation } from '../add-imputation/add-imputation.class';
 import { ProjectService } from '../../../shared/project/project.service';
 import { Project } from '../../../shared/project/project.model';
 import { ImputationService } from '../../../shared/imputation/imputation.service';
 import { Imputation, DayTime, ImputationType } from '../../../shared/imputation/imputation.model';
-import { AddImputationDialogComponent } from '../add-imputation/add-imputation.dialog';
 import { SnackbarService } from '../../../shared/snackbar.service';
 
 @Component({
@@ -18,9 +15,6 @@ import { SnackbarService } from '../../../shared/snackbar.service';
   styleUrls: ['add-project.component.scss']
 })
 export class AddProjectComponent extends AddImputation implements OnInit {
-  @Input() date: moment.Moment;
-  @Input() dialogRef: MdDialogRef<AddImputationDialogComponent>;
-
   form: FormGroup;
   projects: Project[];
   submitted: boolean;
@@ -54,7 +48,7 @@ export class AddProjectComponent extends AddImputation implements OnInit {
     if (this.form.valid && (this.form.value.am || this.form.value.pm)) {
       const imputations: Imputation[] = [];
 
-      if (this.form.value.am) {
+      if (this.form.value.am && !this.exists(DayTime.AM)) {
         imputations.push(this.imputationService.make(
           this.date,
           DayTime.AM,
@@ -63,7 +57,7 @@ export class AddProjectComponent extends AddImputation implements OnInit {
           this.form.value.comment
         ));
       }
-      if (this.form.value.pm) {
+      if (this.form.value.pm && !this.exists(DayTime.PM)) {
         imputations.push(this.imputationService.make(
           this.date,
           DayTime.PM,
