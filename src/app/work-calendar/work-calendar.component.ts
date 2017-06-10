@@ -72,7 +72,7 @@ export class WorkCalendarComponent implements OnInit {
       fixedWeekCount: false,
       editable      : true,
       timeFormat    : ' ',
-      loading: (isLoading: boolean) =>{
+      loading       : (isLoading: boolean) => {
         this.loading = isLoading;
       },
       eventRender   : (event: Event, el) => {
@@ -82,9 +82,9 @@ export class WorkCalendarComponent implements OnInit {
           el.find('.fc-title').html(event.title);
         }
       },
-      dayClick      : (date) => {
+      dayClick      : (date: moment.Moment) => {
         const dayEvents = this.myCalendar.fullCalendar('clientEvents', (event) =>
-          moment(date).isSameOrAfter(event.start, 'day') && moment(date).isSameOrBefore(event.end, 'day'));
+        moment(date).isSameOrAfter(event.start, 'day') && moment(date).isSameOrBefore(event.end, 'day'));
 
         this.addImputationDialogRef = this.dialog.open(AddImputationDialogComponent);
         this.addImputationDialogRef.componentInstance.date = date;
@@ -127,7 +127,7 @@ export class WorkCalendarComponent implements OnInit {
           (err) => this.snackBar.error(err));
 
       },
-      events        : (start, end, timezone, cb) => {
+      events        : (start: moment.Moment, end: moment.Moment, timezone, cb) => {
         this.imputationService.getAllRange(start, end).toPromise().then((imputations) => {
           const events = imputations.map((imputation) => this.imputationService.toEvent(imputation));
 
