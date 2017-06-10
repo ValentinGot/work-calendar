@@ -100,6 +100,13 @@ export abstract class ImputationAbstract {
         existingEvent.twinEvent = event;
         existingEvent.className = 'full-day';
         existingEvent.color = this.getColorFromType(existingEvent.imputation.type);
+        if (event.imputation.comment !== '') {
+          if (existingEvent.imputation.comment !== '') {
+            existingEvent.imputation.comment += '\n';
+          }
+
+          existingEvent.imputation.comment += event.imputation.comment;
+        }
 
         eventsMap.set(event.$key, existingEvent);
       } else {
