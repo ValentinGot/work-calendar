@@ -100,7 +100,7 @@ export abstract class ImputationAbstract {
         existingEvent.twinEvent = event;
         existingEvent.className = 'full-day';
         existingEvent.color = this.getColorFromType(existingEvent.imputation.type);
-        if (event.imputation.comment !== '') {
+        if (event.imputation.comment !== '' && event.imputation.comment !== existingEvent.imputation.comment) {
           if (existingEvent.imputation.comment !== '') {
             existingEvent.imputation.comment += '\n';
           }
