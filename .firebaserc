@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "work-calendar-9df00"
+    "default": "work-calendar-9df00",
+    "staging": "work-calendar-staging"
   }
 }

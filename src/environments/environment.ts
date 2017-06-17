@@ -7,11 +7,11 @@ export const environment = {
   production: false,
   hmr       : true,
   firebase  : {
-    apiKey           : 'AIzaSyAJ1vSjEE_5uXquahEUsPLK_pTBHUOvQpM',
-    authDomain       : 'work-calendar-9df00.firebaseapp.com',
-    databaseURL      : 'https://work-calendar-9df00.firebaseio.com',
-    projectId        : 'work-calendar-9df00',
-    storageBucket    : 'work-calendar-9df00.appspot.com',
-    messagingSenderId: '838352952821'
+    apiKey           : 'AIzaSyDGaJQ5lNR2TM9m1NuG2RiVaE9AmVPD6j0',
+    authDomain       : 'work-calendar-staging.firebaseapp.com',
+    databaseURL      : 'https://work-calendar-staging.firebaseio.com',
+    projectId        : 'work-calendar-staging',
+    storageBucket    : 'work-calendar-staging.appspot.com',
+    messagingSenderId: '991449284188'
   }
 };
