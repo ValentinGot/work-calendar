@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { Options } from 'fullcalendar';
 import * as $ from 'jquery';
 import 'fullcalendar';
 
 @Component({
   selector: 'wo-full-calendar',
-  template: '<div></div>'
+  template: '<div></div>',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: [ './full-calendar.component.scss' ]
 })
 export class FullCalendarComponent implements AfterViewInit {
   @Input() options: Options;

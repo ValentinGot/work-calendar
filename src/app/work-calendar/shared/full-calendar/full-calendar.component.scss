@@ -1,0 +1,19 @@
+//----------------------------------------
+//  Full Calendar
+//----------------------------------------
+
+//  Week-ends
+//----------------------------------------
+
+.fc-day.fc-sat,
+.fc-day.fc-sun {
+  pointer-events: none;
+  cursor: default;
+  background-color: rgba(224, 224, 224, .3) !important;
+}
+
+.fc-sat.fc-day-top,
+.fc-sun.fc-day-top {
+  opacity: .3 !important;
+}
+
