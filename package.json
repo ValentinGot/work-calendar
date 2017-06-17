@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --hmr",
     "build": "ng build",
     "build:prod": "ng build --prod --aot",
     "test": "ng test",
@@ -37,6 +37,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "^4.0.0",
+    "@angularclass/hmr": "^1.2.2",
     "@types/fullcalendar": "^2.7.43",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "^2.0.46",
