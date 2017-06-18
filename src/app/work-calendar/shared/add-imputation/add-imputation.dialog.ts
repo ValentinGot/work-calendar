@@ -16,6 +16,7 @@ export class AddImputationDialogComponent implements OnInit {
   dayEvents: Event[];
   dateString: string;
   selectedTab: number;
+  submitEnabled: boolean = true;
 
   @ViewChild('project') projectComponent: AddProjectComponent;
   @ViewChild('otherActivity') otherActivityComponent: AddOtherActivityComponent;
@@ -36,6 +37,8 @@ export class AddImputationDialogComponent implements OnInit {
   }
 
   onSubmit () {
+    this.submitEnabled = false;
+
     switch (this.selectedTab) {
       case 0:
       default:

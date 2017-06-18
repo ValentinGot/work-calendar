@@ -15,5 +15,5 @@
 <div class="dialog-actions-right" md-dialog-actions>
   <button md-button (click)="dialogRef.close()">Annuler</button>
   &nbsp;&nbsp;
-  <button md-raised-button color="primary" (click)="onSubmit()">Imputer</button>
+  <button md-raised-button color="primary" (click)="onSubmit()" [disabled]="!submitEnabled">Imputer</button>
 </div>
