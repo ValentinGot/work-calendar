@@ -4,6 +4,9 @@
     ".write": "auth != null",
     "imputations": {
       ".indexOn": [ "start" ]
+    },
+    "notifications": {
+      ".indexOn": [ "token" ]
     }
   }
 }

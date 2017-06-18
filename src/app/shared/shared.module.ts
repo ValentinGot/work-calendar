@@ -6,6 +6,7 @@ import { ImputationService } from './imputation/imputation.service';
 import { ProjectService } from './project/project.service';
 import { SnackbarService } from './snackbar.service';
 import { ActivityService } from './activity/activity.service';
+import { NotificationService } from './notification/notification.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ActivityService } from './activity/activity.service';
     ImputationService,
     ProjectService,
     ActivityService,
+    NotificationService,
     SnackbarService
   ]
 })
