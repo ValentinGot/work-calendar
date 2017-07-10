@@ -9,7 +9,6 @@ import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 import { FullCalendarComponent } from './shared/full-calendar/full-calendar.component';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -71,6 +70,7 @@ export class WorkCalendarComponent implements OnInit {
       height        : 'parent',
       fixedWeekCount: false,
       editable      : true,
+      weekends      : false,
       timeFormat    : ' ',
       loading       : (isLoading: boolean) => {
         this.loading = isLoading;
@@ -105,7 +105,6 @@ export class WorkCalendarComponent implements OnInit {
         this.imputationDetailDialogRef.afterClosed().subscribe((item: Event | undefined) => {
           if (item !== undefined) {
             this.myCalendar.fullCalendar('removeEvents', item.$key);
-
           }
         });
       },
