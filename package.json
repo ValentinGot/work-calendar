@@ -11,8 +11,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:staging": "firebase deploy -P staging",
-    "deploy:prod": "firebase deploy -P default"
+    "deploy:staging": "yarn run build:staging && firebase deploy -P staging",
+    "deploy:prod": "yarn run build:prod && firebase deploy -P default"
   },
   "dependencies": {
     "@angular/animations": "^4.1.3",
