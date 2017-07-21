@@ -1,7 +1,7 @@
 <nav fxLayout="row">
-  <div fxFlex="25%" fxLayoutAlign="start center" class="nav-left">{{ displayDate }}</div>
+  <div fxLayoutAlign="start center" class="nav-left">{{ displayDate }}</div>
 
-  <div fxFlex="50%" fxLayoutAlign="center center"  class="nav-center">
+  <div fxFlex="100%" fxLayoutAlign="center center"  class="nav-center">
     <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" (click)="onToday()">
       <md-icon>today</md-icon>
       <span>Auj.</span>
@@ -16,15 +16,24 @@
     </div>
   </div>
 
-  <div fxFlex="25%" fxLayoutAlign="end center"  class="nav-right">
-    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" [routerLink]="[ '/time-sheet' ]">
-      <md-icon>timeline</md-icon>
-      <span>Feuille</span>
-    </div>
-    <div class="icon-wrapper" fxLayout="column" fxLayoutAlign="center center" [routerLink]="[ '/settings/projects' ]">
-      <md-icon>settings</md-icon>
-      <span>Param.</span>
-    </div>
+  <div fxLayoutAlign="end center"  class="nav-right">
+    <button class="btn-menu" md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>menu</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item [routerLink]="[ '/time-sheet' ]">
+        <md-icon>timeline</md-icon>
+        <span>Feuille de temps</span>
+      </button>
+      <button md-menu-item [routerLink]="[ '/settings/projects' ]">
+        <md-icon>settings</md-icon>
+        <span>Paramètres</span>
+      </button>
+      <button md-menu-item (click)="onLogout()">
+        <md-icon>exit_to_app</md-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </md-menu>
   </div>
 </nav>
 

@@ -54,6 +54,10 @@ export class WorkCalendarComponent implements OnInit {
     this.updateDisplayDate();
   }
 
+  onLogout () {
+    console.log('logout');
+  }
+
   private updateDisplayDate () {
     const date: any = this.myCalendar.fullCalendar('getDate');
 

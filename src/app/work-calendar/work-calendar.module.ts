@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MdDialogModule, MdButtonModule, MdRadioModule, MdSelectModule, MdInputModule,
-  MdCheckboxModule, MdTabsModule, MdIconModule, MdProgressSpinnerModule
+  MdCheckboxModule, MdTabsModule, MdIconModule, MdProgressSpinnerModule, MdMenuModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -29,6 +29,7 @@ import { FullCalendarComponent } from './shared/full-calendar/full-calendar.comp
     MdCheckboxModule,
     MdProgressSpinnerModule,
     MdTabsModule,
+    MdMenuModule,
     FlexLayoutModule,
     WorkCalendarRoutes
   ],

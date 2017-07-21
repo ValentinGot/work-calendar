@@ -23,10 +23,15 @@ nav {
     font-weight: 700;
     color: $white-color;
     text-transform: capitalize;
+    white-space: nowrap;
   }
 
   & > .nav-right {
     padding-right: 10px;
+
+    & .btn-menu {
+      color: $white-color;
+    }
   }
 
   & .icon-wrapper {

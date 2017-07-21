@@ -1,0 +1,16 @@
+//----------------------------------------
+//  Menu
+//----------------------------------------
+
+.mat-menu-content {
+  background-color: $wo-accent-400-color;
+
+  & .mat-menu-item {
+    color: $white-color;
+
+    & md-icon {
+      color: $white-color;
+    }
+  }
+
+}
