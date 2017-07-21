@@ -9,6 +9,8 @@ import { Event } from '../shared/event/event.model';
 import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { SnackbarService } from '../shared/snackbar.service';
 import { FullCalendarComponent } from './shared/full-calendar/full-calendar.component';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wo-work-calendar',
@@ -27,7 +29,9 @@ export class WorkCalendarComponent implements OnInit {
   constructor(
     private dialog: MdDialog,
     private imputationService: ImputationService,
-    private snackBar: SnackbarService
+    private snackBar: SnackbarService,
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -55,7 +59,8 @@ export class WorkCalendarComponent implements OnInit {
   }
 
   onLogout () {
-    console.log('logout');
+    this.afAuth.auth.signOut()
+      .then(() => this.router.navigate([ '/login' ]));
   }
 
   private updateDisplayDate () {
