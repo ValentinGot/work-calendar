@@ -2,7 +2,7 @@
 //  Dialog
 //----------------------------------------
 
-$modal-title-height: 50px;
+$modal-title-height: 66px;
 
 //----------------------------------------
 
@@ -23,7 +23,6 @@ $modal-title-height: 50px;
   }
 
   [md-dialog-content] {
-    //background-color: $wo-accent-300-color;
 
     &.dialog-content-no-padding {
       padding: 0;
