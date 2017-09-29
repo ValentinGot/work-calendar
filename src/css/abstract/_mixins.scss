@@ -20,22 +20,22 @@
 
 @mixin breakpoint ($name) {
   @if $name == handsetsm {
-    @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) { @content; }
+    @media all and (min-width: 0) { @content; }
   }
   @else if $name == handsetmd {
-    @media all and (min-width: 361px) and (max-width: 399px) and (orientation: portrait) { @content; }
+    @media all and (min-width: 361px) { @content; }
   }
   @else if $name == handsetlg {
-    @media all and (min-width: 400px) and (orientation: portrait) { @content; }
+    @media all and (min-width: 400px) { @content; }
   }
   @else if $name == desktopsm {
-    @media all and (min-width: 481px) and (max-width: 840px) and (max-aspect-ratio: 4/3) { @content; }
+    @media all and (min-width: 481px) { @content; }
   }
   @else if $name == desktopmd {
-    @media all and (min-width: 841px) and (max-width: 1280px) and (max-aspect-ratio: 4/3) { @content; }
+    @media all and (min-width: 841px) { @content; }
   }
   @else if $name == desktoplg {
-    @media all and (min-width: 1281px) and (max-aspect-ratio: 4/3) { @content; }
+    @media all and (min-width: 1281px) { @content; }
   }
 }
 
