@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" #projectForm="ngForm" novalidate>
-  <md-select class="project-select input-full-width" placeholder="Projets" formControlName="project">
+  <md-select class="input-full-width" placeholder="Projets" formControlName="project">
     <md-option *ngFor="let project of projects" [value]="project">
       {{ project.code }} - {{ project.name }} - {{ project.client }}
     </md-option>

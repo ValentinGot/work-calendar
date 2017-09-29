@@ -2,6 +2,11 @@
 //  Add project
 //----------------------------------------
 
+@import '../../../../css/abstract/break-points';
+@import '../../../../css/abstract/mixins';
+
+//----------------------------------------
+
 small {
   margin-top: 5px;
 }
@@ -20,4 +25,17 @@ small {
 
 .comment-container {
   margin-top: 25px;
+
+  & textarea {
+    height: 100px;
+  }
+
+}
+
+@include breakpoint($bp-desktop-md) {
+
+  .mat-select {
+    min-width: 350px;
+  }
+
 }
