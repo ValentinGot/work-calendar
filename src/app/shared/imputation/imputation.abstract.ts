@@ -58,7 +58,7 @@ export abstract class ImputationAbstract {
 
         $key = project.code + imputationDay.unix();
         title = `${project.code} - ${project.name}`;
-        color = (moment(imputation.start).format('A') === 'AM') ? ImputationColors.AM : ImputationColors.PM;
+        color = (project.color) ? project.color : ImputationColors.PROJECT;
         break;
 
       case ImputationType.ACTIVITY:
@@ -99,7 +99,6 @@ export abstract class ImputationAbstract {
         existingEvent.end = moment(this.getEndTime(moment(event.end), DayTime.PM));
         existingEvent.twinEvent = event;
         existingEvent.className = 'full-day';
-        existingEvent.color = this.getColorFromType(existingEvent.imputation.type);
         if (event.imputation.comment !== '' && event.imputation.comment !== existingEvent.imputation.comment) {
           if (existingEvent.imputation.comment !== '') {
             existingEvent.imputation.comment += '\n';
@@ -115,20 +114,6 @@ export abstract class ImputationAbstract {
     });
 
     return Array.from(eventsMap).map((item) => item[ 1 ]);
-  }
-
-  private getColorFromType (type: ImputationType) {
-    switch (type) {
-      case ImputationType.ACTIVITY:
-        return ImputationColors.ACTIVITY;
-
-      case ImputationType.COMMERCIAL:
-        return ImputationColors.COMMERCIAL;
-
-      case ImputationType.PROJECT:
-      default:
-        return ImputationColors.DAY_EVENT;
-    }
   }
 
 }

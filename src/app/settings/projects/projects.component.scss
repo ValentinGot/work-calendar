@@ -13,6 +13,10 @@ form {
   flex-direction: column;
   padding-top: 15px;
 
+  .mat-form-field {
+    margin: 6px 0;
+  }
+
   & > .buttons-group {
     display: flex;
     justify-content: flex-end;
@@ -26,7 +30,20 @@ form {
   background-color: $white-grey-color;
 }
 
-.settings-table {
+.projects-table {
+
+  & .color {
+    display: flex;
+    align-items: center;
+
+    & .square-color {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin: -2px 0 0 8px;
+    }
+
+  }
 
   & .icon-remove {
     transition: color .25s;

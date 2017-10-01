@@ -1,24 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dark-bg" novalidate>
-  <md-input-container>
+  <md-form-field class="input-full-width">
     <input mdInput placeholder="ID de projet" formControlName="code" />
-  </md-input-container>
-  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.code.dirty || submitted) && !form.controls.code.valid">
-    <p [hidden]="!form.controls.code.errors.required">Le champ ne peut pas être vide</p>
-  </div>
 
-  <md-input-container>
+    <md-error class="wo-form-alert-error" *ngIf="code.invalid && code.dirty">
+      <span [hidden]="!code.errors.required">Le champ ne peut pas être vide</span>
+    </md-error>
+  </md-form-field>
+
+  <md-form-field class="input-full-width">
     <input mdInput placeholder="Client" formControlName="client" />
-  </md-input-container>
-  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.client.dirty || submitted) && !form.controls.client.valid">
-    <p [hidden]="!form.controls.client.errors.required">Le champ ne peut pas être vide</p>
-  </div>
 
-  <md-input-container>
+    <md-error class="wo-form-alert-error" *ngIf="client.invalid && client.dirty">
+      <span [hidden]="!client.errors.required">Le champ ne peut pas être vide</span>
+    </md-error>
+  </md-form-field>
+
+  <md-form-field class="input-full-width">
     <input mdInput placeholder="Projet" formControlName="name" />
-  </md-input-container>
-  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.name.dirty || submitted) && !form.controls.name.valid">
-    <p [hidden]="!form.controls.name.errors.required">Le champ ne peut pas être vide</p>
-  </div>
+
+    <md-error class="wo-form-alert-error" *ngIf="name.invalid && name.dirty">
+      <span [hidden]="!name.errors.required">Le champ ne peut pas être vide</span>
+    </md-error>
+  </md-form-field>
+
+  <md-form-field class="input-full-width">
+    <input mdInput placeholder="Couleur" formControlName="color" />
+
+    <md-error class="wo-form-alert-error" *ngIf="color.invalid && color.dirty">
+      <span [hidden]="!color.errors.required">Le champ ne peut pas être vide</span>
+    </md-error>
+  </md-form-field>
 
   <div class="buttons-group">
     <button md-raised-button color="primary" type="submit" [disabled]="loading">{{ buttonName }}</button>
@@ -33,6 +44,7 @@
       <th>ID Projet</th>
       <th>Client</th>
       <th>Projet</th>
+      <th>Couleur</th>
       <th></th>
     </tr>
   </thead>
@@ -48,6 +60,10 @@
       <td>{{ project.code }}</td>
       <td>{{ project.client }}</td>
       <td>{{ project.name }}</td>
+      <td class="color">
+        {{ project.color }}
+        <span class="square-color" [style.backgroundColor]="project.color"></span>
+      </td>
       <td>
         <div class="icons-container">
           <md-icon class="icon-remove" mdTooltip="Supprimer le projet" mdTooltipPosition="above" (click)="onRemove(project)">delete</md-icon>

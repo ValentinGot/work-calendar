@@ -9,6 +9,7 @@ export interface Imputation {
 
 export interface ImputationData {
   $key?: string;
+  color?: string;
 }
 
 export enum ImputationType {
@@ -22,9 +23,7 @@ export enum DayTime {
 }
 
 export const ImputationColors = {
-  AM        : '#49C6E5',
-  PM        : '#FFA69E',
-  DAY_EVENT : '#E36397',
+  PROJECT   : '#E36397',
   ACTIVITY  : '#AFB3F7',
   COMMERCIAL: '#94C9A9'
 };

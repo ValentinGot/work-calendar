@@ -20,23 +20,29 @@ export abstract class SettingsFormAbstract<T extends ImputationData> {
   onSubmit () {
     this.submitted = true;
 
-    if (this.form.valid) {
-      switch (this.mode) {
-        case FormMode.CREATE:
-          delete this.form.value.$key;
-
-          this.create(this.form.value as T);
-          break;
-
-        case FormMode.UPDATE:
-          this.update(this.form.value as T);
-          break;
+    if (this.form.invalid) {
+      for (const keys of Object.keys(this.form.controls)) {
+        this.form.controls[keys].markAsDirty();
       }
 
-      this.form.reset();
-      this.submitted = false;
-      this.switchMode(FormMode.CREATE);
+      return;
     }
+
+    switch (this.mode) {
+      case FormMode.CREATE:
+        delete this.form.value.$key;
+
+        this.create(this.form.value as T);
+        break;
+
+      case FormMode.UPDATE:
+        this.update(this.form.value as T);
+        break;
+    }
+
+    this.form.reset();
+    this.submitted = false;
+    this.switchMode(FormMode.CREATE);
   }
 
   onEdit (type: T) {

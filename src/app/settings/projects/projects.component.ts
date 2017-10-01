@@ -5,6 +5,7 @@ import { ProjectService } from '../../shared/project/project.service';
 import { Project } from '../../shared/project/project.model';
 import { SnackbarService } from '../../shared/snackbar.service';
 import { SettingsFormAbstract, FormMode } from '../settings-form.abstract';
+import { ImputationColors } from '../../shared/imputation/imputation.model';
 
 @Component({
   selector: 'wo-settings-projects',
@@ -34,8 +35,18 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
       $key  : '',
       code  : [ '', Validators.required ],
       client: [ '', Validators.required ],
-      name  : [ '', Validators.required ]
+      name  : [ '', Validators.required ],
+      color : [ ImputationColors.PROJECT, Validators.required ]
     });
+  }
+
+  onEdit (type: Project) {
+    this.switchMode(FormMode.UPDATE);
+
+    this.form.setValue(Object.assign({
+      $key : type.$key,
+      color: ImputationColors.PROJECT
+    }, type));
   }
 
   protected create (project: Project) {
@@ -65,5 +76,10 @@ export class ProjectsComponent extends SettingsFormAbstract<Project> implements 
       }
     });
   }
+
+  get code () { return this.form.controls.code; }
+  get client () { return this.form.controls.client; }
+  get name () { return this.form.controls.name; }
+  get color () { return this.form.controls.color; }
 
 }
