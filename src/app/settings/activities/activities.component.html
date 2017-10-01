@@ -1,10 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="settings-form dark-bg" novalidate>
-  <md-input-container>
+  <md-form-field class="input-full-width">
     <input mdInput placeholder="Activité" formControlName="name" />
-  </md-input-container>
-  <div class="wo-form-alert wo-form-alert-error" *ngIf="(form.controls.name.dirty || submitted) && !form.controls.name.valid">
-    <p [hidden]="!form.controls.name.errors.required">Le champ ne peut pas être vide</p>
-  </div>
+
+    <md-error *ngIf="name.invalid && name.dirty">
+      <span [hidden]="!name.errors.required">Le champ ne peut pas être vide</span>
+    </md-error>
+  </md-form-field>
 
   <div class="buttons-group">
     <button md-raised-button color="primary" type="submit" [disabled]="loading">{{ buttonName }}</button>

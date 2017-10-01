@@ -64,4 +64,6 @@ export class ActivitiesComponent extends SettingsFormAbstract<Activity> implemen
     });
   }
 
+  get name () { return this.form.controls.name; }
+
 }

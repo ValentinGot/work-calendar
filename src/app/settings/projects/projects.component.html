@@ -2,7 +2,7 @@
   <md-form-field class="input-full-width">
     <input mdInput placeholder="ID de projet" formControlName="code" />
 
-    <md-error class="wo-form-alert-error" *ngIf="code.invalid && code.dirty">
+    <md-error *ngIf="code.invalid && code.dirty">
       <span [hidden]="!code.errors.required">Le champ ne peut pas être vide</span>
     </md-error>
   </md-form-field>
@@ -10,7 +10,7 @@
   <md-form-field class="input-full-width">
     <input mdInput placeholder="Client" formControlName="client" />
 
-    <md-error class="wo-form-alert-error" *ngIf="client.invalid && client.dirty">
+    <md-error *ngIf="client.invalid && client.dirty">
       <span [hidden]="!client.errors.required">Le champ ne peut pas être vide</span>
     </md-error>
   </md-form-field>
@@ -18,7 +18,7 @@
   <md-form-field class="input-full-width">
     <input mdInput placeholder="Projet" formControlName="name" />
 
-    <md-error class="wo-form-alert-error" *ngIf="name.invalid && name.dirty">
+    <md-error *ngIf="name.invalid && name.dirty">
       <span [hidden]="!name.errors.required">Le champ ne peut pas être vide</span>
     </md-error>
   </md-form-field>
@@ -26,7 +26,7 @@
   <md-form-field class="input-full-width">
     <input mdInput placeholder="Couleur" formControlName="color" />
 
-    <md-error class="wo-form-alert-error" *ngIf="color.invalid && color.dirty">
+    <md-error *ngIf="color.invalid && color.dirty">
       <span [hidden]="!color.errors.required">Le champ ne peut pas être vide</span>
     </md-error>
   </md-form-field>
