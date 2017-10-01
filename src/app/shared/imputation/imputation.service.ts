@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
 
