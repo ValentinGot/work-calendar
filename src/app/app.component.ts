@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MdIconRegistry } from '@angular/material';
+import { MdIconRegistry, MdSnackBar } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FirebaseApp } from 'angularfire2';
 import 'firebase';
+
 import { environment } from '../environments/environment';
 import { NotificationService } from './shared/notification/notification.service';
 
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor (
     private iconRegistry: MdIconRegistry,
+    private snackBar: MdSnackBar,
     private notificationService: NotificationService,
     private sanitizer: DomSanitizer,
     private af: FirebaseApp
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   private notificationConfig () {
-    if (environment.production) {
+    if (window.location.protocol === 'https:' && environment.production) {
       const messaging = this.af.messaging();
 
       // Request permission to send notifications
@@ -86,36 +88,23 @@ export class AppComponent implements OnInit {
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = () => {
 
-            // updatefound is also fired the very first time the SW is installed,
-            // and there's no need to prompt for a reload at that point.
-            // So check here to see if the page is already controlled,
-            // i.e. whether there's an existing service worker.
-            // if (navigator.serviceWorker.controller) {
+            if (navigator.serviceWorker.controller) {
+              // At this point, the old content will have been purged and the fresh content will
+              // have been added to the cache.
+              // It's the perfect time to display a "New content is available; please refresh."
+              // message in the page's interface.
 
-            // The updatefound event implies that registration.installing is set:
-            // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
-            let installingWorker = registration.installing;
+              const snackBarRef = this.snackBar.open('Une nouvelle version est disponible', 'Actualiser', {
+                extraClasses: [ 'highlight-action' ]
+              });
 
-            installingWorker.onstatechange = () => {
-              console.log('SW', installingWorker.state);
-
-              switch (installingWorker.state) {
-                case 'installed':
-                  // At this point, the old content will have been purged and the
-                  // fresh content will have been added to the cache.
-                  // It's the perfect time to display a "New content is
-                  // available; please refresh." message in the page's interface.
-                  console.log('Caching complete ! Future visits will work offline');
-                  break;
-
-                case 'redundant':
-                  throw new Error('The installing service worker became redundant.');
-
-                default:
-                // Ignore
-              }
-            };
-            // }
+              snackBarRef.onAction().subscribe(() => {
+                location.reload(true);
+              });
+            } else {
+              // At this point, everything has been precached.
+              // It's the perfect time to display a "Content is cached for offline use." message.
+            }
           };
         }).catch((e) => console.error('Error during service worker registration:', e));
     }
