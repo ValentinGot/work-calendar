@@ -13,12 +13,9 @@ $nav-height: 60px;
   height: 100%;
 }
 
-nav {
-  height: $nav-height;
-  background-color: $wo-background-color-400;
+wo-header /deep/ nav {
 
-  & > .nav-left {
-    padding-left: 10px;
+  & wo-header-content[position="left"] {
     font-size: 20px;
     font-weight: 700;
     color: $white-color;
@@ -26,15 +23,7 @@ nav {
     white-space: nowrap;
   }
 
-  & > .nav-right {
-    padding-right: 10px;
-
-    & .btn-menu {
-      color: $white-color;
-    }
-  }
-
-  & .icon-wrapper {
+  & wo-header-content[position="center"] .icon-wrapper {
     user-select: none;
     cursor: pointer;
     height: 100%;
@@ -54,7 +43,13 @@ nav {
     &:hover {
       background-color: #2B2D35;
     }
+
   }
+
+  & wo-header-content[position="right"] .btn-menu {
+    color: $white-color;
+  }
+
 }
 
 .loading {

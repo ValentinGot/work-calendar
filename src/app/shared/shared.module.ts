@@ -21,4 +21,4 @@ import { NotificationService } from './notification/notification.service';
     SnackbarService
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

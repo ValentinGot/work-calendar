@@ -26,12 +26,12 @@ import { AuthenticatedGuard } from './shared/authenticated.guard';
     FormsModule,
     HttpModule,
     RouterModule,
-    SharedModule,
     MdIconModule,
     MdSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    SharedModule,
     AppRoute
   ],
   providers: [

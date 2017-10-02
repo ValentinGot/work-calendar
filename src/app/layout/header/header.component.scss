@@ -1,0 +1,37 @@
+//----------------------------------------
+//  Header
+//----------------------------------------
+
+@import '../../../css/abstract/colors';
+
+$nav-height: 60px;
+
+//----------------------------------------
+
+nav {
+  display: flex;
+  height: $nav-height;
+  background-color: $wo-background-color-400;
+
+  & /deep/ wo-header-content[position="left"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+  }
+
+  & /deep/ wo-header-content[position="center"] {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & /deep/ wo-header-content[position="right"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+  }
+
+}

@@ -14,6 +14,7 @@ import { AddProjectComponent } from './shared/add-project/add-project.component'
 import { ImputationDetailDialogComponent } from './shared/imputation-detail/imputation-detail.dialog';
 import { AddOtherActivityComponent } from './shared/add-other-activity/add-other-activity.component';
 import { FullCalendarComponent } from './shared/full-calendar/full-calendar.component';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { FullCalendarComponent } from './shared/full-calendar/full-calendar.comp
     MdTabsModule,
     MdMenuModule,
     FlexLayoutModule,
+    LayoutModule,
     WorkCalendarRoutes
   ],
   declarations: [
