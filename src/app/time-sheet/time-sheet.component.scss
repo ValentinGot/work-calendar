@@ -150,4 +150,25 @@ wo-header /deep/ nav {
 
   }
 
+  & .total {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-top: 16px;
+
+    & > .label {
+      margin: 0 16px 0 0;
+      color: $wo-white-color;
+    }
+
+    & > .count {
+      margin: 0;
+      font-size: 35px;
+      font-weight: 700;
+      font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: $wo-primary-700;
+    }
+
+  }
+
 }

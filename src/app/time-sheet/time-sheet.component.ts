@@ -43,6 +43,7 @@ export class TimeSheetComponent implements OnInit {
     am: number[];
     pm: number[];
   }[] = [];
+  total: number = 0;
 
   constructor (
     private afAuth: AngularFireAuth,
@@ -131,7 +132,12 @@ export class TimeSheetComponent implements OnInit {
       .do((projects) => this.projects = projects)
       .mergeMap(() => this.getImputations(ImputationType.ACTIVITY))
       .do((activities) => this.activities = activities)
-      .subscribe(() => this.loading = false);
+      .subscribe(() => {
+        this.total = this.projects.reduce((count, project) => count + project.am.length + project.pm.length, 0) / 2;
+        this.total += this.activities.reduce((count, activity) => count + activity.am.length + activity.pm.length, 0) / 2;
+
+        this.loading = false;
+      });
   }
 
   private getMonthDays () {
