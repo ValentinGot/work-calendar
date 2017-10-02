@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MdInputModule, MdButtonModule, MdIconModule, MdMenuModule } from '@angular/material';
+import { MdInputModule, MdButtonModule, MdIconModule, MdMenuModule, MdSelectModule } from '@angular/material';
 
 import { TimeSheetRoutes } from './time-sheet.route';
 import { TimeSheetComponent } from './time-sheet.component';
@@ -15,6 +15,7 @@ import { LayoutModule } from '../layout/layout.module';
     MdButtonModule,
     MdIconModule,
     MdMenuModule,
+    MdSelectModule,
     LayoutModule,
     TimeSheetRoutes
   ],

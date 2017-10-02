@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
-import { Imputation, ImputationData, ImputationType } from '../shared/imputation/imputation.model';
+import { Imputation, ImputationType } from '../shared/imputation/imputation.model';
+import { Project } from '../shared/project/project.model';
 
 @Component({
   selector: 'wo-time-sheet',
@@ -12,11 +14,18 @@ import { Imputation, ImputationData, ImputationType } from '../shared/imputation
   styleUrls: ['./time-sheet.component.scss']
 })
 export class TimeSheetComponent implements OnInit {
+  months: string[] = moment.months();
+  form: FormGroup;
+  selectedMonth: string = moment().format('MMMM');
+  selectedYear: string = moment().format('YYYY');
   dayInMonth: any;
-  activities: Array<{
-    type: ImputationType,
-    data: Object
-  }>;
+  projects: {
+    code: string;
+    client: string;
+    name: string;
+    am: number[];
+    pm: number[];
+  }[] = [];
 
   constructor (
     private afAuth: AngularFireAuth,
@@ -24,11 +33,54 @@ export class TimeSheetComponent implements OnInit {
     private imputationService: ImputationService
   ) { }
 
-  ngOnInit() {
-    const month = moment();
+  ngOnInit () {
+    this.onMonthSelected();
+  }
 
-    this.dayInMonth = this.calculDayInMonth(month);
-    this.getImputation(month);
+  onMonthSelected () {
+    this.dayInMonth = this.getMonthDays();
+    this.getProjects();
+  }
+
+  onYearChanged () {
+    this.getProjects();
+  }
+
+  getProjects () {
+    const mapProjects = new Map<string, {
+      code: string;
+      client: string;
+      name: string;
+      am: number[];
+      pm: number[];
+    }>();
+
+    this.imputationService.getAllRange(
+      moment(this.selectedMonth, 'MMMM').startOf('month'),
+      moment(this.selectedMonth, 'MMMM').endOf('month'),
+      ImputationType.PROJECT
+    ).subscribe((imputations: Imputation[]) => {
+      for (const imputation of imputations) {
+        const date = moment(imputation.start);
+        const item = (mapProjects.has((<Project> imputation.data).code)) ? mapProjects.get((<Project> imputation.data).code) : {
+          code: (<Project> imputation.data).code,
+          client: (<Project> imputation.data).client,
+          name: (<Project> imputation.data).name,
+          am: [],
+          pm: []
+        };
+
+        if (date.format('A') === 'AM') {
+          item.am.push(date.date());
+        } else {
+          item.pm.push(date.date());
+        }
+
+        mapProjects.set((<Project> imputation.data).code, item);
+      }
+
+      this.projects = Array.from(mapProjects.values());
+    });
   }
 
   onLogout () {
@@ -36,11 +88,16 @@ export class TimeSheetComponent implements OnInit {
       .then(() => this.router.navigate([ '/login' ]));
   }
 
-  calculDayInMonth (month: moment.Moment) {
+  /**
+   * Retrieve all month days
+   *
+   * @returns {Array}
+   */
+  private getMonthDays () {
     const dayInMonth = [],
-      baseDate = moment(month).startOf('month');
+      baseDate = moment(this.selectedMonth, 'MMMM').startOf('month');
 
-    for (let i = 0; i <  moment(month).startOf('month').daysInMonth(); i++) {
+    for (let i = 0; i <  moment(this.selectedMonth, 'MMMM').startOf('month').daysInMonth(); i++) {
       baseDate.add(1, 'day');
 
       if (baseDate.day() > 1) {
@@ -54,36 +111,8 @@ export class TimeSheetComponent implements OnInit {
     return dayInMonth;
   }
 
-  getImputation (month: moment.Moment) {
-    this.imputationService.getAllRange(
-      moment(month).startOf('month'),
-      moment(month).endOf('month')
-    ).subscribe((imputations: Array<Imputation>) => {
-      this.activities = [];
-
-      while (imputations.length > 0) {
-        const activity = {
-          type: imputations[0].type,
-          data: imputations[0].data,
-          am: [],
-          pm: []
-        };
-
-        this.activities.push(activity);
-
-        imputations = imputations.filter((imputation) => {
-          if ((<ImputationData>imputation.data).$key === (<ImputationData>activity.data).$key) {
-            if (moment(imputation.start).format('A') === 'AM') {
-              activity.am.push(moment(imputation.start).date());
-            } else {
-              activity.pm.push(moment(imputation.start).date());
-            }
-          }
-
-          return (<ImputationData>imputation.data).$key !== (<ImputationData>activity.data).$key;
-        });
-      }
-    });
+  private selectionToMoment () {
+    return moment(`${this.selectedYear}-${this.selectedMonth}`, 'YYYY-MMMM')
   }
 
 }

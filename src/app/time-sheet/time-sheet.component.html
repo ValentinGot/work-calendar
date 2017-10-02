@@ -1,7 +1,23 @@
 <wo-header>
   <wo-header-content position="left">Feuille de temps</wo-header-content>
 
-  <wo-header-content position="center"></wo-header-content>
+  <wo-header-content position="center">
+    <form [formGroup]="form" novalidate>
+      <md-select
+        class="dark-bg"
+        placeholder="Mois"
+        floatPlaceholder="never"
+        [(ngModel)]="selectedMonth"
+        (change)="onMonthSelected()"
+      >
+        <md-option [value]="month" *ngFor="let month of months">{{ month }}</md-option>
+      </md-select>
+
+      <md-form-field floatPlaceholder="never" class="dark-bg">
+        <input type="number" mdInput placeholder="Année" [(ngModel)]="selectedYear" />
+      </md-form-field>
+    </form>
+  </wo-header-content>
 
   <wo-header-content position="right">
     <button class="btn-menu" md-icon-button [mdMenuTriggerFor]="menu">
@@ -26,16 +42,24 @@
 </wo-header>
 
 <div class="time-sheet">
-  <div class="line" *ngFor="let activity of activities">
-    <div class="name">{{activity.data.name}}</div>
-    <div class="details">
-      <ul>
-        <li class="imput-day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
-          <div class="">{{day.dayNumber}}</div>
-          <div class="impt-half-day imput-am" [class.selected]="activity.am.indexOf(day.dayNumber) !== -1">&nbsp;</div>
-          <div class="impt-half-day imput-pm" [class.selected]="activity.pm.indexOf(day.dayNumber) !== -1">&nbsp;</div>
-        </li>
-      </ul>
+  <h3 class="title first-title">Projets</h3>
+
+  <div class="nothing-to-show" *ngIf="projects.length === 0">Aucunes imputations</div>
+
+  <div class="row" *ngFor="let project of projects">
+    <div class="name">
+      <p class="client">{{ project.client }}</p>
+      <p class="code-name">{{ project.code }} {{ project.name }}</p>
     </div>
+
+    <div class="imputations">
+      <div class="day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
+        <div class="number">{{ day.dayNumber }}</div>
+        <div class="imputation imputation-am" [class.selected]="project.am.includes(day.dayNumber)"></div>
+        <div class="imputation imputation-pm" [class.selected]="project.pm.includes(day.dayNumber)"></div>
+      </div>
+    </div>
+
+    <div class="count">{{ (project.am.length + project.pm.length) / 2 }}</div>
   </div>
 </div>

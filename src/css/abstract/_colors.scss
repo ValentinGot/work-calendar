@@ -2,6 +2,9 @@
 //  Colors
 //----------------------------------------
 
+@import '~@angular/material/theming';
+@import '~material-design-colors/colors.scss';
+
 $wo-background-color-400: #343640;
 $wo-background-color: #2F343F;
 
@@ -10,6 +13,7 @@ $wo-accent-300-color: #36373E;
 $wo-accent-400-color: #383F51;
 $wo-accent-500-color: #3A4765;
 
-$wo-white-color: #B9BEC8;
+$wo-primary-500: map_get($mat-cyan, 500);
+$wo-primary-700: map_get($mat-cyan, 700);
 
-@import '~material-design-colors/colors.scss';
+$wo-white-color: #B9BEC8;

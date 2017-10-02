@@ -7,7 +7,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
 
 import { ImputationAbstract } from './imputation.abstract';
-import { Imputation } from './imputation.model';
+import { Imputation, ImputationType } from './imputation.model';
 
 @Injectable()
 export class ImputationService extends ImputationAbstract {
@@ -19,12 +19,13 @@ export class ImputationService extends ImputationAbstract {
     super();
   }
 
-  public getAllRange (start: moment.Moment, end: moment.Moment): Observable<Imputation[]> {
+  public getAllRange (start: moment.Moment, end: moment.Moment, type?: ImputationType.PROJECT): Observable<Imputation[]> {
     return this.db.list(ImputationService.COLLECTION, {
       query: {
         orderByChild: 'start',
         startAt: parseInt(start.format('x')),
         endAt: parseInt(end.format('x')),
+        type: type
       }
     }).take(1);
   }

@@ -6,6 +6,36 @@ $input-color: #B9BEC8;
 
 //----------------------------------------
 
+.dark-bg {
+
+  &.mat-select {
+
+    .mat-select-value,
+    .mat-select-arrow {
+      color: $wo-white-color;
+    }
+
+    .mat-select-underline {
+      background-color: $wo-white-color;
+    }
+
+  }
+
+  &.mat-form-field {
+
+    .mat-input-placeholder,
+    .mat-input-element {
+      color: $wo-white-color;
+    }
+
+    .mat-input-underline {
+      background-color: $wo-white-color;
+    }
+
+  }
+
+}
+
 form.dark-bg {
 
   input {
