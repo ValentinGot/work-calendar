@@ -105,7 +105,9 @@ export class AppComponent implements OnInit {
               // At this point, everything has been precached.
               // It's the perfect time to display a "Content is cached for offline use." message.
 
-              this.snackBar.open(`L'application est maintenant disponible hors ligne`);
+              this.snackBar.open(`L'application est maintenant disponible hors ligne`, {
+                duration: 2000
+              });
             }
           };
         }).catch((e) => console.error('Error during service worker registration:', e));
