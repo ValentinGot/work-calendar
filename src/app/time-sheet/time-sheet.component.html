@@ -1,20 +1,41 @@
-<div class="time-sheet-content">
-  <a routerLink="/" class="menu-item menu-item-small">
-    <md-icon>exit_to_app</md-icon>
-    Quitter la feuille de temps
-  </a>
-  <div class="time-sheet">
-    <div class="imput-line" *ngFor="let activity of activities">
-      <div class="imput-name">{{activity.data.name}}</div>
-      <div class="imput-details">
-        <ul>
-          <li class="imput-day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
-            <div class="">{{day.dayNumber}}</div>
-            <div class="impt-half-day imput-am" [class.selected]="activity.am.indexOf(day.dayNumber) !== -1">&nbsp;</div>
-            <div class="impt-half-day imput-pm" [class.selected]="activity.pm.indexOf(day.dayNumber) !== -1">&nbsp;</div>
-          </li>
-        </ul>
-      </div>
+<wo-header>
+  <wo-header-content position="left">Feuille de temps</wo-header-content>
+
+  <wo-header-content position="center"></wo-header-content>
+
+  <wo-header-content position="right">
+    <button class="btn-menu" md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>menu</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item [routerLink]="[ '/' ]">
+        <md-icon>today</md-icon>
+        <span>Calendrier</span>
+      </button>
+      <button md-menu-item [routerLink]="[ '/settings/projects' ]">
+        <md-icon>settings</md-icon>
+        <span>Paramètres</span>
+      </button>
+      <div class="divider"></div>
+      <button md-menu-item (click)="onLogout()">
+        <md-icon>exit_to_app</md-icon>
+        <span>Se déconnecter</span>
+      </button>
+    </md-menu>
+  </wo-header-content>
+</wo-header>
+
+<div class="time-sheet">
+  <div class="line" *ngFor="let activity of activities">
+    <div class="name">{{activity.data.name}}</div>
+    <div class="details">
+      <ul>
+        <li class="imput-day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
+          <div class="">{{day.dayNumber}}</div>
+          <div class="impt-half-day imput-am" [class.selected]="activity.am.indexOf(day.dayNumber) !== -1">&nbsp;</div>
+          <div class="impt-half-day imput-pm" [class.selected]="activity.pm.indexOf(day.dayNumber) !== -1">&nbsp;</div>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

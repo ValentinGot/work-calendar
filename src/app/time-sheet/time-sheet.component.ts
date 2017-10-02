@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as moment from 'moment';
 
 import { ImputationService } from '../shared/imputation/imputation.service';
@@ -16,13 +18,22 @@ export class TimeSheetComponent implements OnInit {
     data: Object
   }>;
 
-  constructor(private imputationService: ImputationService) { }
+  constructor (
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private imputationService: ImputationService
+  ) { }
 
   ngOnInit() {
     const month = moment();
 
     this.dayInMonth = this.calculDayInMonth(month);
     this.getImputation(month);
+  }
+
+  onLogout () {
+    this.afAuth.auth.signOut()
+      .then(() => this.router.navigate([ '/login' ]));
   }
 
   calculDayInMonth (month: moment.Moment) {
