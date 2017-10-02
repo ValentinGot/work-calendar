@@ -2,19 +2,18 @@
   <wo-header-content position="left">Feuille de temps</wo-header-content>
 
   <wo-header-content position="center">
-    <form [formGroup]="form" novalidate>
+    <form [formGroup]="form" class="dark-bg" novalidate>
       <md-select
-        class="dark-bg"
+        formControlName="month"
         placeholder="Mois"
         floatPlaceholder="never"
-        [(ngModel)]="selectedMonth"
         (change)="onMonthSelected()"
       >
         <md-option [value]="month" *ngFor="let month of months">{{ month }}</md-option>
       </md-select>
 
-      <md-form-field floatPlaceholder="never" class="dark-bg">
-        <input type="number" mdInput placeholder="Année" [(ngModel)]="selectedYear" />
+      <md-form-field floatPlaceholder="never">
+        <input type="number" mdInput formControlName="year" placeholder="Année" />
       </md-form-field>
     </form>
   </wo-header-content>
@@ -41,25 +40,53 @@
   </wo-header-content>
 </wo-header>
 
-<div class="time-sheet">
-  <h3 class="title first-title">Projets</h3>
+<div class="time-sheet-wrapper">
+  <div class="loading" *ngIf="loading">
+    <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+  </div>
 
-  <div class="nothing-to-show" *ngIf="projects.length === 0">Aucunes imputations</div>
+  <div class="time-sheet" *ngIf="!loading">
+    <h3 class="title first-title">Projets</h3>
 
-  <div class="row" *ngFor="let project of projects">
-    <div class="name">
-      <p class="client">{{ project.client }}</p>
-      <p class="code-name">{{ project.code }} {{ project.name }}</p>
-    </div>
+    <div class="row" *ngFor="let project of projects">
+      <div class="name">
+        <p class="client">{{ project.client }}</p>
+        <p class="code-name">{{ project.code }} {{ project.name }}</p>
+      </div>
 
-    <div class="imputations">
-      <div class="day" *ngFor="let day of dayInMonth" [class.separator]="day.dayOfWeek === 6">
-        <div class="number">{{ day.dayNumber }}</div>
-        <div class="imputation imputation-am" [class.selected]="project.am.includes(day.dayNumber)"></div>
-        <div class="imputation imputation-pm" [class.selected]="project.pm.includes(day.dayNumber)"></div>
+      <div class="imputations">
+        <div class="day" *ngFor="let day of daysInMonth" [class.separator]="day.dayOfWeek === 6">
+          <div class="number">{{ day.dayNumber }}</div>
+          <div class="imputation imputation-am" [class.selected]="project.am.includes(day.dayNumber)"></div>
+          <div class="imputation imputation-pm" [class.selected]="project.pm.includes(day.dayNumber)"></div>
+        </div>
+      </div>
+
+      <div class="count">
+        {{ (project.am.length + project.pm.length) / 2 }}
+        <sub>j</sub>
       </div>
     </div>
 
-    <div class="count">{{ (project.am.length + project.pm.length) / 2 }}</div>
+    <div class="nothing-to-show" *ngIf="projects.length === 0">Aucunes imputations</div>
+
+    <h3 class="title" *ngIf="activities.length > 0">Autres activités</h3>
+
+    <div class="row" *ngFor="let activity of activities">
+      <div class="name">{{ activity.name }}</div>
+
+      <div class="imputations">
+        <div class="day" *ngFor="let day of daysInMonth" [class.separator]="day.dayOfWeek === 6">
+          <div class="number">{{ day.dayNumber }}</div>
+          <div class="imputation imputation-am" [class.selected]="activity.am.includes(day.dayNumber)"></div>
+          <div class="imputation imputation-pm" [class.selected]="activity.pm.includes(day.dayNumber)"></div>
+        </div>
+      </div>
+
+      <div class="count">
+        {{ (activity.am.length + activity.pm.length) / 2 }}
+        <sub>j</sub>
+      </div>
+    </div>
   </div>
 </div>

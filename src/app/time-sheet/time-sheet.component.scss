@@ -44,10 +44,20 @@ wo-header /deep/ nav {
 
 }
 
-.time-sheet {
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.time-sheet-wrapper {
   flex: 1;
   padding: 24px;
   background-color: $content-background-color;
+
+  & .loading {
+    display: flex;
+    justify-content: center;
+  }
 
   & .title {
     color: $wo-white-color;
@@ -62,14 +72,14 @@ wo-header /deep/ nav {
 
   }
 
-  & > .nothing-to-show {
+  & .nothing-to-show {
     padding: 24px 0;
     text-align: center;
     color: $wo-white-color;
     border: 2px dashed $wo-white-color;
   }
 
-  & > .row {
+  & .row {
     display: flex;
     align-items: center;
     margin-bottom: 24px;

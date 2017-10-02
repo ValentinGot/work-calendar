@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/filter';
 
 import { ImputationAbstract } from './imputation.abstract';
 import { Imputation, ImputationType } from './imputation.model';
@@ -19,15 +20,15 @@ export class ImputationService extends ImputationAbstract {
     super();
   }
 
-  public getAllRange (start: moment.Moment, end: moment.Moment, type?: ImputationType.PROJECT): Observable<Imputation[]> {
+  public getAllRange (start: moment.Moment, end: moment.Moment): Observable<Imputation[]> {
     return this.db.list(ImputationService.COLLECTION, {
       query: {
         orderByChild: 'start',
         startAt: parseInt(start.format('x')),
-        endAt: parseInt(end.format('x')),
-        type: type
+        endAt: parseInt(end.format('x'))
       }
-    }).take(1);
+    })
+      .take(1);
   }
 
   public create (...imputations: Imputation[]): Observable<Imputation[]> {

@@ -6,9 +6,9 @@ $input-color: #B9BEC8;
 
 //----------------------------------------
 
-.dark-bg {
+form.dark-bg {
 
-  &.mat-select {
+  & .mat-select {
 
     .mat-select-value,
     .mat-select-arrow {
@@ -21,7 +21,7 @@ $input-color: #B9BEC8;
 
   }
 
-  &.mat-form-field {
+  & .mat-form-field {
 
     .mat-input-placeholder,
     .mat-input-element {
@@ -32,26 +32,6 @@ $input-color: #B9BEC8;
       background-color: $wo-white-color;
     }
 
-  }
-
-}
-
-form.dark-bg {
-
-  input {
-    color: $input-color;
-  }
-
-  .mat-input-placeholder {
-    color: $input-color;
-
-    &.mat-focused {
-      color: map-get($theme-app-primary, 500);
-    }
-  }
-
-  .mat-input-underline {
-    border-color: $input-color;
   }
 
 }
