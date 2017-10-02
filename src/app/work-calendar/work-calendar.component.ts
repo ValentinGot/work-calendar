@@ -92,7 +92,7 @@ export class WorkCalendarComponent implements OnInit {
         }
       },
       dayClick      : (date: moment.Moment) => {
-        if (date.weekday() !== 5 && date.weekday() !== 6) {
+        if (date.weekday() !== 6 && date.weekday() !== 7) {
           const dayEvents = this.myCalendar.fullCalendar('clientEvents', (event) =>
           moment(date).isSameOrAfter(event.start, 'day') && moment(date).isSameOrBefore(event.end, 'day'));
 
