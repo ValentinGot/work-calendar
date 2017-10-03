@@ -1,0 +1,21 @@
+//----------------------------------------
+//  Button
+//----------------------------------------
+
+// /!\ Disclaimer
+//
+// According to Google Material's specification, all buttons must be capitalized.
+// https://material.io/guidelines/components/buttons.html
+// => "Button text should be capitalized in languages that have capitalization"
+//
+// Angular Material is leaving us the choice on how to do it
+// https://github.com/angular/material2/blob/master/src/lib/button/button.md#capitalization
+
+.mat-button,
+.mat-fab,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-raised-button,
+.mat-simple-snackbar-action {
+  text-transform: uppercase;
+}
