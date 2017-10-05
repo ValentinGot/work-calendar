@@ -167,6 +167,15 @@ wo-header /deep/ nav {
       font-weight: 700;
       font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
       color: $wo-primary-700;
+
+      &.tooLow {
+        color: map_get($mat-orange, 300);
+      }
+
+      &.tooMuch {
+        color: map_get($mat-red, 500);
+      }
+
     }
 
   }

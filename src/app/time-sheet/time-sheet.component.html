@@ -91,7 +91,7 @@
 
     <div class="total">
       <p class="label">Total:</p>
-      <p class="count">
+      <p class="count" [class.tooLow]="total < daysInMonth.length" [class.tooMuch]="total > daysInMonth.length">
         {{ total }}
         <sub>j</sub>
       </p>
