@@ -34,7 +34,7 @@ export class ImputationService extends ImputationAbstract {
         }
       })
       .take(1)
-      .concatMap(() => this.projectService.getAll(), this.addProjectData);
+      .concatMap(() => this.projectService.getAll().take(1), this.addProjectData);
   }
 
   public create (...imputations: Imputation[]): Observable<Imputation[]> {
