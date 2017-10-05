@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/operator/take';
 
 import { Project } from './project.model';
 import { CRUDInterface } from '../crud.interface';
@@ -15,7 +16,7 @@ export class ProjectService implements CRUDInterface<Project> {
   ) {}
 
   getAll (): Observable<Project[]> {
-    return this.db.list(ProjectService.COLLECTION);
+    return this.db.list(ProjectService.COLLECTION).take(1);
   }
 
   create (project: Project): Observable<Project> {
